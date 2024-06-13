@@ -1,0 +1,15 @@
+{
+	"Name": "StatsCollector",
+	"Description": "Collects all stats possible.",
+	"Version": "2.0.1",
+	"Reason": "chatcommands updated",
+	"Authors": ["Iamadeadpixel, and many more"],
+	"URL": "none",
+	"Tags": ["statscollector"], 
+	"HasWebUI": false,
+	"HasVeniceEXT": true,
+	"Dependencies": {
+	"veniceext": "^1.0.0"
+  }
+} 
+

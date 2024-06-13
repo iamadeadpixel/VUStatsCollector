@@ -1,0 +1,68 @@
+
+.session - shows live data for the active round
+.playerstats - shows stored data for the player
+.serverstats - shows total stats count ever collected on the server
+
+. Weapon commands
+.top assault
+.top assault all
+
+.top gadget assault
+.top gadget assault all
+
+.top support
+.top support all
+
+.top gadget support
+.top gadget support all
+
+.top engineer
+.top engineer all
+
+.top gadget engineer
+.top gadget engineer all
+
+.top recon
+.top recon all
+
+.top gadget recon
+.top gadget recon all
+
+.top killer - shows your best 3 killers ever
+
+.top aux
+.top aux all
+
+.top shotgun
+.top shotgun all
+
+.top air
+.top air all
+
+.top land
+.top land all
+
+.top common
+.top common all
+
+.top handgun
+.top handgun all
+
+. Map commands
+.top map - Shows the top 3 maps with highest score
+.top map as
+.top map assault
+.top map assault2
+.top map assault64
+.top map cql
+.top map cqs
+.top map ctf
+.top map dom
+.top map gm
+.top map hs
+.top map koth
+.top map scav
+.top map rush
+.top map sqrush
+.top map ts
+
