@@ -3,7 +3,7 @@
 .playerstats - shows stored data for the player
 .serverstats - shows total stats count ever collected on the server
 
-. Weapon commands
+# Weapon commands
 .top assault
 .top assault all
 
@@ -28,19 +28,11 @@
 .top gadget recon
 .top gadget recon all
 
-.top killer - shows your best 3 killers ever
-
 .top aux
 .top aux all
 
 .top shotgun
 .top shotgun all
-
-.top air
-.top air all
-
-.top land
-.top land all
 
 .top common
 .top common all
@@ -48,7 +40,17 @@
 .top handgun
 .top handgun all
 
-. Map commands
+# post  shows your best 3 killers on the server
+.top killer
+
+# post Air or Land vehicles
+.top air
+.top air all
+
+.top land
+.top land all
+
+# Map commands
 .top map - Shows the top 3 maps with highest score
 .top map as
 .top map assault
