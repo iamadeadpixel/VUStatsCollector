@@ -18,9 +18,7 @@ function StatsCollector:RegisterEvents()
 end
 
 function StatsCollector:OnEngineInit()
-
--- Static stuff ,do not tamper with it.
-	self.m_LevelPrint = require 'LevelPrint' -- (Working code)
+	self.m_LevelPrint = require 'LevelPrint'        -- (Working code)
 	self.m_Weapons_Tables = require 'Weapons_Tables' -- (Working code)
 	self.m_Vehicles_Tables = require 'Vehicles_Tables' -- (Working code)
 
@@ -28,7 +26,6 @@ function StatsCollector:OnEngineInit()
 	self.m_PlayerLeaves = require 'PlayerLeaves'
 	self.m_PlayerJoins = require 'PlayerJoins'
 
---	self.m_StatsCollector = require 'StatsCollector'
 	self.m_Score = require 'Score'
 	self.m_DatabaseSetup = require 'DatabaseSetup'
 	self.m_TableSetup = require 'TableSetup'
@@ -36,7 +33,6 @@ function StatsCollector:OnEngineInit()
 	self.m_TableSetup_vehicles = require 'TableSetup_vehicles'
 	self.m_PlayerKilled = require 'PlayerKilled'
 
--- roundover calls PUE1 -> triggers PUE2 -> triggers PUE3 -> etc,etc
 	self.m_Roundover = require 'Roundover'
 
 	self.m_PUE00_playerrounddata = require 'PUE00_playerrounddata'
@@ -48,65 +44,59 @@ function StatsCollector:OnEngineInit()
 	self.m_PUE05_weaponkillstats = require 'PUE05_weaponkillstats'
 	self.m_PUE06_weapondeathstats = require 'PUE06_weapondeathstats'
 
--- Disabled till a proper fix is found - also it is disabled in PUE06 !
---	self.m_PUE07_roadkillkilldata = require 'PUE07_roadkillkilldata'
---	self.m_PUE08_roadkilldeathdata = require 'PUE08_roadkilldeathdata'
-
--- No bot scripts are made at this point, so it is disabled.
---	self.m_bot_config = require 'bot_config' -- false or true, when true bots also will be collected in the datapool
+	-- Disabled till a proper fix is found - also it is disabled in PUE06 !
+	--	self.m_PUE07_roadkillkilldata = require 'PUE07_roadkillkilldata'
+	--	self.m_PUE08_roadkilldeathdata = require 'PUE08_roadkilldeathdata'
 
 	self.m_ChatCommands = require('ChatCommands') -- pull stats on command,ugly setup, but works
-	self.m_spawn = require 'spawn' -- play spawn sql stuff
-	self.m_Revives = require('Revives') -- Player revives SQL stuff
+	self.m_spawn = require 'spawn'             -- play spawn sql stuff
+	self.m_Revives = require('Revives')        -- Player revives SQL stuff
 
 
--- table stuff that counts kills and deaths
--- Assault Gadgets / Weapons
-	self.m_Gadget_assault =  require('/Assault/Gadget_assault')
-	self.m_Weapons_assault =  require('/Assault/Weapons_assault')
+	-- table stuff that counts kills and deaths
+	-- Assault Gadgets / Weapons
+	self.m_Gadget_assault = require('/Assault/Gadget_assault')
+	self.m_Weapons_assault = require('/Assault/Weapons_assault')
 
--- Engineer Gadgets / Weapons
-	self.m_Gadget_engineer =  require('/Engineer/Gadget_engineer')
-	self.m_engineer_weapons =  require('/Engineer/engineer_weapons')
+	-- Engineer Gadgets / Weapons
+	self.m_Gadget_engineer = require('/Engineer/Gadget_engineer')
+	self.m_engineer_weapons = require('/Engineer/engineer_weapons')
 
--- Support Gadgets / Weapons
-	self.m_Gadget_support =  require('/Support/Gadget_support')
-	self.m_Weapons_support =  require('/Support/Weapons_support')
+	-- Support Gadgets / Weapons
+	self.m_Gadget_support = require('/Support/Gadget_support')
+	self.m_Weapons_support = require('/Support/Weapons_support')
 
--- Recon Gadgets / Weapons
-	self.m_Gadget_recon =  require('/Recon/Gadget_recon')
-	self.m_Weapons_recon =  require('/Recon/Weapons_recon')
+	-- Recon Gadgets / Weapons
+	self.m_Gadget_recon = require('/Recon/Gadget_recon')
+	self.m_Weapons_recon = require('/Recon/Weapons_recon')
 
--- Common weapons
+	-- Common weapons
 	self.m_weapons_Common = require('/Common/weapons_Common')
 
--- Shotgun weapons
+	-- Shotgun weapons
 	self.m_weapons_Shotguns = require('/Shotguns/weapons_Shotguns')
 
--- handguns weapons
+	-- handguns weapons
 	self.m_handguns_weapons = require('/handguns/handguns_weapons')
 
--- Air_Vehicles
+	-- Air_Vehicles
 	self.m_Air_Vehicles = require('/Vehicles/Air_Vehicles')
 
--- Land_Vehicles
+	-- Land_Vehicles
 	self.m_Land_Vehicles = require('/Vehicles/Land_Vehicles')
 
--- auxiliary (knife/M67/crossbow)
+	-- auxiliary (knife/M67/crossbow)
 	self.m_weapons_auxiliary = require('/auxiliary/weapons_auxiliary')
-
 end
-
 
 function StatsCollector:OnLevelDestroy()
+	print("********* data whiped on level destroy *********");
 
-		print("********* data whiped on level destroy *********"); 
-
-local s_OldMemory = math.floor(collectgarbage("count")/1024)
+	local s_OldMemory = math.floor(collectgarbage("count") / 1024)
 	collectgarbage('collect')
-	print("*Collecting Garbage on Level Destroy: " .. math.floor(collectgarbage("count")/1024) .. " MB | Old Memory: " .. s_OldMemory .. " MB")
+	print("*Collecting Garbage on Level Destroy: " ..
+	math.floor(collectgarbage("count") / 1024) .. " MB | Old Memory: " .. s_OldMemory .. " MB")
 end
-
 
 function StatsCollector:GetIsHotReload()
 	if #SharedUtils:GetContentPackages() == 0 then

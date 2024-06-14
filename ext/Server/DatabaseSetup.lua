@@ -3,22 +3,21 @@ DBsetup = class 'DBsetup'
 
 Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 	if screenInfo == "Running" or screenInfo == "Blocking on shader creation" then
-	print("*** DataBase Setup mod loaded ***"); 
+		print("*** DataBase Setup mod loaded ***");
 		local syncedBFSettings = ResourceManager:GetSettings("SyncedBFSettings")
 		if syncedBFSettings ~= nil then
 			syncedBFSettings = SyncedBFSettings(syncedBFSettings)
 			syncedBFSettings.teamSwitchingAllowed = false
 		end
 	end
-	end)
+end)
 
 
 Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
+	if not SQL:Open() then return end
 
-		if not SQL:Open() then return end
-
-		local s_Results = SQL:Query('SELECT * FROM tbl_playerdata')
-		if not s_Results then
+	local s_Results = SQL:Query('SELECT * FROM tbl_playerdata')
+	if not s_Results then
 		print("*** Creating Table: 'tbl_playerdata' ***")
 		s_Query = [[
 	CREATE TABLE IF NOT EXISTS `tbl_playerdata` (
@@ -37,15 +36,16 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 
 		if not SQL:Query(s_Query) then
 			print('Failed to execute query for tbl_playerdata Table: ' .. SQL:Error())
-			return end
+			return
+		end
 	end
 
---
---
---
+	--
+	--
+	--
 
-		local s_Results = SQL:Query('SELECT * FROM tbl_playerstats')
-		if not s_Results then
+	local s_Results = SQL:Query('SELECT * FROM tbl_playerstats')
+	if not s_Results then
 		print("*** Creating Table: 'tbl_playerstats' ***")
 		s_Query = [[
 	CREATE TABLE IF NOT EXISTS `tbl_playerstats` (
@@ -63,15 +63,16 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 
 		if not SQL:Query(s_Query) then
 			print('Failed to execute query for tbl_playerstats Table: ' .. SQL:Error())
-			return end
+			return
+		end
 	end
-		
---
---
---
 
-		local s_Results = SQL:Query('SELECT * FROM tbl_serverstats')
-		if not s_Results then
+	--
+	--
+	--
+
+	local s_Results = SQL:Query('SELECT * FROM tbl_serverstats')
+	if not s_Results then
 		print("*** Creating Table: 'tbl_serverstats' ***")
 		s_Query = [[
 	CREATE TABLE IF NOT EXISTS `tbl_serverstats` (
@@ -92,21 +93,24 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 
 		if not SQL:Query(s_Query) then
 			print('Failed to execute query for tbl_serverstats Table: ' .. SQL:Error())
-			return end
+			return
+		end
 
-	s_Query = 'INSERT INTO tbl_serverstats  (SumPlayers, SumScore, SumKills, SumDeaths, SumSuicide, SumHeadshots, SumTeamKilled, SumDogtags, SumRounds, SumRoadkills, SumRevives, SumPlaytime) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)'
-			if not SQL:Query(s_Query,    0,         0,        0,         0,         0,           0,             0,           0,          0,          0,            0,          0) then
+		s_Query =
+		'INSERT INTO tbl_serverstats  (SumPlayers, SumScore, SumKills, SumDeaths, SumSuicide, SumHeadshots, SumTeamKilled, SumDogtags, SumRounds, SumRoadkills, SumRevives, SumPlaytime) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)'
+		if not SQL:Query(s_Query, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0) then
 			print('Failed to execute query: ' .. SQL:Error())
-			return end
+			return
+		end
 		print("*** Inserting Table entries: 'tbl_serverstats' ***")
 	end
 
---
---
---
+	--
+	--
+	--
 
-		local s_Results = SQL:Query('SELECT * FROM tbl_mapstats')
-		if not s_Results then
+	local s_Results = SQL:Query('SELECT * FROM tbl_mapstats')
+	if not s_Results then
 		print("*** Creating Table: 'tbl_mapstats' ***")
 		s_Query = [[
 	CREATE TABLE IF NOT EXISTS `tbl_mapstats` (
@@ -124,15 +128,16 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 
 		if not SQL:Query(s_Query) then
 			print('Failed to execute query for tbl_mapstats Table: ' .. SQL:Error())
-			return end
+			return
+		end
 	end
 
---
---
---
+	--
+	--
+	--
 
-		local s_Results = SQL:Query('SELECT * FROM tbl_assault_gadgets')
-		if not s_Results then
+	local s_Results = SQL:Query('SELECT * FROM tbl_assault_gadgets')
+	if not s_Results then
 		print("*** Creating Table: 'tbl_assault_gadgets' ***")
 		s_Query = [[
 	CREATE TABLE IF NOT EXISTS `tbl_assault_gadgets` (
@@ -145,15 +150,16 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 
 		if not SQL:Query(s_Query) then
 			print('Failed to execute query for tbl_assault_gadgets Table: ' .. SQL:Error())
-			return end
+			return
+		end
 	end
 
---
---
---
+	--
+	--
+	--
 
-		local s_Results = SQL:Query('SELECT * FROM tbl_primary_weapons')
-		if not s_Results then
+	local s_Results = SQL:Query('SELECT * FROM tbl_primary_weapons')
+	if not s_Results then
 		print("*** Creating Table: 'tbl_primary_weapons' ***")
 		s_Query = [[
 	CREATE TABLE IF NOT EXISTS `tbl_primary_weapons` (
@@ -166,15 +172,16 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 
 		if not SQL:Query(s_Query) then
 			print('Failed to execute query for tbl_primary_weapons Table: ' .. SQL:Error())
-			return end
+			return
+		end
 	end
 
---
---
---
+	--
+	--
+	--
 
-		local s_Results = SQL:Query('SELECT * FROM tbl_engineer_gadgets')
-		if not s_Results then
+	local s_Results = SQL:Query('SELECT * FROM tbl_engineer_gadgets')
+	if not s_Results then
 		print("*** Creating Table: 'tbl_engineer_gadgets' ***")
 		s_Query = [[
 	CREATE TABLE IF NOT EXISTS `tbl_engineer_gadgets` (
@@ -187,15 +194,16 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 
 		if not SQL:Query(s_Query) then
 			print('Failed to execute query for tbl_engineer_gadgets Table: ' .. SQL:Error())
-			return end
+			return
+		end
 	end
 
---
---
---
+	--
+	--
+	--
 
-		local s_Results = SQL:Query('SELECT * FROM tbl_support_gadgets')
-		if not s_Results then
+	local s_Results = SQL:Query('SELECT * FROM tbl_support_gadgets')
+	if not s_Results then
 		print("*** Creating Table: 'tbl_support_gadgets' ***")
 		s_Query = [[
 	CREATE TABLE IF NOT EXISTS `tbl_support_gadgets` (
@@ -208,15 +216,16 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 
 		if not SQL:Query(s_Query) then
 			print('Failed to execute query for tbl_support_gadgets Table: ' .. SQL:Error())
-			return end
+			return
+		end
 	end
 
---
---
---
+	--
+	--
+	--
 
-		local s_Results = SQL:Query('SELECT * FROM tbl_recon_gadgets')
-		if not s_Results then
+	local s_Results = SQL:Query('SELECT * FROM tbl_recon_gadgets')
+	if not s_Results then
 		print("*** Creating Table: 'tbl_recon_gadgets' ***")
 		s_Query = [[
 	CREATE TABLE IF NOT EXISTS `tbl_recon_gadgets` (
@@ -229,15 +238,16 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 
 		if not SQL:Query(s_Query) then
 			print('Failed to execute query for tbl_recon_gadgets Table: ' .. SQL:Error())
-			return end
+			return
+		end
 	end
 
---
---
---
+	--
+	--
+	--
 
-		local s_Results = SQL:Query('SELECT * FROM tbl_handguns_weapons')
-		if not s_Results then
+	local s_Results = SQL:Query('SELECT * FROM tbl_handguns_weapons')
+	if not s_Results then
 		print("*** Creating Table: 'tbl_handguns_weapons' ***")
 		s_Query = [[
 	CREATE TABLE IF NOT EXISTS `tbl_handguns_weapons` (
@@ -250,15 +260,16 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 
 		if not SQL:Query(s_Query) then
 			print('Failed to execute query for tbl_handguns_weapons Table: ' .. SQL:Error())
-			return end
+			return
+		end
 	end
 
---
---
---
+	--
+	--
+	--
 
-		local s_Results = SQL:Query('SELECT * FROM tbl_shotguns_weapons')
-		if not s_Results then
+	local s_Results = SQL:Query('SELECT * FROM tbl_shotguns_weapons')
+	if not s_Results then
 		print("*** Creating Table: 'tbl_shotguns_weapons' ***")
 		s_Query = [[
 	CREATE TABLE IF NOT EXISTS `tbl_shotguns_weapons` (
@@ -271,15 +282,16 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 
 		if not SQL:Query(s_Query) then
 			print('Failed to execute query for tbl_shotguns_weapons Table: ' .. SQL:Error())
-			return end
+			return
+		end
 	end
 
---
---
---
+	--
+	--
+	--
 
-		local s_Results = SQL:Query('SELECT * FROM tbl_assault_weapons')
-		if not s_Results then
+	local s_Results = SQL:Query('SELECT * FROM tbl_assault_weapons')
+	if not s_Results then
 		print("*** Creating Table: 'tbl_assault_weapons' ***")
 		s_Query = [[
 	CREATE TABLE IF NOT EXISTS `tbl_assault_weapons` (
@@ -292,15 +304,16 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 
 		if not SQL:Query(s_Query) then
 			print('Failed to execute query for tbl_assault_weapons Table: ' .. SQL:Error())
-			return end
+			return
+		end
 	end
 
---
---
---
+	--
+	--
+	--
 
-		local s_Results = SQL:Query('SELECT * FROM tbl_engineer_weapons')
-		if not s_Results then
+	local s_Results = SQL:Query('SELECT * FROM tbl_engineer_weapons')
+	if not s_Results then
 		print("*** Creating Table: 'tbl_engineer_weapons' ***")
 		s_Query = [[
 	CREATE TABLE IF NOT EXISTS `tbl_engineer_weapons` (
@@ -313,15 +326,16 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 
 		if not SQL:Query(s_Query) then
 			print('Failed to execute query for tbl_engineer_weapons Table: ' .. SQL:Error())
-			return end
+			return
+		end
 	end
 
---
---
---
+	--
+	--
+	--
 
-		local s_Results = SQL:Query('SELECT * FROM tbl_support_weapons')
-		if not s_Results then
+	local s_Results = SQL:Query('SELECT * FROM tbl_support_weapons')
+	if not s_Results then
 		print("*** Creating Table: 'tbl_support_weapons' ***")
 		s_Query = [[
 	CREATE TABLE IF NOT EXISTS `tbl_support_weapons` (
@@ -334,15 +348,16 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 
 		if not SQL:Query(s_Query) then
 			print('Failed to execute query for tbl_support_weapons Table: ' .. SQL:Error())
-			return end
+			return
+		end
 	end
 
---
---
---
+	--
+	--
+	--
 
-		local s_Results = SQL:Query('SELECT * FROM tbl_recon_weapons')
-		if not s_Results then
+	local s_Results = SQL:Query('SELECT * FROM tbl_recon_weapons')
+	if not s_Results then
 		print("*** Creating Table: 'tbl_recon_weapons' ***")
 		s_Query = [[
 	CREATE TABLE IF NOT EXISTS `tbl_recon_weapons` (
@@ -355,15 +370,16 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 
 		if not SQL:Query(s_Query) then
 			print('Failed to execute query for tbl_recon_weapons Table: ' .. SQL:Error())
-			return end
+			return
+		end
 	end
 
---
---
---
+	--
+	--
+	--
 
-		local s_Results = SQL:Query('SELECT * FROM tbl_land_vehicles')
-		if not s_Results then
+	local s_Results = SQL:Query('SELECT * FROM tbl_land_vehicles')
+	if not s_Results then
 		print("*** Creating Table: 'tbl_land_vehicles' ***")
 		s_Query = [[
 	CREATE TABLE IF NOT EXISTS `tbl_land_vehicles` (
@@ -376,15 +392,16 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 
 		if not SQL:Query(s_Query) then
 			print('Failed to execute query for tbl_land_vehicles Table: ' .. SQL:Error())
-			return end
+			return
+		end
 	end
 
---
---
---
+	--
+	--
+	--
 
-		local s_Results = SQL:Query('SELECT * FROM tbl_air_vehicles')
-		if not s_Results then
+	local s_Results = SQL:Query('SELECT * FROM tbl_air_vehicles')
+	if not s_Results then
 		print("*** Creating Table: 'tbl_air_vehicles' ***")
 		s_Query = [[
 	CREATE TABLE IF NOT EXISTS `tbl_air_vehicles` (
@@ -397,15 +414,16 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 
 		if not SQL:Query(s_Query) then
 			print('Failed to execute query for tbl_air_vehicles Table: ' .. SQL:Error())
-			return end
+			return
+		end
 	end
 
---
---
---
+	--
+	--
+	--
 
-		local s_Results = SQL:Query('SELECT * FROM tbl_auxiliary_gadgets')
-		if not s_Results then
+	local s_Results = SQL:Query('SELECT * FROM tbl_auxiliary_gadgets')
+	if not s_Results then
 		print("*** Creating Table: 'tbl_auxiliary_gadgets' ***")
 		s_Query = [[
 	CREATE TABLE IF NOT EXISTS `tbl_auxiliary_gadgets` (
@@ -418,15 +436,16 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 
 		if not SQL:Query(s_Query) then
 			print('Failed to execute query for tbl_auxiliary_gadgets Table: ' .. SQL:Error())
-			return end
+			return
+		end
 	end
 
---
---
---
+	--
+	--
+	--
 
-		local s_Results = SQL:Query('SELECT * FROM tbl_roadkills')
-		if not s_Results then
+	local s_Results = SQL:Query('SELECT * FROM tbl_roadkills')
+	if not s_Results then
 		print("*** Creating Table: 'tbl_roadkills' ***")
 		s_Query = [[
 	CREATE TABLE IF NOT EXISTS `tbl_roadkills` (
@@ -439,19 +458,19 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 
 		if not SQL:Query(s_Query) then
 			print('Failed to execute query for tbl_roadkills Table: ' .. SQL:Error())
-			return end
+			return
+		end
 	end
 
---
---
---
+	--
+	--
+	--
 
 
-		print("*** DATABASE SETUP COMPLETE, END MOD.DB SETUP ***")
---
---
---
-
+	print("*** DATABASE SETUP COMPLETE, END MOD.DB SETUP ***")
+	--
+	--
+	--
 end)
 
 return DBsetup()

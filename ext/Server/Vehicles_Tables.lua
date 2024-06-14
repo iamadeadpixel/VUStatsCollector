@@ -1,5 +1,5 @@
 vehicleTable = {
--- Air Vehicles
+	-- Air Vehicles
 	["A10_THUNDERBOLT"] = "A-10 THUNDERBOLT",
 	["A10_THUNDERBOLT_spjet"] = "A-10 THUNDERBOLT",
 	["Ka-60"] = "KA-60 KASATKA",
@@ -22,10 +22,10 @@ vehicleTable = {
 	["Wz11_SP_Paris"] = "Z-11W",
 	["Z-11w"] = "Z-11W",
 
--- Land Vehicles
+	-- Land Vehicles
 	["EODBot"] = "EOD BOT",
 	["M224"] = "M224 MORTAR",
---
+	--
 	["9K22_Tunguska_M"] = "9K22 TUNGUSKA-M",
 	["9K22_Tunguska_M_AI"] = "9K22 TUNGUSKA-M",
 	["Kornet"] = "9M133 KORNET LAUNCHER",

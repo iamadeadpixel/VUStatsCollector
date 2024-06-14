@@ -1,8 +1,8 @@
 weaponTable = {
--- Auxiliary - global
+	-- Auxiliary - global
 	["U_M67"] = "M67 GRENADE",
 
--- Primary - global
+	-- Primary - global
 	["U_ASVal"] = "AS VAL",
 	["U_MP5K"] = "M5K",
 	["U_MP7"] = "MP7",
@@ -15,7 +15,7 @@ weaponTable = {
 	["U_Crossbow_Scoped_Cobra"] = "XBOW",
 	["U_Crossbow_Scoped_RifleScope"] = "XBOW",
 
--- Auxiliary - Handguns
+	-- Auxiliary - Handguns
 	["U_Taurus44"] = ".44 MAGNUM",
 	["U_Taurus44_GM"] = ".44 MAGNUM",
 	["U_Taurus44_Silenced"] = ".44 MAGNUM",
@@ -29,7 +29,7 @@ weaponTable = {
 	["U_Glock18"] = "G18",
 	["U_M1911_Tactical"] = "M1911 S-TAC",
 	["U_M1911_Silenced"] = "M1911 SUPP",
-	["U_M1911_Lit"] = "M1911 TACT",	
+	["U_M1911_Lit"] = "M1911 TACT",
 	["U_M1911"] = "M1911",
 	["U_M9_Silenced"] = "M9 SUPP",
 	["U_M9_TacticalLight"] = "M9 TACT",
@@ -43,7 +43,7 @@ weaponTable = {
 	["U_MP443"] = "MP443",
 	["U_MP443_GM"] = "MP443",
 
--- Shotguns
+	-- Shotguns
 	["U_870"] = "870MCS",
 	["U_DAO-12"] = "DAO-12",
 	["U_M1014"] = "M1014",
@@ -52,11 +52,11 @@ weaponTable = {
 	["U_SPAS12"] = "SPAS-12",
 	["U_USAS-12"] = "USAS-12",
 
--- melee - Knifes
+	-- melee - Knifes
 	["U_Knife"] = "KNIFE",
 	["U_Knife_Razor"] = "ACB-90",
 
--- Assault class Gadgets
+	-- Assault class Gadgets
 	["U_Defib"] = "DEFIBRILLATOR",
 	["U_Medkit"] = "MEDIC KIT",
 	["U_AN94_M320_SHG"] = "GP-30 BUCK",
@@ -119,7 +119,7 @@ weaponTable = {
 	["U_SteyrAug_M320_SMK"] = "M320 SMOKE",
 	["U_M320_SMK"] = "M320 SMOKE",
 
--- Assault class Weapons
+	-- Assault class Weapons
 	["U_AEK971"] = "AEK-971",
 	["U_AK74M"] = "AK-74M",
 	["U_AK74M_US"] = "AK-74M",
@@ -136,9 +136,9 @@ weaponTable = {
 	["U_M416"] = "M416",
 	["U_SCAR-L"] = "SCAR-L",
 
--- Demolition Gadgets
+	-- Demolition Gadgets
 	["U_EODBot"] = "EOD BOT",
---
+	--
 	["U_FGM148"] = "FGM-148 JAVELIN",
 	["U_FIM92"] = "FIM-92 STINGER",
 	["U_M15"] = "M15 AT MINE",
@@ -147,7 +147,7 @@ weaponTable = {
 	["U_Sa18IGLA"] = "SA-18 IGLA",
 	["U_SMAW"] = "SMAW",
 
--- Demolition Weapons
+	-- Demolition Weapons
 	["U_A91"] = "A-91",
 	["U_ACR"] = "ACW-R",
 	["U_AKS74u"] = "AKS-74u",
@@ -162,12 +162,12 @@ weaponTable = {
 	["U_SCAR-H"] = "SCAR-H",
 	["U_SG553LB"] = "SG553",
 
--- Support Gadgets
+	-- Support Gadgets
 	["U_Ammobag"] = "AMMO BOX",
 	["U_C4"] = "C4 EXPLOSIVES",
 	["U_Claymore"] = "M18 CLAYMORE",
 
--- Support Weapons
+	-- Support Weapons
 	["U_RPK-74M"] = "RPK-74M",
 	["U_RPK-74M_US"] = "RPK-74M",
 	["U_M27IAR_RU"] = "M27 IAR",
@@ -182,7 +182,7 @@ weaponTable = {
 	["U_QBB-95"] = "QBB-95",
 	["U_Type88"] = "TYPE 88 LMG",
 
--- Recon Gadgets
+	-- Recon Gadgets
 	["U_MAV"] = "MAV",
 	["RadioBeacon_Projectile"] = "RADIO BEACON",
 	["U_RadioBeacon"] = "RADIO BEACON",
@@ -191,7 +191,7 @@ weaponTable = {
 	["T-UGS_Vehicle"] = "T-UGS",
 	["U_UGS"] = "T-UGS",
 
--- Recon Weapons
+	-- Recon Weapons
 	["U_HK417"] = "M417",
 	["U_JNG90"] = "JNG-90",
 	["U_L96"] = "L96",

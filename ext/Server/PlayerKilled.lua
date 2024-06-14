@@ -11,9 +11,9 @@ Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 end)
 
 
-Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_Weapon, p_IsRoadKill, p_IsHeadShot, p_WasVictimInReviveState, p_Info)
-
-	if haltprocess then return end
+Events:Subscribe('Player:Killed',
+	function(p_Player, p_Inflictor, p_Position, p_Weapon, p_IsRoadKill, p_IsHeadShot, p_WasVictimInReviveState, p_Info)
+		if haltprocess then return end
 
 		args = { p_Player.name, p_Player.teamId, p_Player.squadId }
 		local s_Inflictor
@@ -67,13 +67,13 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 
 
 
--- Print lines will be removed on the end
---
--- base setup for table variables nil -> 0
-		if playerdeaths[p_Player.name] == nil then playerdeaths[p_Player.name] = 0;	end
-		if playersuicides[p_Player.name] == nil then playersuicides[p_Player.name] = 0;	end
-		if playerkills[s_Inflictor.name] == nil then playerkills[s_Inflictor.name] = 0;	end
-		if playerdeaths[p_Player.name] == nil then playerdeaths[p_Player.name] = 0;	end
+		-- Print lines will be removed on the end
+		--
+		-- base setup for table variables nil -> 0
+		if playerdeaths[p_Player.name] == nil then playerdeaths[p_Player.name] = 0; end
+		if playersuicides[p_Player.name] == nil then playersuicides[p_Player.name] = 0; end
+		if playerkills[s_Inflictor.name] == nil then playerkills[s_Inflictor.name] = 0; end
+		if playerdeaths[p_Player.name] == nil then playerdeaths[p_Player.name] = 0; end
 		if playerheadshot[s_Inflictor.name] == nil then playerheadshot[s_Inflictor.name] = 0; end
 		if playerteamkilled[s_Inflictor.name] == nil then playerteamkilled[s_Inflictor.name] = 0; end
 		if playerdogtags[s_Inflictor.name] == nil then playerdogtags[s_Inflictor.name] = 0; end
@@ -82,85 +82,93 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 		if death_roadkills[p_Player.name] == nil then death_roadkills[p_Player.name] = 0; end
 
 		if playerrevivs[s_Inflictor.name] == nil then playerrevivs[s_Inflictor.name] = 0; end
-		if playerscore[s_Inflictor.name] == nil then playerscore[s_Inflictor.name] = 0;	end
+		if playerscore[s_Inflictor.name] == nil then playerscore[s_Inflictor.name] = 0; end
 
 
---	print ("Weapon class for p_Weapon:"..p_Weapon)
+		--	print ("Weapon class for p_Weapon:"..p_Weapon)
 
---	Roadkills ! ,seting up criteria
-		if p_IsRoadKill then 
-		if args[7] == "SUICIDE" or args[7] == "IS NO MORE" or args[7] == "TEAMKILL" then return else
-	if getnamehuman[s_Inflictor.name] or getnamebot[s_Inflictor.name] then
---	if getnamehuman[s_Inflictor.name] then
-	kill_roadkills[s_Inflictor.name] = kill_roadkills[s_Inflictor.name] + 1
-	death_roadkills[p_Player.name] = death_roadkills[p_Player.name] + 1
---	print("Woops, " ..args[1] .. " got roadkilled by a " .. args[7] .. ", " .. args[4] .. " is pissing is in pants, hehe")
-			print ("Roadkill Kill stats for "..args[4]..":"..kill_roadkills[s_Inflictor.name].." times")
-			print ("Roadkill Dead stats for "..args[1]..":"..death_roadkills[p_Player.name].." times")
-	end
-	end
-	end
---
+		--	Roadkills ! ,seting up criteria
+		if p_IsRoadKill then
+			if args[7] == "SUICIDE" or args[7] == "IS NO MORE" or args[7] == "TEAMKILL" then
+				return
+			else
+				if getnamehuman[s_Inflictor.name] or getnamebot[s_Inflictor.name] then
+					--	if getnamehuman[s_Inflictor.name] then
+					kill_roadkills[s_Inflictor.name] = kill_roadkills[s_Inflictor.name] + 1
+					death_roadkills[p_Player.name] = death_roadkills[p_Player.name] + 1
+					--	print("Woops, " ..args[1] .. " got roadkilled by a " .. args[7] .. ", " .. args[4] .. " is pissing is in pants, hehe")
+					print("Roadkill Kill stats for " .. args[4] .. ":" .. kill_roadkills[s_Inflictor.name] .. " times")
+					print("Roadkill Dead stats for " .. args[1] .. ":" .. death_roadkills[p_Player.name] .. " times")
+				end
+			end
+		end
+		--
 
 
 
-	-- Counts suicides
+		-- Counts suicides
 		if args[7] == "SUICIDE" or args[7] == "IS NO MORE" then
-	if getnamehuman[p_Player.name] or getnamebot[p_Player.name] then playersuicides[p_Player.name] = playersuicides[p_Player.name] + 1
---	if getnamehuman[p_Player.name] then playersuicides[p_Player.name] = playersuicides[p_Player.name] + 1
-	playerdeaths[p_Player.name] = playerdeaths[p_Player.name] + 1
---	print("Player "..args[1].." suicided:"..playersuicides[p_Player.name].." times,arg used:"..args[7].." - dead count is "..playerdeaths[p_Player.name].." total")
-	end
-    	end
---
+			if getnamehuman[p_Player.name] or getnamebot[p_Player.name] then
+				playersuicides[p_Player.name] = playersuicides[p_Player.name] + 1
+				--	if getnamehuman[p_Player.name] then playersuicides[p_Player.name] = playersuicides[p_Player.name] + 1
+				playerdeaths[p_Player.name] = playerdeaths[p_Player.name] + 1
+				--	print("Player "..args[1].." suicided:"..playersuicides[p_Player.name].." times,arg used:"..args[7].." - dead count is "..playerdeaths[p_Player.name].." total")
+			end
+		end
+		--
 
--- Counts kills
-			if args[1] ~= args[4] and args[7] ~= "TEAMKILL"  then
-	if getnamehuman[s_Inflictor.name] or getnamebot[s_Inflictor.name] then playerkills[s_Inflictor.name] = playerkills[s_Inflictor.name] + 1
---	if getnamehuman[s_Inflictor.name] then playerkills[s_Inflictor.name] = playerkills[s_Inflictor.name] + 1
---	print("Player "..args[4].." killed:"..playerkills[s_Inflictor.name].." enemies - arg used:"..args[7])
-	end
-	end
---
+		-- Counts kills
+		if args[1] ~= args[4] and args[7] ~= "TEAMKILL" then
+			if getnamehuman[s_Inflictor.name] or getnamebot[s_Inflictor.name] then
+				playerkills[s_Inflictor.name] = playerkills[s_Inflictor.name] + 1
+				--	if getnamehuman[s_Inflictor.name] then playerkills[s_Inflictor.name] = playerkills[s_Inflictor.name] + 1
+				--	print("Player "..args[4].." killed:"..playerkills[s_Inflictor.name].." enemies - arg used:"..args[7])
+			end
+		end
+		--
 
-	-- Counts deaths
-			if args[1] ~= args[4] then
-	if getnamehuman[p_Player.name] or getnamebot[p_Player.name] then playerdeaths[p_Player.name] = playerdeaths[p_Player.name] + 1
---	if getnamehuman[p_Player.name] then playerdeaths[p_Player.name] = playerdeaths[p_Player.name] + 1
---	print("Player "..args[1].." died:"..playerdeaths[p_Player.name].." times")
-	end
-	end
---
+		-- Counts deaths
+		if args[1] ~= args[4] then
+			if getnamehuman[p_Player.name] or getnamebot[p_Player.name] then
+				playerdeaths[p_Player.name] = playerdeaths[p_Player.name] + 1
+				--	if getnamehuman[p_Player.name] then playerdeaths[p_Player.name] = playerdeaths[p_Player.name] + 1
+				--	print("Player "..args[1].." died:"..playerdeaths[p_Player.name].." times")
+			end
+		end
+		--
 
-	-- Counts headshot
-			if p_IsHeadShot then
-	if getnamehuman[s_Inflictor.name] or getnamebot[s_Inflictor.name] then playerheadshot[s_Inflictor.name] = playerheadshot[s_Inflictor.name] + 1
---	if getnamehuman[s_Inflictor.name] then playerheadshot[s_Inflictor.name] = playerheadshot[s_Inflictor.name] + 1
---	print("Player "..args[4].." headshot kill "..playerheadshot[s_Inflictor.name].." times")
-	end
-	end
---
+		-- Counts headshot
+		if p_IsHeadShot then
+			if getnamehuman[s_Inflictor.name] or getnamebot[s_Inflictor.name] then
+				playerheadshot[s_Inflictor.name] = playerheadshot[s_Inflictor.name] + 1
+				--	if getnamehuman[s_Inflictor.name] then playerheadshot[s_Inflictor.name] = playerheadshot[s_Inflictor.name] + 1
+				--	print("Player "..args[4].." headshot kill "..playerheadshot[s_Inflictor.name].." times")
+			end
+		end
+		--
 
-	-- Count knife kills
-			if args[7] == "KNIFE" or args[7] == "ACB-90" then
-	if getnamehuman[s_Inflictor.name] or getnamebot[s_Inflictor.name] then 	playerdogtags[s_Inflictor.name] = playerdogtags[s_Inflictor.name] + 1
---	if getnamehuman[s_Inflictor.name] then 	playerdogtags[s_Inflictor.name] = playerdogtags[s_Inflictor.name] + 1
---		print ("*** Player "..args[1].. " got a free razor cut with a "..args[7].." Killer "..args[4].." slith "..playerdogtags[s_Inflictor.name].." times a trouth with the "..args[7])
-	end
-	end
---
+		-- Count knife kills
+		if args[7] == "KNIFE" or args[7] == "ACB-90" then
+			if getnamehuman[s_Inflictor.name] or getnamebot[s_Inflictor.name] then
+				playerdogtags[s_Inflictor.name] = playerdogtags[s_Inflictor.name] + 1
+				--	if getnamehuman[s_Inflictor.name] then 	playerdogtags[s_Inflictor.name] = playerdogtags[s_Inflictor.name] + 1
+				--		print ("*** Player "..args[1].. " got a free razor cut with a "..args[7].." Killer "..args[4].." slith "..playerdogtags[s_Inflictor.name].." times a trouth with the "..args[7])
+			end
+		end
+		--
 
-	-- Count TeamKilled
-			if args[7] == "TEAMKILL" then
-	if getnamehuman[s_Inflictor.name] or getnamebot[s_Inflictor.name] then playerteamkilled[s_Inflictor.name] = playerteamkilled[s_Inflictor.name] + 1
---	if getnamehuman[s_Inflictor.name] or getnamebot[s_Inflictor.name] then playerkills[s_Inflictor.name] = playerkills[s_Inflictor.name] - 1
---	if getnamehuman[s_Inflictor.name] then playerteamkilled[s_Inflictor.name] = playerteamkilled[s_Inflictor.name] + 1
---			print ("*** Player "..args[1].. " Got teamkilled, oeps,"..args[7].." Killer "..args[4].." was a bad boy, and TK'd "..playerteamkilled[s_Inflictor.name].." times")
-	end
-	end
+		-- Count TeamKilled
+		if args[7] == "TEAMKILL" then
+			if getnamehuman[s_Inflictor.name] or getnamebot[s_Inflictor.name] then
+				playerteamkilled[s_Inflictor.name] = playerteamkilled[s_Inflictor.name] + 1
+				--	if getnamehuman[s_Inflictor.name] or getnamebot[s_Inflictor.name] then playerkills[s_Inflictor.name] = playerkills[s_Inflictor.name] - 1
+				--	if getnamehuman[s_Inflictor.name] then playerteamkilled[s_Inflictor.name] = playerteamkilled[s_Inflictor.name] + 1
+				--			print ("*** Player "..args[1].. " Got teamkilled, oeps,"..args[7].." Killer "..args[4].." was a bad boy, and TK'd "..playerteamkilled[s_Inflictor.name].." times")
+			end
+		end
 
---
-end)
+		--
+	end)
 
 
 return PlayerKilled()
