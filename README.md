@@ -3,7 +3,7 @@ Statscollector.
 the VU alternative for procon's chatguidstatslogger
 heavy work in progress, not yet useable for a live server.
 
-2.02 : Updated chat commands
+2.0.2 : Updated chat commands
 Some code used from: Doc-Ice-Elm, Joe_91
 Code fixes: Bree_Arnold and Doc-Ice-Elm, Jassent, IllustrisJack, Bree_Arnold
 SQLite fix for getting weapon kills: NoFaTe
