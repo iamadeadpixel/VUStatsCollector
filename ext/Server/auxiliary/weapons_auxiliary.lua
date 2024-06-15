@@ -64,9 +64,6 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 	if getnamehuman[s_Inflictor.name] or getnamebot[s_Inflictor.name] then
 	kill_M67_GRENADE[s_Inflictor.name] = kill_M67_GRENADE[s_Inflictor.name] + 1
 	death_M67_GRENADE[p_Player.name] = death_M67_GRENADE[p_Player.name] + 1
---			print ("*** victim "..args[1].. " Got killed with "..args[7].." - inflictor was "..args[4])
-			print ("M67 GRENADE Kill stats for "..args[4]..":"..kill_M67_GRENADE[s_Inflictor.name].." times")
-			print ("M67 GRENADE Dead stats for "..args[1]..":"..death_M67_GRENADE[p_Player.name].." times")
 		end
         end
 --
@@ -77,9 +74,6 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 	if getnamehuman[s_Inflictor.name] or getnamebot[s_Inflictor.name] then
 	kill_XBOW[s_Inflictor.name] = kill_XBOW[s_Inflictor.name] + 1
 	death_XBOW[p_Player.name] = death_XBOW[p_Player.name] + 1
---			print ("*** victim "..args[1].. " Got killed with "..args[7].." - inflictor was "..args[4])
-			print ("XBOW kill stats for "..args[4]..":"..kill_XBOW[s_Inflictor.name].." times")
-			print ("XBOW dead stats for "..args[1]..":"..death_XBOW[p_Player.name].." times")
 		end
         end
 --
@@ -90,9 +84,6 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 	if getnamehuman[s_Inflictor.name] or getnamebot[s_Inflictor.name] then
 	kill_KNIFE[s_Inflictor.name] = kill_KNIFE[s_Inflictor.name] + 1
 	death_KNIFE[p_Player.name] = death_KNIFE[p_Player.name] + 1
---			print ("*** victim "..args[1].. " Got killed with "..args[7].." - inflictor was "..args[4])
-			print ("KNIFE Kill stats for "..args[4]..":"..kill_KNIFE[s_Inflictor.name].." times")
-			print ("KNIFE Dead stats for "..args[1]..":"..death_KNIFE[p_Player.name].." times")
 		end
         end
 --

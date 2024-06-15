@@ -64,9 +64,6 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 	if getnamehuman[s_Inflictor.name] or getnamebot[s_Inflictor.name] then
 	kill_TV_MISSILE[s_Inflictor.name] = kill_TV_MISSILE[s_Inflictor.name] + 1
 	death_TV_MISSILE[p_Player.name] = death_TV_MISSILE[p_Player.name] + 1
---			print ("*** victim "..args[1].. " Got killed with "..args[7].." - inflictor was "..args[4])
-			print ("TV_MISSILE Kill stats for "..args[4]..":"..kill_TV_MISSILE[s_Inflictor.name].." times")
-			print ("TV_MISSILE Dead stats for "..args[1]..":"..death_TV_MISSILE[p_Player.name].." times")
 		end
         end
 --
@@ -77,9 +74,6 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 	if getnamehuman[s_Inflictor.name] or getnamebot[s_Inflictor.name] then
 	kill_A10_THUNDERBOLT[s_Inflictor.name] = kill_A10_THUNDERBOLT[s_Inflictor.name] + 1
 	death_A10_THUNDERBOLT[p_Player.name] = death_A10_THUNDERBOLT[p_Player.name] + 1
---			print ("*** victim "..args[1].. " Got killed with "..args[7].." - inflictor was "..args[4])
-			print ("A10_THUNDERBOLT Kill stats for "..args[4]..":"..kill_A10_THUNDERBOLT[s_Inflictor.name].." times")
-			print ("A10_THUNDERBOLT Dead stats for "..args[1]..":"..death_A10_THUNDERBOLT[p_Player.name].." times")
 		end
         end
 --
@@ -90,9 +84,6 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 	if getnamehuman[s_Inflictor.name] or getnamebot[s_Inflictor.name] then
 	kill_AH_1Z_VIPER[s_Inflictor.name] = kill_AH_1Z_VIPER[s_Inflictor.name] + 1
 	death_AH_1Z_VIPER[p_Player.name] = death_AH_1Z_VIPER[p_Player.name] + 1
---			print ("*** victim "..args[1].. " Got killed with "..args[7].." - inflictor was "..args[4])
-			print ("AH_1Z_VIPER Kill stats for "..args[4]..":"..kill_AH_1Z_VIPER[s_Inflictor.name].." times")
-			print ("AH_1Z_VIPER Dead stats for "..args[1]..":"..death_AH_1Z_VIPER[p_Player.name].." times")
 		end
         end
 --
@@ -103,9 +94,6 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 	if getnamehuman[s_Inflictor.name] or getnamebot[s_Inflictor.name] then
 	kill_AH_6J_LITTLE_BIRD[s_Inflictor.name] = kill_AH_6J_LITTLE_BIRD[s_Inflictor.name] + 1
 	death_AH_6J_LITTLE_BIRD[p_Player.name] = death_AH_6J_LITTLE_BIRD[p_Player.name] + 1
---			print ("*** victim "..args[1].. " Got killed with "..args[7].." - inflictor was "..args[4])
-			print ("AH_6J_LITTLE_BIRD Kill stats for "..args[4]..":"..kill_AH_6J_LITTLE_BIRD[s_Inflictor.name].." times")
-			print ("AH_6J_LITTLE_BIRD Dead stats for "..args[1]..":"..death_AH_6J_LITTLE_BIRD[p_Player.name].." times")
 		end
         end
 --
@@ -116,9 +104,6 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 	if getnamehuman[s_Inflictor.name] or getnamebot[s_Inflictor.name] then
 	kill_F_35[s_Inflictor.name] = kill_F_35[s_Inflictor.name] + 1
 	death_F_35[p_Player.name] = death_F_35[p_Player.name] + 1
---			print ("*** victim "..args[1].. " Got killed with "..args[7].." - inflictor was "..args[4])
-			print ("F_35 Kill stats for "..args[4]..":"..kill_F_35[s_Inflictor.name].." times")
-			print ("F_35 Dead stats for "..args[1]..":"..death_F_35[p_Player.name].." times")
 		end
         end
 --
@@ -129,9 +114,6 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 	if getnamehuman[s_Inflictor.name] or getnamebot[s_Inflictor.name] then
 	kill_FA_18E_SUPER_HORNET[s_Inflictor.name] = kill_FA_18E_SUPER_HORNET[s_Inflictor.name] + 1
 	death_FA_18E_SUPER_HORNET[p_Player.name] = death_FA_18E_SUPER_HORNET[p_Player.name] + 1
---			print ("*** victim "..args[1].. " Got killed with "..args[7].." - inflictor was "..args[4])
-			print ("FA_18E_SUPER_HORNET Kill stats for "..args[4]..":"..kill_FA_18E_SUPER_HORNET[s_Inflictor.name].." times")
-			print ("FA_18E_SUPER_HORNET Dead stats for "..args[1]..":"..death_FA_18E_SUPER_HORNET[p_Player.name].." times")
 		end
         end
 --
@@ -142,9 +124,6 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 	if getnamehuman[s_Inflictor.name] or getnamebot[s_Inflictor.name] then
 	kill_GUNSHIP[s_Inflictor.name] = kill_GUNSHIP[s_Inflictor.name] + 1
 	death_GUNSHIP[p_Player.name] = death_GUNSHIP[p_Player.name] + 1
---			print ("*** victim "..args[1].. " Got killed with "..args[7].." - inflictor was "..args[4])
-			print ("GUNSHIP Kill stats for "..args[4]..":"..kill_GUNSHIP[s_Inflictor.name].." times")
-			print ("GUNSHIP Dead stats for "..args[1]..":"..death_GUNSHIP[p_Player.name].." times")
 		end
         end
 --
@@ -155,9 +134,6 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 	if getnamehuman[s_Inflictor.name] or getnamebot[s_Inflictor.name] then
 	kill_KA_60_KASATKA[s_Inflictor.name] = kill_KA_60_KASATKA[s_Inflictor.name] + 1
 	death_KA_60_KASATKA[p_Player.name] = death_KA_60_KASATKA[p_Player.name] + 1
---			print ("*** victim "..args[1].. " Got killed with "..args[7].." - inflictor was "..args[4])
-			print ("KA_60_KASATKA Kill stats for "..args[4]..":"..kill_KA_60_KASATKA[s_Inflictor.name].." times")
-			print ("KA_60_KASATKA Dead stats for "..args[1]..":"..death_KA_60_KASATKA[p_Player.name].." times")
 		end
         end
 --
@@ -168,9 +144,6 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 	if getnamehuman[s_Inflictor.name] or getnamebot[s_Inflictor.name] then
 	kill_MI_28_HAVOC[s_Inflictor.name] = kill_MI_28_HAVOC[s_Inflictor.name] + 1
 	death_MI_28_HAVOC[p_Player.name] = death_MI_28_HAVOC[p_Player.name] + 1
---			print ("*** victim "..args[1].. " Got killed with "..args[7].." - inflictor was "..args[4])
-			print ("MI_28_HAVOC Kill stats for "..args[4]..":"..kill_MI_28_HAVOC[s_Inflictor.name].." times")
-			print ("MI_28_HAVOC Dead stats for "..args[1]..":"..death_MI_28_HAVOC[p_Player.name].." times")
 		end
         end
 --
@@ -181,9 +154,6 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 	if getnamehuman[s_Inflictor.name] or getnamebot[s_Inflictor.name] then
 	kill_SU_25TM_FROGFOOT[s_Inflictor.name] = kill_SU_25TM_FROGFOOT[s_Inflictor.name] + 1
 	death_SU_25TM_FROGFOOT[p_Player.name] = death_SU_25TM_FROGFOOT[p_Player.name] + 1
---			print ("*** victim "..args[1].. " Got killed with "..args[7].." - inflictor was "..args[4])
-			print ("SU_25TM_FROGFOOT Kill stats for "..args[4]..":"..kill_SU_25TM_FROGFOOT[s_Inflictor.name].." times")
-			print ("SU_25TM_FROGFOOT Dead stats for "..args[1]..":"..death_SU_25TM_FROGFOOT[p_Player.name].." times")
 		end
         end
 --
@@ -194,9 +164,6 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 	if getnamehuman[s_Inflictor.name] or getnamebot[s_Inflictor.name] then
 	kill_SU_35BM_FLANKER_E[s_Inflictor.name] = kill_SU_35BM_FLANKER_E[s_Inflictor.name] + 1
 	death_SU_35BM_FLANKER_E[p_Player.name] = death_SU_35BM_FLANKER_E[p_Player.name] + 1
---			print ("*** victim "..args[1].. " Got killed with "..args[7].." - inflictor was "..args[4])
-			print ("SU_35BM_FLANKER_E Kill stats for "..args[4]..":"..kill_SU_35BM_FLANKER_E[s_Inflictor.name].." times")
-			print ("SU_35BM_FLANKER_E Dead stats for "..args[1]..":"..death_SU_35BM_FLANKER_E[p_Player.name].." times")
 		end
         end
 --
@@ -207,9 +174,6 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 	if getnamehuman[s_Inflictor.name] or getnamebot[s_Inflictor.name] then
 	kill_SU_37[s_Inflictor.name] = kill_SU_37[s_Inflictor.name] + 1
 	death_SU_37[p_Player.name] = death_SU_37[p_Player.name] + 1
---			print ("*** victim "..args[1].. " Got killed with "..args[7].." - inflictor was "..args[4])
-			print ("SU_37 Kill stats for "..args[4]..":"..kill_SU_37[s_Inflictor.name].." times")
-			print ("SU_37 Dead stats for "..args[1]..":"..death_SU_37[p_Player.name].." times")
 		end
         end
 --
@@ -220,9 +184,6 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 	if getnamehuman[s_Inflictor.name] or getnamebot[s_Inflictor.name] then
 	kill_UH_1Y_VENOM[s_Inflictor.name] = kill_UH_1Y_VENOM[s_Inflictor.name] + 1
 	death_UH_1Y_VENOM[p_Player.name] = death_UH_1Y_VENOM[p_Player.name] + 1
---			print ("*** victim "..args[1].. " Got killed with "..args[7].." - inflictor was "..args[4])
-			print ("UH_1Y_VENOM Kill stats for "..args[4]..":"..kill_UH_1Y_VENOM[s_Inflictor.name].." times")
-			print ("UH_1Y_VENOM Dead stats for "..args[1]..":"..death_UH_1Y_VENOM[p_Player.name].." times")
 		end
         end
 --
@@ -233,9 +194,6 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 	if getnamehuman[s_Inflictor.name] or getnamebot[s_Inflictor.name] then
 	kill_Z_11W[s_Inflictor.name] = kill_Z_11W[s_Inflictor.name] + 1
 	death_Z_11W[p_Player.name] = death_Z_11W[p_Player.name] + 1
---			print ("*** victim "..args[1].. " Got killed with "..args[7].." - inflictor was "..args[4])
-			print ("Z_11W Kill stats for "..args[4]..":"..kill_Z_11W[s_Inflictor.name].." times")
-			print ("Z_11W Dead stats for "..args[1]..":"..death_Z_11W[p_Player.name].." times")
 		end
         end
 --
