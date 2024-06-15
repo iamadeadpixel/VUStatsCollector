@@ -1,8 +1,8 @@
 {
 	"Name": "StatsCollector",
 	"Description": "Collects all stats possible.",
-	"Version": "2.0.2",
-	"Reason": "optimized some code",
+	"Version": "2.0.3",
+	"Reason": "Chat commands updated",
 	"Authors": ["Iamadeadpixel, and many more"],
 	"URL": "none",
 	"Tags": ["statscollector"], 

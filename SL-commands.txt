@@ -1,6 +1,7 @@
 
 .session - shows live data for the active round
 .playerstats - shows stored data for the player
+.playerdata - show personal information for the server
 .serverstats - shows total stats count ever collected on the server
 
 # Weapon commands
