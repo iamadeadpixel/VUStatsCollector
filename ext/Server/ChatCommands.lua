@@ -51,8 +51,8 @@ end)
 
 Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 	if message == ".playerstats" then
-		ChatManager:SendMessage("Fetching all player data for " .. player.name, player)
-		print("** Fetching all data for " .. player.name .. " **");
+		ChatManager:SendMessage("Fetching all player stats for " .. player.name, player)
+		print("** Fetching all stats for " .. player.name .. " **");
 
 		-- Reading player session data
 		CHATresults = SQL:Query('SELECT * FROM tbl_playerstats WHERE Soldiername = ?', player.name)
@@ -82,6 +82,54 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 end)
 
 -- ------------------
+
+Events:Subscribe('Player:Chat', function(player, recipientMask, message)
+	if message == ".playerdata" then
+		ChatManager:SendMessage("Fetching all player data for " .. player.name, player)
+		print("** Fetching all data for " .. player.name .. " **");
+
+		-- Reading player session data
+		CHATresults = SQL:Query('SELECT Soldiername, PlayerLogins, VU_GUID, IP, CountryName, FirstSeenOnServer, Rounds, PlayTime FROM tbl_playerdata WHERE Soldiername = ?', player.name)
+		if not CHATresults then
+			print('Failed to got data query: ' .. SQL:Error()); return
+		end
+
+		for _, l_Row in pairs(CHATresults) do
+			chat_Soldiername = l_Row["Soldiername"]
+			chat_PlayerLogins = l_Row["PlayerLogins"]
+			chat_VU_GUID = l_Row["VU_GUID"]
+			chat_IP = l_Row["IP"]
+			chat_CountryName = l_Row["CountryName"]
+			chat_FirstSeenOnServer = l_Row["FirstSeenOnServer"]
+			chat_Rounds = l_Row["Rounds"]
+			chat_PlayTime = l_Row["PlayTime"]
+
+		seconds = chat_PlayTime
+		hours = string.format(math.floor(seconds / 3600));
+		mins = string.format(math.floor(seconds / 60 - (hours * 60)));
+		secs = string.format(math.floor(seconds - hours * 3600 - mins * 60));
+		chat_PlayTime = hours .. " hours " .. mins .. " minutes " .. secs .. " seconds"
+
+
+				print("** Player results")
+				print("** Player results:"..chat_Soldiername .." - Total logins:"..chat_PlayerLogins.." - You VU Guid:"..chat_VU_GUID)
+				print("** Player results:"..chat_Soldiername .." - Your IP on first login:"..chat_IP.." - your country:"..chat_CountryName.." - First login:"..chat_FirstSeenOnServer)
+				print("** Player results:"..chat_Soldiername .." - Total rounds played:"..chat_Rounds.." - Total playtime:"..chat_PlayTime)
+
+
+				ChatManager:SendMessage("your country:"..chat_CountryName.." - First login:"..chat_FirstSeenOnServer, player)
+				ChatManager:SendMessage("Your VU Guid:"..chat_VU_GUID, player)
+				ChatManager:SendMessage("Your IP on first login:"..chat_IP, player)
+				ChatManager:SendMessage("Total logins:"..chat_PlayerLogins.." - Total rounds played:"..chat_Rounds, player)
+				ChatManager:SendMessage("Total playtime:"..chat_PlayTime, player)
+
+		end
+	end
+end)
+
+
+-- ------------------
+
 Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 	if message == ".serverstats" then
 		ChatManager:SendMessage("Fetching global serverstats", player)
