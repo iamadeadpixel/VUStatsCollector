@@ -27,6 +27,7 @@ Events:Subscribe('Level:Loaded', function()
 
 	s_startroundtime = os.date('%Y-%m-%d %H:%M:%S')
 	roundoverstate = false
+	print("LEVEL LOADED: roundoverstate = false")
 	print("** reseting stuff **")
 end)
 
@@ -90,9 +91,6 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 					return
 				end
 
-
-
-
 				print(" ");
 				print('*** UpdateCheckInfo: ** Done Updating Player information on joining the server **')
 				print("*** UpdateCheckInfo: Player new login times " .. s_PlayerLogins)
@@ -112,9 +110,6 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 					print('Failed to execute name change for tbl_playerdata query: ' .. SQL:Error())
 					return
 				end
-
-				--	WHERE Soldiername = ?
-				--	, temp_PlayerName
 
 				mytables = {
 					"tbl_air_vehicles",
@@ -171,16 +166,15 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 		-- Fully working thanks to Bree_Arnold
 		-- Used the EXTERNAL IP from server
 		---@param response HttpResponse
-		Net:GetHTTPAsync('https://api.cleantalk.org/?method_name=ip_info&ip=' .. s_ServerIP, -- Using a external fetch for the IP
-			function(response) -- Using the external IP fetched by the json
---		Net:GetHTTPAsync('https://api.cleantalk.org/?method_name=ip_info&ip='..s_playerIP, function (response) -- Using the Internal fetched IP by the player login
+--		Net:GetHTTPAsync('https://api.cleantalk.org/?method_name=ip_info&ip='..s_ServerIP, function (response) -- Using the external IP fetched by the json
+		Net:GetHTTPAsync('https://api.cleantalk.org/?method_name=ip_info&ip='..s_playerIP, function (response) -- Using the Internal fetched IP by the player login
 				if response.status ~= 200 then return end
 
 				local s_Response = json.decode(response.body)
-				cc_CountryName = s_Response.data[s_ServerIP].country_name -- Using the external IP fetched by the json
-				cn_CountryCode = s_Response.data[s_ServerIP].country_code -- Using the external IP fetched by the json
-				--	cc_CountryName = s_Response.data[s_playerIP].country_name -- Using the internal IP fetched by the json -- Using the Internal fetched IP by the player login
-				--	cn_CountryCode = s_Response.data[s_playerIP].country_code -- Using the internal IP fetched by the json -- Using the Internal fetched IP by the player login
+--				cc_CountryName = s_Response.data[s_ServerIP].country_name -- Using the external IP fetched by the json
+--				cn_CountryCode = s_Response.data[s_ServerIP].country_code -- Using the external IP fetched by the json
+				cc_CountryName = s_Response.data[s_playerIP].country_name -- Using the internal IP fetched by the json -- Using the Internal fetched IP by the player login
+				cn_CountryCode = s_Response.data[s_playerIP].country_code -- Using the internal IP fetched by the json -- Using the Internal fetched IP by the player login
 
 				s_CountryCode = tostring(cn_CountryCode)
 				s_CountryName = tostring(cc_CountryName)
@@ -218,13 +212,12 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 				s_Query =
 				'INSERT INTO tbl_playerdata     (Soldiername,  PlayerLogins,    VU_GUID,         IP,      CountryCode,   CountryName,   FirstSeenOnServer, LastSeenOnServer,  Rounds, PlayTime) VALUES (?,?,?,?,?,?,?,?,?,?)'
 				if not SQL:Query(s_Query, s_player, 1, s_accountGuid, s_playerIP, s_CountryCode, s_CountryName, s_FirstSeenDate, s_FirstSeenDate, 0, 0) then
-					--			if not SQL:Query(s_Query,    s_player,         1,       s_playerGuid,  s_playerIP, s_CountryCode, s_CountryName,   s_FirstSeenDate,   s_FirstSeenDate,     0,       0 ) then
+--				if not SQL:Query(s_Query,    s_player,         1,       s_playerGuid,  s_playerIP, s_CountryCode, s_CountryName,   s_FirstSeenDate,   s_FirstSeenDate,     0,       0 ) then
 					print('Failed to execute query: ' .. SQL:Error())
 					return
 				end
 
-				s_Query =
-				'INSERT INTO tbl_playerstats    (Soldiername,  Score, Kills, Deaths, Suicide, Headshots, TeamKilled, Dogtags, Revives) VALUES (?,?,?,?,?,?,?,?,?)'
+				s_Query ='INSERT INTO tbl_playerstats    (Soldiername,  Score, Kills, Deaths, Suicide, Headshots, TeamKilled, Dogtags, Revives) VALUES (?,?,?,?,?,?,?,?,?)'
 				if not SQL:Query(s_Query, s_player, 0, 0, 0, 0, 0, 0, 0, 0) then
 					print('Failed to execute query: ' .. SQL:Error())
 					return
