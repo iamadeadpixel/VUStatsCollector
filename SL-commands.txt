@@ -68,4 +68,6 @@
 .top map rush
 .top map sqrush
 .top map ts
-
+.top map tdm
+.top map sqtdm
+.top map cqtdm
