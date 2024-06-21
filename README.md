@@ -1,10 +1,10 @@
-Statscollector.
+#Statscollector.
 
-the VU alternative for procon's chatguidstatslogger
-heavy work in progress, not yet useable for a live server.
-use at own risk.
+.the VU alternative for procon's chatguidstatslogger
+.heavy work in progress, not yet useable for a live server.
+.use at own risk.
 
-3.0.1 : Full revamp
+#3.0.1 : Full revamp
 .now only kills from humans got collected.
 #
 Some code used from: Doc-Ice-Elm, Joe_91
