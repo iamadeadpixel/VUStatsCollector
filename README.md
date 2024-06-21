@@ -2,11 +2,10 @@ Statscollector.
 
 the VU alternative for procon's chatguidstatslogger
 heavy work in progress, not yet useable for a live server.
-
-Ups, missed some tdm commands in the documentation
-this is updated.
+use at own risk.
 
 3.0.1 : Full revamp
+.now only kills from humans got collected.
 #
 Some code used from: Doc-Ice-Elm, Joe_91
 Code fixes: Bree_Arnold and Doc-Ice-Elm, Jassent, IllustrisJack, Bree_Arnold
