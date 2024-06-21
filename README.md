@@ -1,10 +1,10 @@
-#Statscollector.
+Statscollector.
 
-.the VU alternative for procon's chatguidstatslogger
-.heavy work in progress, not yet useable for a live server.
-.use at own risk.
+the VU alternative for procon's chatguidstatslogger
+heavy work in progress, not yet useable for a live server.
+use at own risk.
 
-#3.0.1 : Full revamp
+3.0.1 : Full revamp
 .now only kills from humans got collected.
 #
 Some code used from: Doc-Ice-Elm, Joe_91
@@ -18,4 +18,5 @@ use at own risc, the mod is working, but still needs some masive tweaks.
 
 Known isues: The player who made the last kill still wil not be counted for stats update (randomly), a fix is needed..
 Known isues: The roadkill stuff doesnt work yet as it should be..
+Known isues: Randomly for some stupid reasons, new kills are not registered while they exist.
 
