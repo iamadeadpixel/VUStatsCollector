@@ -32,6 +32,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 -- Here update the round table in the tbl_playerdata database
 			print("")
 			print("Round is over, Writing player round data")
+			print("Updating tbl_playerdata")
 			print("")
 
 			-- No BS mode needed, default data is written when the player joinded the first time
@@ -168,7 +169,9 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 
 -- Here we update tbl_playerstats database with player data
 
-			print(" Reading tbl_playerstats and updating them")
+			print("")
+			print("Reading tbl_playerstats and updating them")
+			print("")
 
 			for playerK, PDscore in pairs(playerscore) do
 				;
