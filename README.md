@@ -4,8 +4,10 @@ the VU alternative for procon's chatguidstatslogger
 heavy work in progress, not yet useable for a live server.
 use at own risk.
 
-3.0.1 : Full revamp
+3.0.3 : Full revamp annd more fixed
 .now only kills from humans got collected.
+Needed to do that what i wanted to avoid.
+BUT.....it works..
 #
 Some code used from: Doc-Ice-Elm, Joe_91
 Code fixes: Bree_Arnold and Doc-Ice-Elm, Jassent, IllustrisJack, Bree_Arnold
@@ -16,7 +18,7 @@ See SL-commands for ingame commands
 WARNING !
 use at own risc, the mod is working, but still needs some masive tweaks.
 
-Known isues: The player who made the last kill still wil not be counted for stats update (randomly), a fix is needed..
-Known isues: The roadkill stuff doesnt work yet as it should be..
-Known isues: Randomly for some stupid reasons, new kills are not registered while they exist.
+solved/Known isues: The player who made the last kill still wil not be counted for stats update (randomly), a fix is needed..
+solved/Known isues: The roadkill stuff doesnt work yet as it should be..
+Solved/Known isues: Randomly for some stupid reasons, new kills are not registered while they exist.
 

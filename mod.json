@@ -1,8 +1,8 @@
 {
 	"Name": "StatsCollector",
 	"Description": "Collects all stats possible.",
-	"Version": "3.0.1",
-	"Reason": "Full revamp",
+	"Version": "3.0.5",
+	"Reason": "Full revamp and fixes",
 	"Authors": ["Iamadeadpixel, and many more"],
 	"URL": "none",
 	"Tags": ["statscollector"], 
