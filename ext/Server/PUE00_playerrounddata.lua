@@ -141,6 +141,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				return
 			end
 
+			print("")
 			print("*** Done reading RoundID's ***");
 
 			-- Print the fetched rows.
@@ -286,6 +287,8 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 
 -- This stuff should update all vehicle and weapon table data.
 
+			print("")
+			print("")
 			print(" Reading weapon kills from collected tables")
 
 			-- --------------------------------------------------
