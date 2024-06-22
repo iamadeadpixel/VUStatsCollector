@@ -171,15 +171,15 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 		-- Fully working thanks to Bree_Arnold
 		-- Used the EXTERNAL IP from server
 		---@param response HttpResponse
-	Net:GetHTTPAsync('https://api.cleantalk.org/?method_name=ip_info&ip='..s_ServerIP, function (response) -- Using the external IP fetched by the json
---	Net:GetHTTPAsync('https://api.cleantalk.org/?method_name=ip_info&ip='..s_playerIP, function (response) -- Using the Internal fetched IP by the player login
+--	Net:GetHTTPAsync('https://api.cleantalk.org/?method_name=ip_info&ip='..s_ServerIP, function (response) -- Using the external IP fetched by the json
+	Net:GetHTTPAsync('https://api.cleantalk.org/?method_name=ip_info&ip='..s_playerIP, function (response) -- Using the Internal fetched IP by the player login
 				if response.status ~= 200 then return end
 
 				local s_Response = json.decode(response.body)
-	cc_CountryName = s_Response.data[s_ServerIP].country_name -- Using the external IP fetched by the json
-	cn_CountryCode = s_Response.data[s_ServerIP].country_code -- Using the external IP fetched by the json
---	cc_CountryName = s_Response.data[s_playerIP].country_name -- Using the internal IP fetched by the json -- Using the Internal fetched IP by the player login
---	cn_CountryCode = s_Response.data[s_playerIP].country_code -- Using the internal IP fetched by the json -- Using the Internal fetched IP by the player login
+--	cc_CountryName = s_Response.data[s_ServerIP].country_name -- Using the external IP fetched by the json
+--	cn_CountryCode = s_Response.data[s_ServerIP].country_code -- Using the external IP fetched by the json
+	cc_CountryName = s_Response.data[s_playerIP].country_name -- Using the internal IP fetched by the json -- Using the Internal fetched IP by the player login
+	cn_CountryCode = s_Response.data[s_playerIP].country_code -- Using the internal IP fetched by the json -- Using the Internal fetched IP by the player login
 
 				s_CountryCode = tostring(cn_CountryCode)
 				s_CountryName = tostring(cc_CountryName)
