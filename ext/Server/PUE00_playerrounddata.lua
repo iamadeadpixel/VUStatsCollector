@@ -30,31 +30,38 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 -- --------------------------------------------------
 
 -- Here update the round table in the tbl_playerdata database
+	print ("")
+	print ("*** Start section 01 ***")
+	print ("")
 			print("")
 			print("Round is over, Writing player round data")
-			print("Updating tbl_playerdata")
+			print("Updating tbl_playerdata player round ID")
 			print("")
 
-			-- No BS mode needed, default data is written when the player joinded the first time
-			if player.name == getnamehuman[player.name] then -- if we dont do this, things wil go wrong.
+			if player.name == getnamehuman[player.name] then
 
 				if not SQL:Query('UPDATE tbl_playerdata SET Rounds=Rounds+?  WHERE Soldiername = ?', 1, getnamehuman[player.name]) then
 					print('Failed to execute Update Rounds query: ' .. SQL:Error())
 					return
 				end
 			end
+	print ("")
+	print ("*** end section 01 ***")
+	print ("")
 
 -- --------------------------------------------------
 -- --------------------------------------------------
 -- --------------------------------------------------
 
--- Here we update tbl_serverstats database with new player data.
+-- Here we update tbl_serverstats database with new player score data.
+	print ("")
+	print ("*** Start section 02 ***")
+	print ("")
 
 			pc = PlayerManager:GetPlayerCount()
 
 			print("")
-			print("Dumping all score data")
-			print("")
+			print("** Start of score report **")
 
 			for playername1, scoreUS in pairs(playerscore1) do
 				teamscoreUS = teamscoreUS + scoreUS
@@ -76,73 +83,70 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 
 			--
 
-			for playertk, tk in pairs(playerteamkilled) do
-				eor_teamskills = eor_teamskills + tk
+			for playerdata, tabledata in pairs(playerteamkilled) do
+				eor_teamskills = eor_teamskills + tabledata
 			end
 
-			for playerdt, dt in pairs(playerdogtags) do
-				eor_dogtags = eor_dogtags + dt
+			for playerdata, tabledata in pairs(playerdogtags) do
+				eor_dogtags = eor_dogtags + tabledata
 			end
 
-			for playerhs, hs in pairs(playerheadshot) do
-				eor_headshots = eor_headshots + hs
+			for playerdata, tabledata in pairs(playerheadshot) do
+				eor_headshots = eor_headshots + tabledata
 			end
 
-			for playerds, ds in pairs(playerdeaths) do
-				eor_deaths = eor_deaths + ds
+			for playerdata, tabledata in pairs(playerdeaths) do
+				eor_deaths = eor_deaths + tabledata
 			end
 
-			for playerks, ks in pairs(playerkills) do
-				eor_kills = eor_kills + ks
+			for playerdata, tabledata in pairs(playerkills) do
+				eor_kills = eor_kills + tabledata
 			end
 
-			for playersc, sc in pairs(playersuicides) do
-				eor_suicides = eor_suicides + sc
+			for playerdata, tabledata in pairs(playersuicides) do
+				eor_suicides = eor_suicides + tabledata
 			end
 
-			for playerrv, rv in pairs(playerrevivs) do
-				eor_revives = eor_revives + rv
+			for playerdata, tabledata in pairs(playerrevivs) do
+				eor_revives = eor_revives + tabledata
 			end
 
-			for playerK, Kkills in pairs(kill_roadkills) do
-				eor_roadkills = eor_roadkills + Kkills
+			for playerdata, tabledata in pairs(kill_roadkills) do
+				eor_roadkills = eor_roadkills + tabledata
 			end
-
-
-			print("")
-			print("** Gamemode:" ..s_GameMode .." - Mapname:" ..s_LevelName .. " - Winning team:" .. n_winningTeam .. " - Total players this round:" .. pc)
-			print("** Time round start:" ..s_startroundtime .. " - Time round end:" ..s_endroundtime .. " - Total round time:" .. s_roundTime .. " Seconds **")
-
+--
+			print("Session stats - Gamemode:" ..s_GameMode .." - Mapname:" ..s_LevelName .. " - Winning team:" .. n_winningTeam .. " - Total players this round:" .. pc)
+			print("Session stats - Time round start:" ..s_startroundtime .. " - Time round end:" ..s_endroundtime .. " - Total round time:" .. s_roundTime .. " Seconds **")
 			print("Session stats - total kills:" ..eor_kills .." - Total Deaths:" ..eor_deaths .. " - Total Headshots:" .. eor_headshots .. " - Total Roadkills:" .. eor_roadkills)
 			print("Session stats - Total Dogtags:" ..eor_dogtags .." - Total TeamKills:" .. eor_teamskills .." - Total suicides:" .. eor_suicides .. " - Total Revives:" .. eor_revives)
-
-			print("Team1 score:" ..teamscoreUS .." - Team2 score:" ..teamscoreRU .." - Team3 score:" ..teamscore3 .. " - Team4 score:" .. teamscore4 .. " - Total round score:" .. serverscore)
+			print("Session stats - Team1 score:" ..teamscoreUS .." - Team2 score:" ..teamscoreRU .." - Team3 score:" ..teamscore3 .. " - Team4 score:" .. teamscore4 .. " - Total round score:" .. serverscore)
 			print("")
-
-			print("** End of score report **")
-			print("")
-			print("Updating tbl_serverstats with new data")
 
 			if not SQL:Query('UPDATE tbl_serverstats SET SumScore=SumScore+?, SumKills=SumKills+?, SumDeaths=SumDeaths+?, SumSuicide=SumSuicide+?, SumHeadshots=SumHeadshots+?, SumTeamKilled=SumTeamKilled+?, SumDogtags=SumDogtags+?, SumRevives=SumRevives+?, SumRounds=SumRounds+?, SumRoadkills=SumRoadkills+?, SumPlaytime=SumPlaytime+?', serverscore, eor_kills, eor_deaths, eor_suicides, eor_headshots, eor_teamskills, eor_dogtags, eor_revives, 1, eor_roadkills, s_roundTime) then
 				print('Failed to execute Update tbl_serverstats query: ' .. SQL:Error())
 				return
 			end
 
+	print ("")
+	print("** End of score report **")
+	print ("*** End section 02 ***")
+	print ("")
 
 -- --------------------------------------------------
 -- --------------------------------------------------
 -- --------------------------------------------------
 
 -- Here we update the map stats in tbl_mapstats database.
+	print ("")
+	print ("*** Start section 03 ***")
+	print ("")
 
+			print("*** Reading previous RoundID's ***");
 			local RoundID_results = SQL:Query('SELECT RoundID FROM tbl_mapstats')
 			if not RoundID_results then
 				print('Failed to read Guid query: ' .. SQL:Error())
 				return
 			end
-
-			print("")
-			print("*** Done reading RoundID's ***");
 
 			-- Print the fetched rows.
 			for _, l_Row in pairs(RoundID_results) do
@@ -151,24 +155,33 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 
 
 			if temp_RoundID == nil then temp_RoundID = 0; end
+			print("Previous roundID:" .. temp_RoundID)
 			s_RoundID = temp_RoundID + 1
-			print("Found this roundID:" .. temp_RoundID)
 
-			print("Updating tbl_mapstats with this data:" .. s_RoundID .. " - " ..s_startroundtime .. " - " .. s_endroundtime)
-			print("Updating tbl_mapstats with this data:" ..s_LevelName .. " - " .. s_GameMode .. " - " ..serverscore .. " - " .. s_roundTime .. " - " .. n_winningTeam .. " - " .. pc)
+			print("Updating tbl_mapstats with this data - Total rounds played:" .. s_RoundID)
+			print("Updating tbl_mapstats with this data - Roundstart time:" ..s_startroundtime .. " - Round over time:" .. s_endroundtime)
+			print("Updating tbl_mapstats with this data - Map name:" ..s_LevelName .. " - Game mode:" .. s_GameMode)
+			print("Updating tbl_mapstats with this data - Total score:" ..serverscore .. " - Round time:" .. s_roundTime .. " seconds - Winning team:" .. n_winningTeam .. " - Total players:" .. pc)
 
-
-			s_Query ='INSERT INTO tbl_mapstats         (RoundID,  TimeRoundStarted,  TimeRoundEnd,    MapName,    Gamemode,  Roundscore,   Roundtime,   winningTeam,  MaxPlayers) VALUES (?,?,?,?,?,?,?,?,?)'
-			if not SQL:Query(s_Query, s_RoundID, s_startroundtime, s_endroundtime, s_LevelName, s_GameMode, serverscore, s_roundTime, n_winningTeam, pc) then
+			s_Query ='INSERT INTO tbl_mapstats (RoundID,  TimeRoundStarted,  TimeRoundEnd,    MapName,    Gamemode,  Roundscore,   Roundtime,   winningTeam,  MaxPlayers) VALUES (?,?,?,?,?,?,?,?,?)'
+				if not SQL:Query(s_Query,  s_RoundID, s_startroundtime, s_endroundtime, s_LevelName, s_GameMode, serverscore, s_roundTime, n_winningTeam,     pc) then
 				print('Failed to execute query: ' .. SQL:Error())
 				return
 			end
+
+	print ("")
+	print ("*** End section 03 ***")
+	print ("")
 
 -- --------------------------------------------------
 -- --------------------------------------------------
 -- --------------------------------------------------
 
 -- Here we update tbl_playerstats database with player data
+-- needs atention,for some reason, sometimes it fails, specialy with more human players on the server
+	print ("")
+	print ("*** Start section 04 ***")
+	print ("")
 
 			print("")
 			print("Reading tbl_playerstats and updating them")
@@ -186,6 +199,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				end
 			end
 			--
+
 			for playerK, PDkills in pairs(playerkills) do
 				;
 				if playerK == getnamehuman[player.name] then
@@ -280,12 +294,18 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				end
 			end
 
+	print ("")
+	print ("*** End section 04 ***")
+	print ("")
 
 -- --------------------------------------------------
 -- --------------------------------------------------
 -- --------------------------------------------------
 
 -- This stuff should update all vehicle and weapon table data.
+	print ("")
+	print ("*** Start section 05 ***")
+	print ("")
 
 			print("")
 			print("")
@@ -3439,6 +3459,9 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				print("** last table done **")
 				print("")
 
+	print ("")
+	print ("*** End section 05 ***")
+	print ("")
 
 -- --------------------------------------------------
 -- --------------------------------------------------
