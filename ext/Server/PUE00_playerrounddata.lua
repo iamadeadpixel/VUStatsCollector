@@ -12,7 +12,7 @@ end)
 
 -- Kick in when a player joins the server
 s_roundover_starttimer_PUE00 = os.time()
-s_roundover_timer_PUE00 = 3
+s_roundover_timer_PUE00 = 1
 
 -- --------------------------------------------------
 -- --------------------------------------------------
@@ -184,12 +184,11 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 	print ("")
 
 			print("")
-			print("Reading tbl_playerstats and updating them")
+			print("Reading tbl_playerstats and updating the player stats")
 			print("")
 
 			for playerK, PDscore in pairs(playerscore) do
-				;
-				if playerK == getnamehuman[player.name] then
+				if getnamehuman[player.name] == playerK then
 					print("End of round player report for " .. playerK .. " - Score:" .. PDscore)
 
 					if not SQL:Query('UPDATE tbl_playerstats SET Score=Score+? WHERE Soldiername = ?', PDscore, getnamehuman[player.name]) then
@@ -201,8 +200,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 			--
 
 			for playerK, PDkills in pairs(playerkills) do
-				;
-				if playerK == getnamehuman[player.name] then
+				if getnamehuman[player.name] == playerK then
 					print("End of round player report for " .. playerK .. " - Kills:" .. PDkills)
 
 					if not SQL:Query('UPDATE tbl_playerstats SET Kills=Kills+? WHERE Soldiername = ?', PDkills, getnamehuman[player.name]) then
@@ -212,9 +210,9 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				end
 			end
 			--
+
 			for playerK, PDdeaths in pairs(playerdeaths) do
-				;
-				if playerK == getnamehuman[player.name] then
+				if getnamehuman[player.name] == playerK then
 					print("End of round player report for " .. playerK .. " - Deaths:" .. PDdeaths)
 
 					if not SQL:Query('UPDATE tbl_playerstats SET Deaths=Deaths+? WHERE Soldiername = ?', PDdeaths, getnamehuman[player.name]) then
@@ -226,8 +224,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 			--
 
 			for playerK, PDsuicide in pairs(playersuicides) do
-				;
-				if playerK == getnamehuman[player.name] then
+				if getnamehuman[player.name] == playerK then
 					print("End of round player report for " .. playerK .. " - Suicides:" .. PDsuicide)
 
 					if not SQL:Query('UPDATE tbl_playerstats SET Suicide=Suicide+? WHERE Soldiername = ?', PDsuicide, getnamehuman[player.name]) then
@@ -237,9 +234,9 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				end
 			end
 			--
+
 			for playerK, PDheadshot in pairs(playerheadshot) do
-				;
-				if playerK == getnamehuman[player.name] then
+				if getnamehuman[player.name] == playerK then
 					print("End of round player report for " .. playerK .. " - Headshots:" .. PDheadshot)
 
 					if not SQL:Query('UPDATE tbl_playerstats SET Headshots=Headshots+? WHERE Soldiername = ?', PDheadshot, getnamehuman[player.name]) then
@@ -249,9 +246,9 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				end
 			end
 			--
+
 			for playerK, PDteamkilled in pairs(playerteamkilled) do
-				;
-				if playerK == getnamehuman[player.name] then
+				if getnamehuman[player.name] == playerK then
 					print("End of round player report for " .. playerK .. " - Teamkilled:" .. PDteamkilled)
 
 					if not SQL:Query('UPDATE tbl_playerstats SET TeamKilled=TeamKilled+? WHERE Soldiername = ?', PDteamkilled, getnamehuman[player.name]) then
@@ -261,9 +258,9 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				end
 			end
 			--
+
 			for playerK, PDdogtags in pairs(playerdogtags) do
-				;
-				if playerK == getnamehuman[player.name] then
+				if getnamehuman[player.name] == playerK then
 					print("End of round player report for " .. playerK .. " - Dogtags taken:" .. PDdogtags)
 
 					if not SQL:Query('UPDATE tbl_playerstats SET Dogtags=Dogtags+? WHERE Soldiername = ?', PDdogtags, getnamehuman[player.name]) then
@@ -273,9 +270,9 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				end
 			end
 			--
+
 			for playerK, PDrevives in pairs(playerrevivs) do
-				;
-				if playerK == getnamehuman[player.name] then
+				if getnamehuman[player.name] == playerK then
 					print("End of round player report for " .. playerK .. " - Revives:" .. PDrevives)
 
 					if not SQL:Query('UPDATE tbl_playerstats SET Revives=Revives+? WHERE Soldiername = ?', PDrevives, getnamehuman[player.name]) then
@@ -287,9 +284,9 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 			--
 
 -- Roadkills have its own tbl stuff
+
+				if getnamehuman[player.name] == playerK then
 			for playerK, PDroadkilled in pairs(kill_roadkills) do
-				;
-				if playerK == getnamehuman[player.name] then
 					print("End of round player report for " .. playerK .. " - roadkilled:" .. PDroadkilled)
 				end
 			end
@@ -307,8 +304,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 	print ("*** Start section 05 ***")
 	print ("")
 
-			print("")
-			print("")
 			print(" Reading weapon kills from collected tables")
 
 			-- --------------------------------------------------
@@ -324,7 +319,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "XBOW"
 				s_table = "tbl_auxiliary_gadgets"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -344,7 +338,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "KNIFE"
 				s_table = "tbl_auxiliary_gadgets"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -364,7 +357,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M67 GRENADE"
 				s_table = "tbl_auxiliary_gadgets"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -389,7 +381,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "P90"
 				s_table = "tbl_primary_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -409,7 +400,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "AS VAL"
 				s_table = "tbl_primary_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -429,7 +419,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M5K"
 				s_table = "tbl_primary_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -449,7 +438,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "MP7"
 				s_table = "tbl_primary_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -469,7 +457,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "PDW-R"
 				s_table = "tbl_primary_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -489,7 +476,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "PP-19"
 				s_table = "tbl_primary_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -509,7 +495,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "PP-2000"
 				s_table = "tbl_primary_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -529,7 +514,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "UMP-45"
 				s_table = "tbl_primary_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -554,7 +538,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = ".44 MAGNUM"
 				s_table = "tbl_handguns_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -574,7 +557,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "93R"
 				s_table = "tbl_handguns_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -594,7 +576,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "G17C"
 				s_table = "tbl_handguns_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -614,7 +595,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "G18"
 				s_table = "tbl_handguns_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -634,7 +614,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M1911"
 				s_table = "tbl_handguns_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -654,7 +633,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M9"
 				s_table = "tbl_handguns_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -674,7 +652,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "MP443"
 				s_table = "tbl_handguns_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -694,7 +671,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "MP412 REX"
 				s_table = "tbl_handguns_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -719,7 +695,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "870 MCS"
 				s_table = "tbl_shotguns_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -739,7 +714,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "DAO-12"
 				s_table = "tbl_shotguns_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -759,7 +733,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M1014"
 				s_table = "tbl_shotguns_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -779,7 +752,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "MK3A1"
 				s_table = "tbl_shotguns_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -799,7 +771,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "SAIGA 12K"
 				s_table = "tbl_shotguns_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -819,7 +790,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "SPAS-12"
 				s_table = "tbl_shotguns_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -839,7 +809,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "USAS-12"
 				s_table = "tbl_shotguns_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -864,7 +833,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "DEFIBRILLATOR"
 				s_table = "tbl_assault_gadgets"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -884,7 +852,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "GP-30 BUCK"
 				s_table = "tbl_assault_gadgets"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -904,7 +871,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "GP-30 DART"
 				s_table = "tbl_assault_gadgets"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -924,7 +890,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "GP-30 HE"
 				s_table = "tbl_assault_gadgets"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -944,7 +909,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "GP-30 LVG"
 				s_table = "tbl_assault_gadgets"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -964,7 +928,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "GP-30 SMOKE"
 				s_table = "tbl_assault_gadgets"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -984,7 +947,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M26 DART"
 				s_table = "tbl_assault_gadgets"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1004,7 +966,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M26 FRAG"
 				s_table = "tbl_assault_gadgets"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1024,7 +985,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M26 MASS"
 				s_table = "tbl_assault_gadgets"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1044,7 +1004,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M26 SLUG"
 				s_table = "tbl_assault_gadgets"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1064,7 +1023,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M320 BUCK"
 				s_table = "tbl_assault_gadgets"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1084,7 +1042,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M320 HE"
 				s_table = "tbl_assault_gadgets"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1104,7 +1061,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M320 LVG"
 				s_table = "tbl_assault_gadgets"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1124,7 +1080,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M320 SMOKE"
 				s_table = "tbl_assault_gadgets"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1144,7 +1099,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "MEDIC KIT"
 				s_table = "tbl_assault_gadgets"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1169,7 +1123,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "AEK-971"
 				s_table = "tbl_assault_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1189,7 +1142,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "AK-74M"
 				s_table = "tbl_assault_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1209,7 +1161,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "AN-94"
 				s_table = "tbl_assault_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1229,7 +1180,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "AUG A3"
 				s_table = "tbl_assault_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1249,7 +1199,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "F2000"
 				s_table = "tbl_assault_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1269,7 +1218,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "FAMAS"
 				s_table = "tbl_assault_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1289,7 +1237,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "G3A3"
 				s_table = "tbl_assault_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1309,7 +1256,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "KH2002"
 				s_table = "tbl_assault_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1329,7 +1275,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "L85A2"
 				s_table = "tbl_assault_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1349,7 +1294,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M16A3"
 				s_table = "tbl_assault_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1369,7 +1313,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M16A4"
 				s_table = "tbl_assault_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1389,7 +1332,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M416"
 				s_table = "tbl_assault_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1409,7 +1351,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "SCAR-L"
 				s_table = "tbl_assault_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1434,7 +1375,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "EOD BOT"
 				s_table = "tbl_engineer_gadgets"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1454,7 +1394,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "FGM-148 JAVELIN"
 				s_table = "tbl_engineer_gadgets"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1474,7 +1413,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "FIM-92 STINGER"
 				s_table = "tbl_engineer_gadgets"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1494,7 +1432,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M15 AT MINE"
 				s_table = "tbl_engineer_gadgets"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1514,7 +1451,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "REPAIR TOOL"
 				s_table = "tbl_engineer_gadgets"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1534,7 +1470,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "RPG-7V2"
 				s_table = "tbl_engineer_gadgets"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1554,7 +1489,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "SA-18 IGLA"
 				s_table = "tbl_engineer_gadgets"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1574,7 +1508,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "SMAW"
 				s_table = "tbl_engineer_gadgets"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1599,7 +1532,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "A-91"
 				s_table = "tbl_engineer_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1619,7 +1551,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "ACW-R"
 				s_table = "tbl_engineer_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1639,7 +1570,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "AKS-74u"
 				s_table = "tbl_engineer_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1659,7 +1589,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "G36C"
 				s_table = "tbl_engineer_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1679,7 +1608,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "G53"
 				s_table = "tbl_engineer_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1699,7 +1627,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M4"
 				s_table = "tbl_engineer_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1719,7 +1646,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M4A1"
 				s_table = "tbl_engineer_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1739,7 +1665,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "MTAR-21"
 				s_table = "tbl_engineer_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1759,7 +1684,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "QBZ-95B"
 				s_table = "tbl_engineer_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1779,7 +1703,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "SCAR-H"
 				s_table = "tbl_engineer_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1799,7 +1722,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "SG553"
 				s_table = "tbl_engineer_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1824,7 +1746,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M224 MORTAR"
 				s_table = "tbl_support_gadgets"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1844,7 +1765,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "AMMO BOX"
 				s_table = "tbl_support_gadgets"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1864,7 +1784,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "C4 EXPLOSIVES"
 				s_table = "tbl_support_gadgets"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1884,7 +1803,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M18 CLAYMORE"
 				s_table = "tbl_support_gadgets"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1909,7 +1827,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "L86A2"
 				s_table = "tbl_support_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1929,7 +1846,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "LSAT"
 				s_table = "tbl_support_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1949,7 +1865,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M240B"
 				s_table = "tbl_support_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1969,7 +1884,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M249"
 				s_table = "tbl_support_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -1989,7 +1903,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M27 IAR"
 				s_table = "tbl_support_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2009,7 +1922,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M60E4"
 				s_table = "tbl_support_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2029,7 +1941,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "MG36"
 				s_table = "tbl_support_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2049,7 +1960,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "PKP PECHENEG"
 				s_table = "tbl_support_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2069,7 +1979,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "QBB-95"
 				s_table = "tbl_support_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2089,7 +1998,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "RPK-74M"
 				s_table = "tbl_support_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2109,7 +2017,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "TYPE 88 LMG"
 				s_table = "tbl_support_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2134,7 +2041,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "MAV"
 				s_table = "tbl_recon_gadgets"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2154,7 +2060,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "RADIO BEACON"
 				s_table = "tbl_recon_gadgets"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2174,7 +2079,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "SOFLAM"
 				s_table = "tbl_recon_gadgets"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2194,7 +2098,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "T-UGS"
 				s_table = "tbl_recon_gadgets"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2219,7 +2122,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "JNG-90"
 				s_table = "tbl_recon_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2239,7 +2141,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "L96"
 				s_table = "tbl_recon_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2259,7 +2160,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M39 EMR"
 				s_table = "tbl_recon_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2279,7 +2179,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M40A5"
 				s_table = "tbl_recon_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2299,7 +2198,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M417"
 				s_table = "tbl_recon_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2319,7 +2217,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M98B"
 				s_table = "tbl_recon_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2339,7 +2236,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "MK11 MOD 0"
 				s_table = "tbl_recon_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2359,7 +2255,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "QBU-88"
 				s_table = "tbl_recon_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2379,7 +2274,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "SKS"
 				s_table = "tbl_recon_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2399,7 +2293,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "SV98"
 				s_table = "tbl_recon_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2419,7 +2312,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "SVD"
 				s_table = "tbl_recon_weapons"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2450,7 +2342,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "A-10 THUNDERBOLT"
 				s_table = "tbl_air_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2470,7 +2361,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "AH-1Z VIPER"
 				s_table = "tbl_air_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2490,7 +2380,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "AH-6J LITTLE BIRD"
 				s_table = "tbl_air_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2510,7 +2399,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "F-35"
 				s_table = "tbl_air_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2530,7 +2418,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "F/A-18E SUPER HORNET"
 				s_table = "tbl_air_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2550,7 +2437,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "GUNSHIP"
 				s_table = "tbl_air_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2570,7 +2456,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "KA-60 KASATKA"
 				s_table = "tbl_air_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2590,7 +2475,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "MI-28 HAVOC"
 				s_table = "tbl_air_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2610,7 +2494,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "SU-25TM FROGFOOT"
 				s_table = "tbl_air_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2630,7 +2513,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "SU-35BM FLANKER-E"
 				s_table = "tbl_air_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2650,7 +2532,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "SU-37"
 				s_table = "tbl_air_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2670,7 +2551,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "TV MISSILE"
 				s_table = "tbl_air_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2690,7 +2570,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "UH-1Y VENOM"
 				s_table = "tbl_air_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2710,7 +2589,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "Z-11W"
 				s_table = "tbl_air_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2735,7 +2613,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "9K22 TUNGUSKA-M"
 				s_table = "tbl_land_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2755,7 +2632,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "9M133 KORNET LAUNCHER"
 				s_table = "tbl_land_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2775,7 +2651,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "AAV-7A1 AMTRAC"
 				s_table = "tbl_land_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2795,7 +2670,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "BARSUK"
 				s_table = "tbl_land_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2815,7 +2689,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "BM-23"
 				s_table = "tbl_land_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2835,7 +2708,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "BMP-2M"
 				s_table = "tbl_land_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2855,7 +2727,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "BTR-90"
 				s_table = "tbl_land_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2875,7 +2746,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "CENTURION C-RAM"
 				s_table = "tbl_land_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2895,7 +2765,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "CIVILIAN CAR"
 				s_table = "tbl_land_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2915,7 +2784,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "DELIVERY VAN"
 				s_table = "tbl_land_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2935,7 +2803,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "DIRTBIKE"
 				s_table = "tbl_land_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2955,7 +2822,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "DPV"
 				s_table = "tbl_land_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2975,7 +2841,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "GAZ-3937 VODNIK"
 				s_table = "tbl_land_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -2995,7 +2860,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "GROWLER ITV"
 				s_table = "tbl_land_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -3015,7 +2879,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "HMMWV ASRAD"
 				s_table = "tbl_land_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -3035,7 +2898,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "LAV-25"
 				s_table = "tbl_land_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -3055,7 +2917,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "LAV-AD"
 				s_table = "tbl_land_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -3075,7 +2936,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M1 ABRAMS"
 				s_table = "tbl_land_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -3095,7 +2955,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M1114 HMMWV"
 				s_table = "tbl_land_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -3115,7 +2974,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M1128"
 				s_table = "tbl_land_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -3135,7 +2993,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M142"
 				s_table = "tbl_land_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -3155,7 +3012,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M220 TOW LAUNCHER"
 				s_table = "tbl_land_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -3175,7 +3031,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "PANTSIR-S1"
 				s_table = "tbl_land_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -3195,7 +3050,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "PHOENIX"
 				s_table = "tbl_land_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -3215,7 +3069,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "POLICE VAN"
 				s_table = "tbl_land_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -3235,7 +3088,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "QUAD BIKE"
 				s_table = "tbl_land_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -3255,7 +3107,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "RHIB BOAT"
 				s_table = "tbl_land_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -3275,7 +3126,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "RHINO"
 				s_table = "tbl_land_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -3295,7 +3145,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "SKID LOADER"
 				s_table = "tbl_land_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -3315,7 +3164,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "SPRUT-SD"
 				s_table = "tbl_land_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -3335,7 +3183,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "SUV"
 				s_table = "tbl_land_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -3355,7 +3202,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "T-90A"
 				s_table = "tbl_land_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -3375,7 +3221,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "TECHNICAL TRUCK"
 				s_table = "tbl_land_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -3395,7 +3240,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "VDV Buggy"
 				s_table = "tbl_land_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -3415,7 +3259,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "VODNIK AA"
 				s_table = "tbl_land_vehicles"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -3440,7 +3283,6 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "Roadkills"
 				s_table = "tbl_roadkills"
 				s1 = "(1):Updateing playerdata only"
-				s3 = "(3):New player entries"
 				--
 				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
@@ -3457,7 +3299,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 
 				print("")
 				print("** last table done **")
-				print("")
+--				print("")
 
 	print ("")
 	print ("*** End section 05 ***")
@@ -3496,8 +3338,8 @@ function updateweaponkillstats(player, data_playername)
 
 	if founddata_Soldiername == nil then founddata_Soldiername = "no soldier found" ; end
 	if founddata_Weaponname == nil then founddata_Weaponname = "no weapon found" ; end
-	print ("player found:"..founddata_Soldiername)
-	print ("weapon found:"..founddata_Weaponname)
+--	print ("player found:"..founddata_Soldiername)
+--	print ("weapon found:"..founddata_Weaponname)
 
 		-- Updating existing playerdata
 		if founddata_Soldiername == data_playername and founddata_Weaponname == s_weapon then
