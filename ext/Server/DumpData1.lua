@@ -49,6 +49,7 @@ for data_playername, pname in pairs(playerscollected) do
 		chat_TeamKilled = playerteamkilled[pname]
 		chat_roadkills = kill_roadkills[pname]
 
+	if getnamehuman[player.name] == pname then
 		print("** Fetching session data for " .. playerscollected[pname] .. " **");
 		print("** Player round results")
 		print("** Player results:" ..playerscollected[pname] .. " - Score:" .. chat_Score .. " - Kills:" .. chat_Kills .. " - Deaths:" .. chat_Deaths)
@@ -58,7 +59,7 @@ for data_playername, pname in pairs(playerscollected) do
 
 
 end
-
+end
 
 			tag = false -- ensure it prints one time only
 		end

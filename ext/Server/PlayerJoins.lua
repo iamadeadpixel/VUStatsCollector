@@ -11,7 +11,7 @@ end)
 
 -- init stuff
 CountPlayers = 0
---getnamehuman = {}  -- value is name
+getnamehuman = {}  -- value is name
 playerishuman = {} -- False or true
 
 Session_PlayTime_Start = {}
@@ -43,6 +43,7 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 	Session_PlayTime_Start[name] = os.time()
 
 	playerishuman[name] = true
+	getnamehuman[name] = name
 	playerscollected[name] = name
 	if playerscollected[name] then print("*** Human Player:" .. playerscollected[name] .. " Joined ***"); end
 	if playerishuman[name] then print("*** Human flag is set for " .. playerscollected[name]); end

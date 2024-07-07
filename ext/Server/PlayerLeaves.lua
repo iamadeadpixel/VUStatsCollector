@@ -69,6 +69,7 @@ Events:Subscribe('Player:Left', function(player)
 			print("Human player " .. playerscollected[player.name] .. " leaving the server, removing from DB")
 			Session_PlayTime_Start[player.name] = {}
 			Session_PlayTime_End[player.name] = {}
+			getnamehuman[player.name] = {}
 			playerishuman[player.name] = {}
 			playerscollected[player.name] = {}
 
