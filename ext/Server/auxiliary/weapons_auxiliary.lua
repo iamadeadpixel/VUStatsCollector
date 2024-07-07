@@ -56,17 +56,17 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 
 -- Print lines will be removed on the end
 
-	if getnamehuman[s_Inflictor.name] and args[7] == "M67 GRENADE" then
+	if playerscollected[s_Inflictor.name] and args[7] == "M67 GRENADE" then
 		if kill_M67_GRENADE[s_Inflictor.name] == nil then kill_M67_GRENADE[s_Inflictor.name] = 0; end
 	kill_M67_GRENADE[s_Inflictor.name] = kill_M67_GRENADE[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "XBOW" then
+	if playerscollected[s_Inflictor.name] and args[7] == "XBOW" then
 		if kill_XBOW[s_Inflictor.name] == nil then kill_XBOW[s_Inflictor.name] = 0; end
 	kill_XBOW[s_Inflictor.name] = kill_XBOW[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "KNIFE" or args[7] == "ACB-90" then
+	if playerscollected[s_Inflictor.name] and args[7] == "KNIFE" or args[7] == "ACB-90" then
 		if kill_KNIFE[s_Inflictor.name] == nil then kill_KNIFE[s_Inflictor.name] = 0; end
 	kill_KNIFE[s_Inflictor.name] = kill_KNIFE[s_Inflictor.name] + 1
         end

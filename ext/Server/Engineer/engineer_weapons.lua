@@ -56,57 +56,57 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 
 -- Print lines will be removed on the end
 
-	if getnamehuman[s_Inflictor.name] and args[7] == "A-91" then
+	if playerscollected[s_Inflictor.name] and args[7] == "A-91" then
 		if kill_A_91[s_Inflictor.name] == nil then kill_A_91[s_Inflictor.name] = 0; end
 	kill_A_91[s_Inflictor.name] = kill_A_91[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "ACW-R" then
+	if playerscollected[s_Inflictor.name] and args[7] == "ACW-R" then
 		if kill_ACW_R[s_Inflictor.name] == nil then kill_ACW_R[s_Inflictor.name] = 0; end
 	kill_ACW_R[s_Inflictor.name] = kill_ACW_R[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "AKS-74u" then
+	if playerscollected[s_Inflictor.name] and args[7] == "AKS-74u" then
 		if kill_AKS_74u[s_Inflictor.name] == nil then kill_AKS_74u[s_Inflictor.name] = 0; end
 	kill_AKS_74u[s_Inflictor.name] = kill_AKS_74u[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "G36C" then
+	if playerscollected[s_Inflictor.name] and args[7] == "G36C" then
 		if kill_G36C[s_Inflictor.name] == nil then kill_G36C[s_Inflictor.name] = 0; end
 	kill_G36C[s_Inflictor.name] = kill_G36C[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "G53" then
+	if playerscollected[s_Inflictor.name] and args[7] == "G53" then
 		if kill_G53[s_Inflictor.name] == nil then kill_G53[s_Inflictor.name] = 0; end
 	kill_G53[s_Inflictor.name] = kill_G53[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "M4" then
+	if playerscollected[s_Inflictor.name] and args[7] == "M4" then
 		if kill_M4[s_Inflictor.name] == nil then kill_M4[s_Inflictor.name] = 0; end
 	kill_M4[s_Inflictor.name] = kill_M4[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "M4A1" then
+	if playerscollected[s_Inflictor.name] and args[7] == "M4A1" then
 		if kill_M4A1[s_Inflictor.name] == nil then kill_M4A1[s_Inflictor.name] = 0; end
 	kill_M4A1[s_Inflictor.name] = kill_M4A1[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "MTAR-21" then
+	if playerscollected[s_Inflictor.name] and args[7] == "MTAR-21" then
 		if kill_MTAR_21[s_Inflictor.name] == nil then kill_MTAR_21[s_Inflictor.name] = 0; end
 	kill_MTAR_21[s_Inflictor.name] = kill_MTAR_21[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "QBZ-95B" then
+	if playerscollected[s_Inflictor.name] and args[7] == "QBZ-95B" then
 		if kill_QBZ_95B[s_Inflictor.name] == nil then kill_QBZ_95B[s_Inflictor.name] = 0; end
 	kill_QBZ_95B[s_Inflictor.name] = kill_QBZ_95B[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "SCAR-H" then
+	if playerscollected[s_Inflictor.name] and args[7] == "SCAR-H" then
 		if kill_SCAR_H[s_Inflictor.name] == nil then kill_SCAR_H[s_Inflictor.name] = 0; end
 	kill_SCAR_H[s_Inflictor.name] = kill_SCAR_H[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "SG553" then
+	if playerscollected[s_Inflictor.name] and args[7] == "SG553" then
 		if kill_SG553[s_Inflictor.name] == nil then kill_SG553[s_Inflictor.name] = 0; end
 	kill_SG553[s_Inflictor.name] = kill_SG553[s_Inflictor.name] + 1
         end

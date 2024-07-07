@@ -56,67 +56,67 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 
 -- Print lines will be removed on the end
 
-	if getnamehuman[s_Inflictor.name] and args[7] == "AEK-971" then
+	if playerscollected[s_Inflictor.name] and args[7] == "AEK-971" then
 		if kill_AEK_971[s_Inflictor.name] == nil then kill_AEK_971[s_Inflictor.name] = 0; end
 	kill_AEK_971[s_Inflictor.name] = kill_AEK_971[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "AK-74M" then
+	if playerscollected[s_Inflictor.name] and args[7] == "AK-74M" then
 		if kill_AK_74M[s_Inflictor.name] == nil then kill_AK_74M[s_Inflictor.name] = 0; end
 	kill_AK_74M[s_Inflictor.name] = kill_AK_74M[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "AN-94" then
+	if playerscollected[s_Inflictor.name] and args[7] == "AN-94" then
 		if kill_AN_94[s_Inflictor.name] == nil then kill_AN_94[s_Inflictor.name] = 0; end
 	kill_AN_94[s_Inflictor.name] = kill_AN_94[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "AUG A3" then
+	if playerscollected[s_Inflictor.name] and args[7] == "AUG A3" then
 		if kill_AUG_A3[s_Inflictor.name] == nil then kill_AUG_A3[s_Inflictor.name] = 0; end
 	kill_AUG_A3[s_Inflictor.name] = kill_AUG_A3[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "F2000" then
+	if playerscollected[s_Inflictor.name] and args[7] == "F2000" then
 		if kill_F2000[s_Inflictor.name] == nil then kill_F2000[s_Inflictor.name] = 0; end
 	kill_F2000[s_Inflictor.name] = kill_F2000[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "FAMAS" then
+	if playerscollected[s_Inflictor.name] and args[7] == "FAMAS" then
 		if kill_FAMAS[s_Inflictor.name] == nil then kill_FAMAS[s_Inflictor.name] = 0; end
 	kill_FAMAS[s_Inflictor.name] = kill_FAMAS[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "G3A3" then
+	if playerscollected[s_Inflictor.name] and args[7] == "G3A3" then
 		if kill_G3A3[s_Inflictor.name] == nil then kill_G3A3[s_Inflictor.name] = 0; end
 	kill_G3A3[s_Inflictor.name] = kill_G3A3[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "KH2002" then
+	if playerscollected[s_Inflictor.name] and args[7] == "KH2002" then
 		if kill_KH2002[s_Inflictor.name] == nil then kill_KH2002[s_Inflictor.name] = 0; end
 	kill_KH2002[s_Inflictor.name] = kill_KH2002[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "L85A2" then
+	if playerscollected[s_Inflictor.name] and args[7] == "L85A2" then
 		if kill_L85A2[s_Inflictor.name] == nil then kill_L85A2[s_Inflictor.name] = 0; end
 	kill_L85A2[s_Inflictor.name] = kill_L85A2[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "M16A3" then
+	if playerscollected[s_Inflictor.name] and args[7] == "M16A3" then
 		if kill_M16A3[s_Inflictor.name] == nil then kill_M16A3[s_Inflictor.name] = 0; end
 	kill_M16A3[s_Inflictor.name] = kill_M16A3[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "M16A4" then
+	if playerscollected[s_Inflictor.name] and args[7] == "M16A4" then
 		if kill_M16A4[s_Inflictor.name] == nil then kill_M16A4[s_Inflictor.name] = 0; end
 	kill_M16A4[s_Inflictor.name] = kill_M16A4[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "M416" then
+	if playerscollected[s_Inflictor.name] and args[7] == "M416" then
 		if kill_M416[s_Inflictor.name] == nil then kill_M416[s_Inflictor.name] = 0; end
 	kill_M416[s_Inflictor.name] = kill_M416[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "SCAR-L" then
+	if playerscollected[s_Inflictor.name] and args[7] == "SCAR-L" then
 		if kill_SCAR_L[s_Inflictor.name] == nil then kill_SCAR_L[s_Inflictor.name] = 0; end
 	kill_SCAR_L[s_Inflictor.name] = kill_SCAR_L[s_Inflictor.name] + 1
         end

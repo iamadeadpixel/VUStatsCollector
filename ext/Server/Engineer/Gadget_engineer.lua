@@ -56,42 +56,42 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 
 -- Print lines will be removed on the end
 
-	if getnamehuman[s_Inflictor.name] and args[7] == "EOD BOT" then
+	if playerscollected[s_Inflictor.name] and args[7] == "EOD BOT" then
 		if kill_EOD_BOT[s_Inflictor.name] == nil then kill_EOD_BOT[s_Inflictor.name] = 0; end
 	kill_EOD_BOT[s_Inflictor.name] = kill_EOD_BOT[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "FGM-148 JAVELIN" then
+	if playerscollected[s_Inflictor.name] and args[7] == "FGM-148 JAVELIN" then
 		if kill_FGM_148_JAVELIN[s_Inflictor.name] == nil then kill_FGM_148_JAVELIN[s_Inflictor.name] = 0; end
 	kill_FGM_148_JAVELIN[s_Inflictor.name] = kill_FGM_148_JAVELIN[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "FIM-92 STINGER" then
+	if playerscollected[s_Inflictor.name] and args[7] == "FIM-92 STINGER" then
 		if kill_FIM_92_STINGER[s_Inflictor.name] == nil then kill_FIM_92_STINGER[s_Inflictor.name] = 0; end
 	kill_FIM_92_STINGER[s_Inflictor.name] = kill_FIM_92_STINGER[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "M15 AT MINE" then
+	if playerscollected[s_Inflictor.name] and args[7] == "M15 AT MINE" then
 		if kill_M15_AT_MINE[s_Inflictor.name] == nil then kill_M15_AT_MINE[s_Inflictor.name] = 0; end
 	kill_M15_AT_MINE[s_Inflictor.name] = kill_M15_AT_MINE[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "REPAIR TOOL" then
+	if playerscollected[s_Inflictor.name] and args[7] == "REPAIR TOOL" then
 		if kill_REPAIR_TOOL[s_Inflictor.name] == nil then kill_REPAIR_TOOL[s_Inflictor.name] = 0; end
 	kill_REPAIR_TOOL[s_Inflictor.name] = kill_REPAIR_TOOL[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "RPG-7V2" then
+	if playerscollected[s_Inflictor.name] and args[7] == "RPG-7V2" then
 		if kill_RPG_7V2[s_Inflictor.name] == nil then kill_RPG_7V2[s_Inflictor.name] = 0; end
 	kill_RPG_7V2[s_Inflictor.name] = kill_RPG_7V2[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "SA-18 IGLA" then
+	if playerscollected[s_Inflictor.name] and args[7] == "SA-18 IGLA" then
 		if kill_SA_18_IGLA[s_Inflictor.name] == nil then kill_SA_18_IGLA[s_Inflictor.name] = 0; end
 	kill_SA_18_IGLA[s_Inflictor.name] = kill_SA_18_IGLA[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "SMAW" then
+	if playerscollected[s_Inflictor.name] and args[7] == "SMAW" then
 		if kill_SMAW[s_Inflictor.name] == nil then kill_SMAW[s_Inflictor.name] = 0; end
 	kill_SMAW[s_Inflictor.name] = kill_SMAW[s_Inflictor.name] + 1
         end

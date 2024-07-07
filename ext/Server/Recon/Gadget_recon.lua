@@ -56,22 +56,22 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 
 -- Print lines will be removed on the end
 
-	if getnamehuman[s_Inflictor.name] and args[7] == "MAV" then
+	if playerscollected[s_Inflictor.name] and args[7] == "MAV" then
 		if kill_MAV[s_Inflictor.name] == nil then kill_MAV[s_Inflictor.name] = 0; end
 	kill_MAV[s_Inflictor.name] = kill_MAV[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "RADIO BEACON" then
+	if playerscollected[s_Inflictor.name] and args[7] == "RADIO BEACON" then
 		if kill_RADIO_BEACON[s_Inflictor.name] == nil then kill_RADIO_BEACON[s_Inflictor.name] = 0; end
 	kill_RADIO_BEACON[s_Inflictor.name] = kill_RADIO_BEACON[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "SOFLAM" then
+	if playerscollected[s_Inflictor.name] and args[7] == "SOFLAM" then
 		if kill_SOFLAM[s_Inflictor.name] == nil then kill_SOFLAM[s_Inflictor.name] = 0; end
 	kill_SOFLAM[s_Inflictor.name] = kill_SOFLAM[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "T-UGS" then
+	if playerscollected[s_Inflictor.name] and args[7] == "T-UGS" then
 		if kill_T_UGS[s_Inflictor.name] == nil then kill_T_UGS[s_Inflictor.name] = 0; end
 	kill_T_UGS[s_Inflictor.name] = kill_T_UGS[s_Inflictor.name] + 1
         end

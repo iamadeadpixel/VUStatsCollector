@@ -38,13 +38,17 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 			print("Updating tbl_playerdata player round ID")
 			print("")
 
-			if player.name == getnamehuman[player.name] then
 
-				if not SQL:Query('UPDATE tbl_playerdata SET Rounds=Rounds+?  WHERE Soldiername = ?', 1, getnamehuman[player.name]) then
+			for playerround, rounddata in pairs(playerscollected) do
+			
+--			if player.name == playerscollected[player.name] then
+			print ("Updating tbl_playerdata rounds for "..playerscollected[rounddata])
+				if not SQL:Query('UPDATE tbl_playerdata SET Rounds=Rounds+?  WHERE Soldiername = ?', 1, playerscollected[rounddata]) then
 					print('Failed to execute Update Rounds query: ' .. SQL:Error())
 					return
-				end
+--				end
 			end
+	end
 	print ("")
 	print ("*** end section 01 ***")
 	print ("")
@@ -187,95 +191,95 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 			print("Reading tbl_playerstats and updating the player stats")
 			print("")
 
-			for playerK, PDscore in pairs(playerscore) do
-				if getnamehuman[player.name] == playerK then
-					print("End of round player report for " .. playerK .. " - Score:" .. PDscore)
+			for data_playername, PDscore in pairs(playerscore) do
+--				if playerscollected[player.name] == data_playername then
+					print("End of round player SCORE report for " .. data_playername .. " - Score:" .. PDscore)
 
-					if not SQL:Query('UPDATE tbl_playerstats SET Score=Score+? WHERE Soldiername = ?', PDscore, getnamehuman[player.name]) then
+					if not SQL:Query('UPDATE tbl_playerstats SET Score=Score+? WHERE Soldiername = ?', PDscore, playerscollected[data_playername]) then
 						print('Failed to execute Update query: ' .. SQL:Error()) -- If everything works, this would never be printed...
 						return
-					end
+--					end
 				end
 			end
 			--
 
-			for playerK, PDkills in pairs(playerkills) do
-				if getnamehuman[player.name] == playerK then
-					print("End of round player report for " .. playerK .. " - Kills:" .. PDkills)
+			for data_playername, PDkills in pairs(playerkills) do
+--				if playerscollected[player.name] == data_playername then
+					print("End of round player KILL report for " .. data_playername .. " - Kills:" .. PDkills)
 
-					if not SQL:Query('UPDATE tbl_playerstats SET Kills=Kills+? WHERE Soldiername = ?', PDkills, getnamehuman[player.name]) then
+					if not SQL:Query('UPDATE tbl_playerstats SET Kills=Kills+? WHERE Soldiername = ?', PDkills, playerscollected[data_playername]) then
 						print('Failed to execute Update query: ' .. SQL:Error()) -- If everything works, this would never be printed...
 						return
-					end
+--					end
 				end
 			end
 			--
 
-			for playerK, PDdeaths in pairs(playerdeaths) do
-				if getnamehuman[player.name] == playerK then
-					print("End of round player report for " .. playerK .. " - Deaths:" .. PDdeaths)
+			for data_playername, PDdeaths in pairs(playerdeaths) do
+--				if playerscollected[player.name] == data_playername then
+					print("End of round player DEATH report for " .. data_playername .. " - Deaths:" .. PDdeaths)
 
-					if not SQL:Query('UPDATE tbl_playerstats SET Deaths=Deaths+? WHERE Soldiername = ?', PDdeaths, getnamehuman[player.name]) then
+					if not SQL:Query('UPDATE tbl_playerstats SET Deaths=Deaths+? WHERE Soldiername = ?', PDdeaths, playerscollected[data_playername]) then
 						print('Failed to execute Update query: ' .. SQL:Error()) -- If everything works, this would never be printed...
 						return
-					end
+--					end
 				end
 			end
 			--
 
-			for playerK, PDsuicide in pairs(playersuicides) do
-				if getnamehuman[player.name] == playerK then
-					print("End of round player report for " .. playerK .. " - Suicides:" .. PDsuicide)
+			for data_playername, PDsuicide in pairs(playersuicides) do
+--				if playerscollected[player.name] == data_playername then
+					print("End of round player SUICIDE report for " .. data_playername .. " - Suicides:" .. PDsuicide)
 
-					if not SQL:Query('UPDATE tbl_playerstats SET Suicide=Suicide+? WHERE Soldiername = ?', PDsuicide, getnamehuman[player.name]) then
+					if not SQL:Query('UPDATE tbl_playerstats SET Suicide=Suicide+? WHERE Soldiername = ?', PDsuicide, playerscollected[data_playername]) then
 						print('Failed to execute Update query: ' .. SQL:Error()) -- If everything works, this would never be printed...
 						return
-					end
+--					end
 				end
 			end
 			--
 
-			for playerK, PDheadshot in pairs(playerheadshot) do
-				if getnamehuman[player.name] == playerK then
-					print("End of round player report for " .. playerK .. " - Headshots:" .. PDheadshot)
+			for data_playername, PDheadshot in pairs(playerheadshot) do
+--				if playerscollected[player.name] == data_playername then
+					print("End of round player HEADSHOT report for " .. data_playername .. " - Headshots:" .. PDheadshot)
 
-					if not SQL:Query('UPDATE tbl_playerstats SET Headshots=Headshots+? WHERE Soldiername = ?', PDheadshot, getnamehuman[player.name]) then
+					if not SQL:Query('UPDATE tbl_playerstats SET Headshots=Headshots+? WHERE Soldiername = ?', PDheadshot, playerscollected[data_playername]) then
 						print('Failed to execute Update query: ' .. SQL:Error()) -- If everything works, this would never be printed...
 						return
-					end
+--					end
 				end
 			end
 			--
 
-			for playerK, PDteamkilled in pairs(playerteamkilled) do
-				if getnamehuman[player.name] == playerK then
-					print("End of round player report for " .. playerK .. " - Teamkilled:" .. PDteamkilled)
+			for data_playername, PDteamkilled in pairs(playerteamkilled) do
+--				if playerscollected[player.name] == data_playername then
+					print("End of round player TEAMKILL report for " .. data_playername .. " - Teamkilled:" .. PDteamkilled)
 
-					if not SQL:Query('UPDATE tbl_playerstats SET TeamKilled=TeamKilled+? WHERE Soldiername = ?', PDteamkilled, getnamehuman[player.name]) then
+					if not SQL:Query('UPDATE tbl_playerstats SET TeamKilled=TeamKilled+? WHERE Soldiername = ?', PDteamkilled, playerscollected[data_playername]) then
 						print('Failed to execute Update query: ' .. SQL:Error()) -- If everything works, this would never be printed...
 						return
-					end
+--					end
 				end
 			end
 			--
 
-			for playerK, PDdogtags in pairs(playerdogtags) do
-				if getnamehuman[player.name] == playerK then
-					print("End of round player report for " .. playerK .. " - Dogtags taken:" .. PDdogtags)
+			for data_playername, PDdogtags in pairs(playerdogtags) do
+--				if playerscollected[player.name] == data_playername then
+					print("End of round player DOGTAG report for " .. data_playername .. " - Dogtags taken:" .. PDdogtags)
 
-					if not SQL:Query('UPDATE tbl_playerstats SET Dogtags=Dogtags+? WHERE Soldiername = ?', PDdogtags, getnamehuman[player.name]) then
+					if not SQL:Query('UPDATE tbl_playerstats SET Dogtags=Dogtags+? WHERE Soldiername = ?', PDdogtags, playerscollected[data_playername]) then
 						print('Failed to execute Update query: ' .. SQL:Error()) -- If everything works, this would never be printed...
 						return
-					end
+--					end
 				end
 			end
 			--
 
-			for playerK, PDrevives in pairs(playerrevivs) do
-				if getnamehuman[player.name] == playerK then
-					print("End of round player report for " .. playerK .. " - Revives:" .. PDrevives)
+			for data_playername, PDrevives in pairs(playerrevivs) do
+				if playerscollected[player.name] == data_playername then
+					print("End of round player REVIVE report for " .. data_playername .. " - Revives:" .. PDrevives)
 
-					if not SQL:Query('UPDATE tbl_playerstats SET Revives=Revives+? WHERE Soldiername = ?', PDrevives, getnamehuman[player.name]) then
+					if not SQL:Query('UPDATE tbl_playerstats SET Revives=Revives+? WHERE Soldiername = ?', PDrevives, playerscollected[data_playername]) then
 						print('Failed to execute Update query: ' .. SQL:Error()) -- If everything works, this would never be printed...
 						return
 					end
@@ -285,11 +289,11 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 
 -- Roadkills have its own tbl stuff
 
-				if getnamehuman[player.name] == playerK then
-			for playerK, PDroadkilled in pairs(kill_roadkills) do
-					print("End of round player report for " .. playerK .. " - roadkilled:" .. PDroadkilled)
-				end
-			end
+--			for data_playername, PDroadkilled in pairs(kill_roadkills) do
+--				if playerscollected[player.name] == data_playername then
+--					print("End of round player ROADKILL report for " .. PDroadkilled .. " - roadkilled:" .. PDroadkilled)
+--				end
+--			end
 
 	print ("")
 	print ("*** End section 04 ***")
@@ -321,7 +325,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -340,7 +344,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -359,7 +363,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -383,7 +387,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -402,7 +406,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -421,7 +425,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -440,7 +444,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -459,7 +463,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -478,7 +482,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -497,7 +501,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -516,7 +520,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -540,7 +544,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -559,7 +563,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -578,7 +582,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -597,7 +601,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -616,7 +620,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -635,7 +639,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -654,7 +658,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -673,7 +677,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -697,7 +701,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -716,7 +720,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -735,7 +739,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -754,7 +758,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -773,7 +777,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -792,7 +796,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -811,7 +815,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -835,7 +839,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -854,7 +858,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -873,7 +877,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -892,7 +896,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -911,7 +915,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -930,7 +934,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -949,7 +953,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -968,7 +972,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -987,7 +991,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1006,7 +1010,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1025,7 +1029,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1044,7 +1048,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1063,7 +1067,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1082,7 +1086,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1101,7 +1105,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1125,7 +1129,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1144,7 +1148,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1163,7 +1167,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1182,7 +1186,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1201,7 +1205,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1220,7 +1224,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1239,7 +1243,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1258,7 +1262,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1277,7 +1281,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1296,7 +1300,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1315,7 +1319,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1334,7 +1338,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1353,7 +1357,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1377,7 +1381,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1396,7 +1400,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1415,7 +1419,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1434,7 +1438,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1453,7 +1457,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1472,7 +1476,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1491,7 +1495,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1510,7 +1514,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1534,7 +1538,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1553,7 +1557,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1572,7 +1576,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1591,7 +1595,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1610,7 +1614,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1629,7 +1633,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1648,7 +1652,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1667,7 +1671,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1686,7 +1690,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1705,7 +1709,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1724,7 +1728,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1748,7 +1752,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1767,7 +1771,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1786,7 +1790,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1805,7 +1809,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1829,7 +1833,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1848,7 +1852,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1867,7 +1871,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1886,7 +1890,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1905,7 +1909,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1924,7 +1928,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1943,7 +1947,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1962,7 +1966,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -1981,7 +1985,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2000,7 +2004,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2019,7 +2023,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2043,7 +2047,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2062,7 +2066,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2081,7 +2085,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2100,7 +2104,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2124,7 +2128,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2143,7 +2147,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2162,7 +2166,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2181,7 +2185,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2200,7 +2204,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2219,7 +2223,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2238,7 +2242,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2257,7 +2261,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2276,7 +2280,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2295,7 +2299,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2314,7 +2318,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2344,7 +2348,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2363,7 +2367,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2382,7 +2386,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2401,7 +2405,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2420,7 +2424,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2439,7 +2443,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2458,7 +2462,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2477,7 +2481,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2496,7 +2500,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2515,7 +2519,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2534,7 +2538,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2553,7 +2557,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2572,7 +2576,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2591,7 +2595,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2615,7 +2619,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2634,7 +2638,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2653,7 +2657,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2672,7 +2676,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2691,7 +2695,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2710,7 +2714,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2729,7 +2733,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2748,7 +2752,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2767,7 +2771,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2786,7 +2790,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2805,7 +2809,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2824,7 +2828,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2843,7 +2847,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2862,7 +2866,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2881,7 +2885,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2900,7 +2904,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2919,7 +2923,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2938,7 +2942,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2957,7 +2961,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2976,7 +2980,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -2995,7 +2999,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -3014,7 +3018,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -3033,7 +3037,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -3052,7 +3056,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -3071,7 +3075,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -3090,7 +3094,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -3109,7 +3113,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -3128,7 +3132,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -3147,7 +3151,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -3166,7 +3170,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -3185,7 +3189,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -3204,7 +3208,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -3223,7 +3227,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -3242,7 +3246,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -3261,7 +3265,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -3285,7 +3289,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s1 = "(1):Updateing playerdata only"
 				--
 				print("")
-				if getnamehuman[player.name] and r_killdata >= 1 then
+				if playerscollected[player.name] and r_killdata >= 1 then
 					print("Found player " ..data_playername .. " in KILL table, with the " .. s_weapon .. " - Kills:" .. r_killdata)
 				end
 
@@ -3325,7 +3329,7 @@ end)
 -- Print statement used for console debug, will be removed IF this ever works 100% as it should be.
 
 function updateweaponkillstats(player, data_playername)
-	if getnamehuman[player.name] then
+	if playerscollected[player.name] then
 	print ("table playername:"..data_playername)
 	WeaponResults = SQL:Query('SELECT Weaponname, Soldiername FROM ' .. s_table .. ' WHERE Soldiername = ? and Weaponname = ?', data_playername,s_weapon)
 	if not WeaponResults then

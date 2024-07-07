@@ -37,19 +37,12 @@ function StatsCollector:OnEngineInit()
 	self.m_SqlTableSetup = require 'SqlTableSetup'
 
 	self.m_PlayerKilled = require 'PlayerKilled'
-
---	self.m_sql_cheat = require 'sql_cheat'
+--	self.m_DumpData = require 'DumpData'
+	self.m_DumpData1 = require 'DumpData1'
 
 
 	self.m_Roundover = require 'Roundover'
-
 	self.m_PUE00_playerrounddata = require 'PUE00_playerrounddata'
---	self.m_PUE01_mapstats = require 'PUE01_mapstats'
---	self.m_PUE02_vehiclekilldata = require 'PUE02_vehiclekilldata'
-
---	self.m_PUE04_playerstats = require 'PUE04_playerstats'
---	self.m_PUE05_weaponkillstats = require 'PUE05_weaponkillstats'
-
 	self.m_ChatCommands = require('ChatCommands') -- pull stats on command,ugly setup, but works
 	self.m_spawn = require 'spawn'             -- play spawn sql stuff
 	self.m_Revives = require('Revives')        -- Player revives SQL stuff

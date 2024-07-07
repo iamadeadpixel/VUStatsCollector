@@ -55,178 +55,178 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 -- p_Player.name = victim
 
 -- Print lines will be removed on the end
---	if getnamehuman[s_Inflictor.name] and args[7] ==
-	if getnamehuman[s_Inflictor.name] and args[7] == "9K22 TUNGUSKA-M" then
+--	if playerscollected[s_Inflictor.name] and args[7] ==
+	if playerscollected[s_Inflictor.name] and args[7] == "9K22 TUNGUSKA-M" then
 		if kill_9K22_TUNGUSKA_M[s_Inflictor.name] == nil then kill_9K22_TUNGUSKA_M[s_Inflictor.name] = 0; end
 	kill_9K22_TUNGUSKA_M[s_Inflictor.name] = kill_9K22_TUNGUSKA_M[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "9M133 KORNET LAUNCHER" then
+	if playerscollected[s_Inflictor.name] and args[7] == "9M133 KORNET LAUNCHER" then
 		if kill_9M133_KORNET_LAUNCHER[s_Inflictor.name] == nil then kill_9M133_KORNET_LAUNCHER[s_Inflictor.name] = 0; end
 	kill_9M133_KORNET_LAUNCHER[s_Inflictor.name] = kill_9M133_KORNET_LAUNCHER[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "AAV-7A1 AMTRAC" then
+	if playerscollected[s_Inflictor.name] and args[7] == "AAV-7A1 AMTRAC" then
 		if kill_AAV_7A1_AMTRAC[s_Inflictor.name] == nil then kill_AAV_7A1_AMTRAC[s_Inflictor.name] = 0; end
 	kill_AAV_7A1_AMTRAC[s_Inflictor.name] = kill_AAV_7A1_AMTRAC[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "BARSUK" then
+	if playerscollected[s_Inflictor.name] and args[7] == "BARSUK" then
 		if kill_BARSUK[s_Inflictor.name] == nil then kill_BARSUK[s_Inflictor.name] = 0; end
 	kill_BARSUK[s_Inflictor.name] = kill_BARSUK[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "BM-23" then
+	if playerscollected[s_Inflictor.name] and args[7] == "BM-23" then
 		if kill_BM_23[s_Inflictor.name] == nil then kill_BM_23[s_Inflictor.name] = 0; end
 	kill_BM_23[s_Inflictor.name] = kill_BM_23[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "BMP-2M" then
+	if playerscollected[s_Inflictor.name] and args[7] == "BMP-2M" then
 		if kill_BMP_2M[s_Inflictor.name] == nil then kill_BMP_2M[s_Inflictor.name] = 0; end
 	kill_BMP_2M[s_Inflictor.name] = kill_BMP_2M[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "BTR-90" then
+	if playerscollected[s_Inflictor.name] and args[7] == "BTR-90" then
 		if kill_BTR_90[s_Inflictor.name] == nil then kill_BTR_90[s_Inflictor.name] = 0; end
 	kill_BTR_90[s_Inflictor.name] = kill_BTR_90[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "CENTURION C-RAM" then
+	if playerscollected[s_Inflictor.name] and args[7] == "CENTURION C-RAM" then
 		if kill_CENTURION_C_RAM[s_Inflictor.name] == nil then kill_CENTURION_C_RAM[s_Inflictor.name] = 0; end
 	kill_CENTURION_C_RAM[s_Inflictor.name] = kill_CENTURION_C_RAM[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "CIVILIAN CAR" then
+	if playerscollected[s_Inflictor.name] and args[7] == "CIVILIAN CAR" then
 		if kill_CIVILIAN_CAR[s_Inflictor.name] == nil then kill_CIVILIAN_CAR[s_Inflictor.name] = 0; end
 	kill_CIVILIAN_CAR[s_Inflictor.name] = kill_CIVILIAN_CAR[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "DELIVERY VAN" then
+	if playerscollected[s_Inflictor.name] and args[7] == "DELIVERY VAN" then
 		if kill_DELIVERY_VAN[s_Inflictor.name] == nil then kill_DELIVERY_VAN[s_Inflictor.name] = 0; end
 	kill_DELIVERY_VAN[s_Inflictor.name] = kill_DELIVERY_VAN[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "DIRTBIKE" then
+	if playerscollected[s_Inflictor.name] and args[7] == "DIRTBIKE" then
 		if kill_DIRTBIKE[s_Inflictor.name] == nil then kill_DIRTBIKE[s_Inflictor.name] = 0; end
 	kill_DIRTBIKE[s_Inflictor.name] = kill_DIRTBIKE[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "DPV" then
+	if playerscollected[s_Inflictor.name] and args[7] == "DPV" then
 		if kill_DPV[s_Inflictor.name] == nil then kill_DPV[s_Inflictor.name] = 0; end
 	kill_DPV[s_Inflictor.name] = kill_DPV[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "GAZ-3937 VODNIK" then
+	if playerscollected[s_Inflictor.name] and args[7] == "GAZ-3937 VODNIK" then
 		if kill_GAZ_3937_VODNIK[s_Inflictor.name] == nil then kill_GAZ_3937_VODNIK[s_Inflictor.name] = 0; end
 	kill_GAZ_3937_VODNIK[s_Inflictor.name] = kill_GAZ_3937_VODNIK[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "GROWLER ITV" then
+	if playerscollected[s_Inflictor.name] and args[7] == "GROWLER ITV" then
 		if kill_GROWLER_ITV[s_Inflictor.name] == nil then kill_GROWLER_ITV[s_Inflictor.name] = 0; end
 	kill_GROWLER_ITV[s_Inflictor.name] = kill_GROWLER_ITV[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "HMMWV ASRAD" then
+	if playerscollected[s_Inflictor.name] and args[7] == "HMMWV ASRAD" then
 		if kill_HMMWV_ASRAD[s_Inflictor.name] == nil then kill_HMMWV_ASRAD[s_Inflictor.name] = 0; end
 	kill_HMMWV_ASRAD[s_Inflictor.name] = kill_HMMWV_ASRAD[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "LAV-25" then
+	if playerscollected[s_Inflictor.name] and args[7] == "LAV-25" then
 		if kill_LAV_25[s_Inflictor.name] == nil then kill_LAV_25[s_Inflictor.name] = 0; end
 	kill_LAV_25[s_Inflictor.name] = kill_LAV_25[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "LAV-AD" then
+	if playerscollected[s_Inflictor.name] and args[7] == "LAV-AD" then
 		if kill_LAV_AD[s_Inflictor.name] == nil then kill_LAV_AD[s_Inflictor.name] = 0; end
 	kill_LAV_AD[s_Inflictor.name] = kill_LAV_AD[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "M1 ABRAMS" then
+	if playerscollected[s_Inflictor.name] and args[7] == "M1 ABRAMS" then
 		if kill_M1_ABRAMS[s_Inflictor.name] == nil then kill_M1_ABRAMS[s_Inflictor.name] = 0; end
 	kill_M1_ABRAMS[s_Inflictor.name] = kill_M1_ABRAMS[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "M1114 HMMWV" then
+	if playerscollected[s_Inflictor.name] and args[7] == "M1114 HMMWV" then
 		if kill_M1114_HMMWV[s_Inflictor.name] == nil then kill_M1114_HMMWV[s_Inflictor.name] = 0; end
 	kill_M1114_HMMWV[s_Inflictor.name] = kill_M1114_HMMWV[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "M1128" then
+	if playerscollected[s_Inflictor.name] and args[7] == "M1128" then
 		if kill_M1128[s_Inflictor.name] == nil then kill_M1128[s_Inflictor.name] = 0; end
 	kill_M1128[s_Inflictor.name] = kill_M1128[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "M142" then
+	if playerscollected[s_Inflictor.name] and args[7] == "M142" then
 		if kill_M142[s_Inflictor.name] == nil then kill_M142[s_Inflictor.name] = 0; end
 	kill_M142[s_Inflictor.name] = kill_M142[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "M220 TOW LAUNCHER" then
+	if playerscollected[s_Inflictor.name] and args[7] == "M220 TOW LAUNCHER" then
 		if kill_M220_TOW_LAUNCHER[s_Inflictor.name] == nil then kill_M220_TOW_LAUNCHER[s_Inflictor.name] = 0; end
 	kill_M220_TOW_LAUNCHER[s_Inflictor.name] = kill_M220_TOW_LAUNCHER[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "PANTSIR-S1" then
+	if playerscollected[s_Inflictor.name] and args[7] == "PANTSIR-S1" then
 		if kill_PANTSIR_S1[s_Inflictor.name] == nil then kill_PANTSIR_S1[s_Inflictor.name] = 0; end
 	kill_PANTSIR_S1[s_Inflictor.name] = kill_PANTSIR_S1[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "PHOENIX" then
+	if playerscollected[s_Inflictor.name] and args[7] == "PHOENIX" then
 		if kill_PHOENIX[s_Inflictor.name] == nil then kill_PHOENIX[s_Inflictor.name] = 0; end
 	kill_PHOENIX[s_Inflictor.name] = kill_PHOENIX[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "POLICE VAN" then
+	if playerscollected[s_Inflictor.name] and args[7] == "POLICE VAN" then
 		if kill_POLICE_VAN[s_Inflictor.name] == nil then kill_POLICE_VAN[s_Inflictor.name] = 0; end
 	kill_POLICE_VAN[s_Inflictor.name] = kill_POLICE_VAN[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "QUAD BIKE" then
+	if playerscollected[s_Inflictor.name] and args[7] == "QUAD BIKE" then
 		if kill_QUAD_BIKE[s_Inflictor.name] == nil then kill_QUAD_BIKE[s_Inflictor.name] = 0; end
 	kill_QUAD_BIKE[s_Inflictor.name] = kill_QUAD_BIKE[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "RHIB BOAT" then
+	if playerscollected[s_Inflictor.name] and args[7] == "RHIB BOAT" then
 		if kill_RHIB_BOAT[s_Inflictor.name] == nil then kill_RHIB_BOAT[s_Inflictor.name] = 0; end
 	kill_RHIB_BOAT[s_Inflictor.name] = kill_RHIB_BOAT[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "RHINO" then
+	if playerscollected[s_Inflictor.name] and args[7] == "RHINO" then
 		if kill_RHINO[s_Inflictor.name] == nil then kill_RHINO[s_Inflictor.name] = 0; end
 	kill_RHINO[s_Inflictor.name] = kill_RHINO[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "SKID LOADER" then
+	if playerscollected[s_Inflictor.name] and args[7] == "SKID LOADER" then
 		if kill_SKID_LOADER[s_Inflictor.name] == nil then kill_SKID_LOADER[s_Inflictor.name] = 0; end
 	kill_SKID_LOADER[s_Inflictor.name] = kill_SKID_LOADER[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "SPRUT-SD" then
+	if playerscollected[s_Inflictor.name] and args[7] == "SPRUT-SD" then
 		if kill_SPRUT_SD[s_Inflictor.name] == nil then kill_SPRUT_SD[s_Inflictor.name] = 0; end
 	kill_SPRUT_SD[s_Inflictor.name] = kill_SPRUT_SD[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "SUV" then
+	if playerscollected[s_Inflictor.name] and args[7] == "SUV" then
 		if kill_SUV[s_Inflictor.name] == nil then kill_SUV[s_Inflictor.name] = 0; end
 	kill_SUV[s_Inflictor.name] = kill_SUV[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "T-90A" then
+	if playerscollected[s_Inflictor.name] and args[7] == "T-90A" then
 		if kill_T_90A[s_Inflictor.name] == nil then kill_T_90A[s_Inflictor.name] = 0; end
 	kill_T_90A[s_Inflictor.name] = kill_T_90A[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "TECHNICAL TRUCK" then
+	if playerscollected[s_Inflictor.name] and args[7] == "TECHNICAL TRUCK" then
 		if kill_TECHNICAL_TRUCK[s_Inflictor.name] == nil then kill_TECHNICAL_TRUCK[s_Inflictor.name] = 0; end
 	kill_TECHNICAL_TRUCK[s_Inflictor.name] = kill_TECHNICAL_TRUCK[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "VDV Buggy" then
+	if playerscollected[s_Inflictor.name] and args[7] == "VDV Buggy" then
 		if kill_VDV_Buggy[s_Inflictor.name] == nil then kill_VDV_Buggy[s_Inflictor.name] = 0; end
 	kill_VDV_Buggy[s_Inflictor.name] = kill_VDV_Buggy[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "VODNIK AA" then
+	if playerscollected[s_Inflictor.name] and args[7] == "VODNIK AA" then
 		if kill_VODNIK_AA[s_Inflictor.name] == nil then kill_VODNIK_AA[s_Inflictor.name] = 0; end
 	kill_VODNIK_AA[s_Inflictor.name] = kill_VODNIK_AA[s_Inflictor.name] + 1
         end

@@ -11,7 +11,7 @@ end)
 
 -- init stuff
 CountPlayers = 0
-getnamehuman = {}  -- value is name
+--getnamehuman = {}  -- value is name
 playerishuman = {} -- False or true
 
 Session_PlayTime_Start = {}
@@ -43,9 +43,9 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 	Session_PlayTime_Start[name] = os.time()
 
 	playerishuman[name] = true
-	getnamehuman[name] = name
-	if getnamehuman[name] then print("*** Human Player:" .. getnamehuman[name] .. " Joined ***"); end
-	if playerishuman[name] then print("*** Human flag is set for " .. getnamehuman[name]); end
+	playerscollected[name] = name
+	if playerscollected[name] then print("*** Human Player:" .. playerscollected[name] .. " Joined ***"); end
+	if playerishuman[name] then print("*** Human flag is set for " .. playerscollected[name]); end
 
 	CountPlayers = CountPlayers + 1
 	print("Human player count:" .. CountPlayers)
@@ -267,7 +267,7 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 	for key,s_weaponcode in ipairs(shotguns_weapons) do
 	print(s_weaponcode)
 		s_Query = 'INSERT INTO ' .. s_table ..'     (Weaponname,           Soldiername,        Kills) VALUES (?,?,?)'
-				if not SQL:Query(s_Query,   s_weaponcode,   getnamehuman[name],   0) then
+				if not SQL:Query(s_Query,   s_weaponcode,   playerscollected[name],   0) then
 			print(s0.." - Failed to insert kill data in "..s_table..": " .. SQL:Error())
 			return
 	end
@@ -280,7 +280,7 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 	for key,s_weaponcode in ipairs(air_vehicles) do
 	print(s_weaponcode)
 		s_Query = 'INSERT INTO ' .. s_table ..'     (Weaponname,           Soldiername,        Kills) VALUES (?,?,?)'
-				if not SQL:Query(s_Query,   s_weaponcode,   getnamehuman[name],   0) then
+				if not SQL:Query(s_Query,   s_weaponcode,   playerscollected[name],   0) then
 			print(s0.." - Failed to insert kill data in "..s_table..": " .. SQL:Error())
 			return
 	end
@@ -294,7 +294,7 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 	for key,s_weaponcode in ipairs(land_vehicles) do
 	print(s_weaponcode)
 		s_Query = 'INSERT INTO ' .. s_table ..'     (Weaponname,           Soldiername,        Kills) VALUES (?,?,?)'
-				if not SQL:Query(s_Query,   s_weaponcode,   getnamehuman[name],   0) then
+				if not SQL:Query(s_Query,   s_weaponcode,   playerscollected[name],   0) then
 			print(s0.." - Failed to insert kill data in "..s_table..": " .. SQL:Error())
 			return
 	end
@@ -308,7 +308,7 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 	for key,s_weaponcode in ipairs(auxiliary_gadgets) do
 	print(s_weaponcode)
 		s_Query = 'INSERT INTO ' .. s_table ..'     (Weaponname,           Soldiername,        Kills) VALUES (?,?,?)'
-				if not SQL:Query(s_Query,   s_weaponcode,   getnamehuman[name],   0) then
+				if not SQL:Query(s_Query,   s_weaponcode,   playerscollected[name],   0) then
 			print(s0.." - Failed to insert kill data in "..s_table..": " .. SQL:Error())
 			return
 	end
@@ -322,7 +322,7 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 	for key,s_weaponcode in ipairs(primary_weapons) do
 	print(s_weaponcode)
 		s_Query = 'INSERT INTO ' .. s_table ..'     (Weaponname,           Soldiername,        Kills) VALUES (?,?,?)'
-				if not SQL:Query(s_Query,   s_weaponcode,   getnamehuman[name],   0) then
+				if not SQL:Query(s_Query,   s_weaponcode,   playerscollected[name],   0) then
 			print(s0.." - Failed to insert kill data in "..s_table..": " .. SQL:Error())
 			return
 	end
@@ -336,7 +336,7 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 	for key,s_weaponcode in ipairs(handguns_weapons) do
 	print(s_weaponcode)
 		s_Query = 'INSERT INTO ' .. s_table ..'     (Weaponname,           Soldiername,        Kills) VALUES (?,?,?)'
-				if not SQL:Query(s_Query,   s_weaponcode,   getnamehuman[name],   0) then
+				if not SQL:Query(s_Query,   s_weaponcode,   playerscollected[name],   0) then
 			print(s0.." - Failed to insert kill data in "..s_table..": " .. SQL:Error())
 			return
 	end
@@ -350,7 +350,7 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 	for key,s_weaponcode in ipairs(assault_gadgets) do
 	print(s_weaponcode)
 		s_Query = 'INSERT INTO ' .. s_table ..'     (Weaponname,           Soldiername,        Kills) VALUES (?,?,?)'
-				if not SQL:Query(s_Query,   s_weaponcode,   getnamehuman[name],   0) then
+				if not SQL:Query(s_Query,   s_weaponcode,   playerscollected[name],   0) then
 			print(s0.." - Failed to insert kill data in "..s_table..": " .. SQL:Error())
 			return
 	end
@@ -364,7 +364,7 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 	for key,s_weaponcode in ipairs(assault_weapons) do
 	print(s_weaponcode)
 		s_Query = 'INSERT INTO ' .. s_table ..'     (Weaponname,           Soldiername,        Kills) VALUES (?,?,?)'
-				if not SQL:Query(s_Query,   s_weaponcode,   getnamehuman[name],   0) then
+				if not SQL:Query(s_Query,   s_weaponcode,   playerscollected[name],   0) then
 			print(s0.." - Failed to insert kill data in "..s_table..": " .. SQL:Error())
 			return
 	end
@@ -378,7 +378,7 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 	for key,s_weaponcode in ipairs(engineer_gadgets) do
 	print(s_weaponcode)
 		s_Query = 'INSERT INTO ' .. s_table ..'     (Weaponname,           Soldiername,        Kills) VALUES (?,?,?)'
-				if not SQL:Query(s_Query,   s_weaponcode,   getnamehuman[name],   0) then
+				if not SQL:Query(s_Query,   s_weaponcode,   playerscollected[name],   0) then
 			print(s0.." - Failed to insert kill data in "..s_table..": " .. SQL:Error())
 			return
 	end
@@ -392,7 +392,7 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 	for key,s_weaponcode in ipairs(engineer_weapons) do
 	print(s_weaponcode)
 		s_Query = 'INSERT INTO ' .. s_table ..'     (Weaponname,           Soldiername,        Kills) VALUES (?,?,?)'
-				if not SQL:Query(s_Query,   s_weaponcode,   getnamehuman[name],   0) then
+				if not SQL:Query(s_Query,   s_weaponcode,   playerscollected[name],   0) then
 			print(s0.." - Failed to insert kill data in "..s_table..": " .. SQL:Error())
 			return
 	end
@@ -406,7 +406,7 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 	for key,s_weaponcode in ipairs(support_gadgets) do
 	print(s_weaponcode)
 		s_Query = 'INSERT INTO ' .. s_table ..'     (Weaponname,           Soldiername,        Kills) VALUES (?,?,?)'
-				if not SQL:Query(s_Query,   s_weaponcode,   getnamehuman[name],   0) then
+				if not SQL:Query(s_Query,   s_weaponcode,   playerscollected[name],   0) then
 			print(s0.." - Failed to insert kill data in "..s_table..": " .. SQL:Error())
 			return
 	end
@@ -420,7 +420,7 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 	for key,s_weaponcode in ipairs(support_weapons) do
 	print(s_weaponcode)
 		s_Query = 'INSERT INTO ' .. s_table ..'     (Weaponname,           Soldiername,        Kills) VALUES (?,?,?)'
-				if not SQL:Query(s_Query,   s_weaponcode,   getnamehuman[name],   0) then
+				if not SQL:Query(s_Query,   s_weaponcode,   playerscollected[name],   0) then
 			print(s0.." - Failed to insert kill data in "..s_table..": " .. SQL:Error())
 			return
 	end
@@ -434,7 +434,7 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 	for key,s_weaponcode in ipairs(recon_gadgets) do
 	print(s_weaponcode)
 		s_Query = 'INSERT INTO ' .. s_table ..'     (Weaponname,           Soldiername,        Kills) VALUES (?,?,?)'
-				if not SQL:Query(s_Query,   s_weaponcode,   getnamehuman[name],   0) then
+				if not SQL:Query(s_Query,   s_weaponcode,   playerscollected[name],   0) then
 			print(s0.." - Failed to insert kill data in "..s_table..": " .. SQL:Error())
 			return
 	end
@@ -448,7 +448,7 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 	for key,s_weaponcode in ipairs(recon_weapons) do
 	print(s_weaponcode)
 		s_Query = 'INSERT INTO ' .. s_table ..'     (Weaponname,           Soldiername,        Kills) VALUES (?,?,?)'
-				if not SQL:Query(s_Query,   s_weaponcode,   getnamehuman[name],   0) then
+				if not SQL:Query(s_Query,   s_weaponcode,   playerscollected[name],   0) then
 			print(s0.." - Failed to insert kill data in "..s_table..": " .. SQL:Error())
 			return
 	end
@@ -462,7 +462,7 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 	for key,s_weaponcode in ipairs(roadkills) do
 	print(s_weaponcode)
 		s_Query = 'INSERT INTO ' .. s_table ..'     (Weaponname,           Soldiername,        Kills) VALUES (?,?,?)'
-				if not SQL:Query(s_Query,   s_weaponcode,   getnamehuman[name],   0) then
+				if not SQL:Query(s_Query,   s_weaponcode,   playerscollected[name],   0) then
 			print(s0.." - Failed to insert kill data in "..s_table..": " .. SQL:Error())
 			return
 	end

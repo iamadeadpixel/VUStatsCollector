@@ -56,42 +56,42 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 
 -- Print lines will be removed on the end
 
-	if getnamehuman[s_Inflictor.name] and args[7] == "UMP-45" then
+	if playerscollected[s_Inflictor.name] and args[7] == "UMP-45" then
 		if kill_UMP_45[s_Inflictor.name] == nil then kill_UMP_45[s_Inflictor.name] = 0; end
 	kill_UMP_45[s_Inflictor.name] = kill_UMP_45[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "PP-2000" then
+	if playerscollected[s_Inflictor.name] and args[7] == "PP-2000" then
 		if kill_PP_2000[s_Inflictor.name] == nil then kill_PP_2000[s_Inflictor.name] = 0; end
 	kill_PP_2000[s_Inflictor.name] = kill_PP_2000[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "PP-19" then
+	if playerscollected[s_Inflictor.name] and args[7] == "PP-19" then
 		if kill_PP_19[s_Inflictor.name] == nil then kill_PP_19[s_Inflictor.name] = 0; end
 	kill_PP_19[s_Inflictor.name] = kill_PP_19[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "PDW-R" then
+	if playerscollected[s_Inflictor.name] and args[7] == "PDW-R" then
 		if kill_PDW_R[s_Inflictor.name] == nil then kill_PDW_R[s_Inflictor.name] = 0; end
 	kill_PDW_R[s_Inflictor.name] = kill_PDW_R[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "P90" then
+	if playerscollected[s_Inflictor.name] and args[7] == "P90" then
 		if kill_P90[s_Inflictor.name] == nil then kill_P90[s_Inflictor.name] = 0; end
 	kill_P90[s_Inflictor.name] = kill_P90[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "MP7" then
+	if playerscollected[s_Inflictor.name] and args[7] == "MP7" then
 		if kill_MP7[s_Inflictor.name] == nil then kill_MP7[s_Inflictor.name] = 0; end
 	kill_MP7[s_Inflictor.name] = kill_MP7[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "M5K" then
+	if playerscollected[s_Inflictor.name] and args[7] == "M5K" then
 		if kill_M5K[s_Inflictor.name] == nil then kill_M5K[s_Inflictor.name] = 0; end
 	kill_M5K[s_Inflictor.name] = kill_M5K[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "AS VAL" then
+	if playerscollected[s_Inflictor.name] and args[7] == "AS VAL" then
 		if kill_AS_VAL[s_Inflictor.name] == nil then kill_AS_VAL[s_Inflictor.name] = 0; end
 	kill_AS_VAL[s_Inflictor.name] = kill_AS_VAL[s_Inflictor.name] + 1
         end

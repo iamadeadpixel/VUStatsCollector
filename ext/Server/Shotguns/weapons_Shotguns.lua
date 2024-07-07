@@ -56,37 +56,37 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 
 -- Print lines will be removed on the end
 
-	if getnamehuman[s_Inflictor.name] and args[7] == "USAS-12" then
+	if playerscollected[s_Inflictor.name] and args[7] == "USAS-12" then
 		if kill_USAS_12[s_Inflictor.name] == nil then kill_USAS_12[s_Inflictor.name] = 0; end
 	kill_USAS_12[s_Inflictor.name] = kill_USAS_12[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "SPAS-12" then
+	if playerscollected[s_Inflictor.name] and args[7] == "SPAS-12" then
 		if kill_SPAS_12[s_Inflictor.name] == nil then kill_SPAS_12[s_Inflictor.name] = 0; end
 	kill_SPAS_12[s_Inflictor.name] = kill_SPAS_12[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "SAIGA 12K" then
+	if playerscollected[s_Inflictor.name] and args[7] == "SAIGA 12K" then
 		if kill_SAIGA_12K[s_Inflictor.name] == nil then kill_SAIGA_12K[s_Inflictor.name] = 0; end
 	kill_SAIGA_12K[s_Inflictor.name] = kill_SAIGA_12K[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "MK3A1" then
+	if playerscollected[s_Inflictor.name] and args[7] == "MK3A1" then
 		if kill_MK3A1[s_Inflictor.name] == nil then kill_MK3A1[s_Inflictor.name] = 0; end
 	kill_MK3A1[s_Inflictor.name] = kill_MK3A1[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "M1014" then
+	if playerscollected[s_Inflictor.name] and args[7] == "M1014" then
 		if kill_M1014[s_Inflictor.name] == nil then kill_M1014[s_Inflictor.name] = 0; end
 	kill_M1014[s_Inflictor.name] = kill_M1014[s_Inflictor.name] + 1
         end
 --
-	if getnamehuman[s_Inflictor.name] and args[7] == "DAO-12" then
+	if playerscollected[s_Inflictor.name] and args[7] == "DAO-12" then
 		if kill_DAO_12[s_Inflictor.name] == nil then kill_DAO_12[s_Inflictor.name] = 0; end
 	kill_DAO_12[s_Inflictor.name] = kill_DAO_12[s_Inflictor.name] + 1
         end
 --
-		if getnamehuman[s_Inflictor.name] and args[7] == "870MCS" then
+		if playerscollected[s_Inflictor.name] and args[7] == "870MCS" then
 		if kill_870MCS[s_Inflictor.name] == nil then kill_870MCS[s_Inflictor.name] = 0; end
 	kill_870MCS[s_Inflictor.name] = kill_870MCS[s_Inflictor.name] + 1
         end

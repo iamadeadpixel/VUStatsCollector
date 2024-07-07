@@ -17,9 +17,10 @@ Events:Subscribe('Player:ReviveAccepted', function(player, reviver)
 	if playerrevivs[reviver.name] == nil then playerrevivs[reviver.name] = 0; end
 
 		playerrevivs[reviver.name] = playerrevivs[reviver.name] + 1
---		if getnamehuman[reviver.name] then playerrevivs[reviver.name] = playerrevivs[reviver.name] + 1
 		playerdeaths[player.name] = playerdeaths[player.name] - 1
---		end
+
+	if playerscollected[reviver.name] then print ("Player "..playerscollected[reviver.name].. " Revived "..playerrevivs[reviver.name].." times")
+end
 
 end)
 

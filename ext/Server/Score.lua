@@ -14,13 +14,15 @@ Events:Subscribe('Player:Score', function(player, scoringTypeData, score)
 	if haltprocess then return end
 
 	-- used for playerstats.
-	if getnamehuman[player.name] and playerscore[player.name] == nil then playerscore[player.name] = 20; end
+-- Here player score is collected
+	if playerscore[player.name] == nil then playerscore[player.name] = 20; end
 
 	-- used to get team stats
-	if getnamehuman[player.name] and playerscore1[player.name] == nil then playerscore1[player.name] = 20; end
-	if getnamehuman[player.name] and playerscore2[player.name] == nil then playerscore2[player.name] = 20; end
-	if getnamehuman[player.name] and playerscore3[player.name] == nil then playerscore3[player.name] = 20; end
-	if getnamehuman[player.name] and playerscore4[player.name] == nil then playerscore4[player.name] = 20; end
+-- here total team score is collected.
+	if playerscore1[player.name] == nil then playerscore1[player.name] = 20; end
+	if playerscore2[player.name] == nil then playerscore2[player.name] = 20; end
+	if playerscore3[player.name] == nil then playerscore3[player.name] = 20; end
+	if playerscore4[player.name] == nil then playerscore4[player.name] = 20; end
 
 
 	playerscore[player.name] = player.score

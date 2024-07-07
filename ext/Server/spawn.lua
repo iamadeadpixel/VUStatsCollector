@@ -14,24 +14,12 @@ Events:Subscribe('Player:Respawn', function(player, recipientMask, message, info
 	if haltprocess then return end
 	playerscollected[player.name] = player.name
 
-	getIDplayers[player.name] = player.teamId
-
-	-- Human stuff
-	if playerishuman[player.name] and not announcedhumannames[player.name] then
-		print("Human " ..getnamehuman[player.name].. " spawned")
+	if playerscollected[player.name] and not announcedhumannames[player.name] then
+		print("Player " ..playerscollected[player.name].. " spawned")
 		announcedhumannames[player.name] = true
 	end
 
-	if playerishuman[player.name] then return end
-
-	-- bot stuff
-	getnamebot[player.name] = player.name
-	playerisbot[player.name] = true
-
-	if playerisbot[player.name] and not announcedbotnames[player.name] then
-		print("Bot " ..getnamebot[player.name].. " spawned")
-		announcedbotnames[player.name] = true
-	end
+--	if playerscollected[player.name] then return end
 end)
 
 return spawn()
