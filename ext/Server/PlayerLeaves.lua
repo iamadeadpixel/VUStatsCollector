@@ -14,7 +14,9 @@ Events:Subscribe('Player:Left', function(player)
 	-- player.name
 	CountPlayers = CountPlayers - 1
 	print("Human player count:" .. CountPlayers)
-	print("Human player " .. playerscollected[player.name] .. " leaving the server, removing from SQL")
+--	print("Human player " ..playerscollected[player.name] .. " leaving the server, removing from SQL")
+	print("Human player " ..getnamehuman[player.name] .. " leaving the server, removing from SQL")
+
 
 	if CountPlayers == 0 then print("*** No more human players on the server"); end
 
@@ -46,8 +48,8 @@ Events:Subscribe('Player:Left', function(player)
 
 		-- Select the correct guid if u test the crap here
 		-- only one should be active,  this is info only
-		if s_accountGuid == temp_Guid then print("UpdateCheckInfo: GUID FOUND FOR LEAVING PLAYER: " .. playerscollected[player.name] .. " - :" .. temp_Guid) -- Using the Accounts Guid
---		if s_playerGuid  == temp_Guid then print("UpdateCheckInfo: GUID FOUND FOR LEAVING PLAYER: " ..playerscollected[player.name].. " - :" .. temp_Guid)  -- Using the Players Guid
+		if s_accountGuid == temp_Guid then print("UpdateCheckInfo: GUID FOUND FOR LEAVING PLAYER: " .. getnamehuman[player.name] .. " - :" .. temp_Guid) -- Using the Accounts Guid
+--		if s_playerGuid  == temp_Guid then print("UpdateCheckInfo: GUID FOUND FOR LEAVING PLAYER: " ..getnamehuman[player.name].. " - :" .. temp_Guid)  -- Using the Players Guid
 			print("UpdateCheckInfo: Updating player information: **");
 
 			s_LastSeenDate = s_GetDateTime
@@ -58,7 +60,7 @@ Events:Subscribe('Player:Left', function(player)
 			s_PlayTime = temp_PlayTime + s_elapsed_time
 			print("*** UpdateCheckInfo: LOGOFF - SQL - Table - new Player total time in seconds: " .. s_PlayTime)
 
-			if not SQL:Query('UPDATE tbl_playerdata SET PlayTime=? WHERE Soldiername = ?', s_PlayTime, playerscollected[player.name]) then
+			if not SQL:Query('UPDATE tbl_playerdata SET PlayTime=? WHERE Soldiername = ?', s_PlayTime, getnamehuman[player.name]) then
 				print(" ");
 				print('Failed to execute Update query: ' .. SQL:Error()) -- If everything works, this would never be printed...
 				print(" ");
@@ -66,7 +68,7 @@ Events:Subscribe('Player:Left', function(player)
 			end
 
 			-- Removing table data on player left.
-			print("Human player " .. playerscollected[player.name] .. " leaving the server, removing from DB")
+			print("Human player " .. getnamehuman[player.name] .. " leaving the server, removing from DB")
 			Session_PlayTime_Start[player.name] = {}
 			Session_PlayTime_End[player.name] = {}
 			getnamehuman[player.name] = {}
