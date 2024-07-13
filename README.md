@@ -4,6 +4,7 @@ the VU alternative for procon's chatguidstatslogger
 heavy work in progress, not yet useable for a live server.
 use at own risk.
 
+5.0.0 : stats for bots are more and more ignored...
 4.0.0 : Test version with ,working fixes ?
 3.0.3 : Full revamp annd more fixed
 .now only kills from humans got collected.
