@@ -1,12 +1,12 @@
 {
 	"Name": "StatsCollector",
 	"Description": "Collects all stats possible.",
-	"Version": "5.0.5",
-	"Reason": "Full revamp and fixes",
+	"Version": "6.0.2",
+	"Reason": "optimized some code",
 	"Authors": ["Iamadeadpixel, and many more"],
 	"URL": "none",
 	"Tags": ["statscollector"], 
-	"HasWebUI": false,
+	"HasWebUI": true,
 	"HasVeniceEXT": true,
 	"Dependencies": {
 	"veniceext": "^1.0.0"
