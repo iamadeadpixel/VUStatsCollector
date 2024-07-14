@@ -298,14 +298,14 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 	if getnamehuman[s_Inflictor.name] == s_Inflictor.name and args[7] == "KNIFE" or args[7] == "ACB-90" then
 	if kill_KNIFE[s_Inflictor.name] == nil then kill_KNIFE[s_Inflictor.name] = 0; end
 	kill_KNIFE[s_Inflictor.name] = kill_KNIFE[s_Inflictor.name] + 1
+	-- Litle knife fix.
+	if args[7] == "ACB-90" then args[7] = "KNIFE" ; end
 	end
 --
 --
 
 	if getnamehuman[s_Inflictor.name] == s_Inflictor.name and args[7] == "M67 GRENADE"
 	or args[7] == "XBOW" or args[7] == "KNIFE" or args[7] == "ACB-90" then
-	-- Litle knife fix.
-	if args[7] == "ACB-90" then args[7] = "KNIFE" ; end
 
 	data_weapon_name = args[7]
 	data_table_name = "tbl_auxiliary_gadgets"
@@ -443,7 +443,8 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 	if getnamehuman[s_Inflictor.name] == s_Inflictor.name and args[7] == "MP443 SUPP" or args[7] == "MP443 TACT" or args[7] == "MP443" then
 	if kill_MP443[s_Inflictor.name] == nil then kill_MP443[s_Inflictor.name] = 0; end
 	kill_MP443[s_Inflictor.name] = kill_MP443[s_Inflictor.name] + 1
-        end
+	if args[7] == "MP443 SUPP" or args[7] == "MP443 TACT" then args[7] = "MP443" ; end
+	end
 --
 	if getnamehuman[s_Inflictor.name] == s_Inflictor.name and args[7] == "MP412 REX" then
 	if kill_MP412_REX[s_Inflictor.name] == nil then kill_MP412_REX[s_Inflictor.name] = 0; end
@@ -453,21 +454,25 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 	if getnamehuman[s_Inflictor.name] == s_Inflictor.name and args[7] == "M9 SUPP" or args[7] == "M9 TACT" or args[7] == "M9" then
 	if kill_M9[s_Inflictor.name] == nil then kill_M9[s_Inflictor.name] = 0; end
 	kill_M9[s_Inflictor.name] = kill_M9[s_Inflictor.name] + 1
-        end
+	if args[7] == "M9 SUPP" or args[7] == "M9 TACT" then args[7] = "M9" ; end
+	end
 --
 	if getnamehuman[s_Inflictor.name] == s_Inflictor.name and args[7] == "M1911 S-TAC" or args[7] == "M1911 SUPP" or args[7] == "M1911 TACT" or args[7] == "M1911" then
 	if kill_M1911[s_Inflictor.name] == nil then kill_M1911[s_Inflictor.name] = 0; end
 	kill_M1911[s_Inflictor.name] = kill_M1911[s_Inflictor.name] + 1
-        end
+	if args[7] == "M1911 S-TAC" or args[7] == "M1911 SUPP" or args[7] == "M1911 TACT" then args[7] = "M1911" ; end
+	end
 --
 	if getnamehuman[s_Inflictor.name] == s_Inflictor.name and args[7] == "G18 SUPP" or args[7] == "G18" then
 	if kill_G18[s_Inflictor.name] == nil then kill_G18[s_Inflictor.name] = 0; end
 	kill_G18[s_Inflictor.name] = kill_G18[s_Inflictor.name] + 1
+	if args[7] == "G18 SUPP" then args[7] = "G18" ; end
         end
 --
 	if getnamehuman[s_Inflictor.name] == s_Inflictor.name and args[7] == "G17C SUPP" or args[7] == "G17C" then
 	if kill_G17C[s_Inflictor.name] == nil then kill_G17C[s_Inflictor.name] = 0; end
 	kill_G17C[s_Inflictor.name] = kill_G17C[s_Inflictor.name] + 1
+	if args[7] == "G17C SUPP" then args[7] = "G17C" ; end
         end
 --
 	if getnamehuman[s_Inflictor.name] == s_Inflictor.name and args[7] == "93R" then
@@ -478,6 +483,7 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 	if getnamehuman[s_Inflictor.name] == s_Inflictor.name and args[7] == ".44 MAGNUM" or args[7] == ".44 SCOPED" then
 	if kill_44_MAGNUM[s_Inflictor.name] == nil then kill_44_MAGNUM[s_Inflictor.name] = 0; end
 	kill_44_MAGNUM[s_Inflictor.name] = kill_44_MAGNUM[s_Inflictor.name] + 1
+	if args[7] == ".44 SCOPED" then args[7] = ".44 MAGNUM" ; end
         end
 --
 --

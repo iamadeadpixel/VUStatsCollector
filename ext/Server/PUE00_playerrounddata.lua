@@ -184,7 +184,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 -- Here we update tbl_playerstats database with player data
 -- needs atention,for some reason, sometimes it fails, specialy with more human players on the server
 	print ("")
-	print ("*** Start section 04a ***")
+	print ("*** Start section 04 ***")
 	print ("")
 
 			print("")
@@ -3330,7 +3330,6 @@ end)
 
 function updateweaponkillstats(player, data_playername)
 	if getnamehuman[player.name] then
-	print ("table playername:"..data_playername)
 	WeaponResults = SQL:Query('SELECT Weaponname, Soldiername FROM ' .. s_table .. ' WHERE Soldiername = ? and Weaponname = ?', data_playername,s_weapon)
 	if not WeaponResults then
 		print('Failed to read "..s_table.." KILL query: ' .. SQL:Error()); return
@@ -3340,19 +3339,14 @@ function updateweaponkillstats(player, data_playername)
 		founddata_Soldiername = data["Soldiername"]
 		founddata_Weaponname = data["Weaponname"]
 
-	if founddata_Soldiername == nil then founddata_Soldiername = "no soldier found" ; end
-	if founddata_Weaponname == nil then founddata_Weaponname = "no weapon found" ; end
---	print ("player found:"..founddata_Soldiername)
---	print ("weapon found:"..founddata_Weaponname)
-
 		-- Updating existing playerdata
 		if founddata_Soldiername == data_playername and founddata_Weaponname == s_weapon then
-			print(s1.." - Kill data for Soldier " .. data_playername .." found with weapon " .. s_weapon .. " in " .. s_table)
+--			print(s1.." - Kill data for Soldier " .. data_playername .." found with weapon " .. s_weapon .. " in " .. s_table)
 			if not SQL:Query('UPDATE ' .. s_table .. ' SET Kills=Kills+? WHERE Soldiername = ? and Weaponname = ?', r_killdata, data_playername, s_weapon) then
 				print(s1.." - Failed to update kill data in "..s_table..": " .. SQL:Error())
 				return
 			end
-			print(s1.." - Done updating " .. data_playername)
+--			print(s1.." - Done updating " .. data_playername)
 		end
 	end
 
