@@ -3,7 +3,7 @@
 .the VU alternative for procon's chatguidstatslogger
 .heavy work in progress, not yet useable for a live server.
 .use at own risk..
-.
+
 .6.0.0 : fixed a player vs sql problem. (thanks doc-ice-elm)
 .5.0.0 : stats for bots are more and more ignored
 .	Merged all vehicles / weapon kill scripts in one file..
