@@ -21,9 +21,9 @@ end
 
 function StatsCollector:OnEngineInit()
 
-	self.m_LevelPrint = require 'LevelPrint'        -- (Working code)
-	self.m_Weapons_Tables = require 'Weapons_Tables' -- (Working code)
-	self.m_Vehicles_Tables = require 'Vehicles_Tables' -- (Working code)
+	self.m_LevelPrint = require 'LevelPrint'
+	self.m_Weapons_Tables = require 'Weapons_Tables'
+	self.m_Vehicles_Tables = require 'Vehicles_Tables'
 
 	self.m_PlayerLeaves = require 'PlayerLeaves'
 	self.m_PlayerJoins = require 'PlayerJoins'
@@ -36,15 +36,16 @@ function StatsCollector:OnEngineInit()
 	self.m_SqlTableSetup = require 'SqlTableSetup'
 
 	self.m_PlayerKilled = require 'PlayerKilled'
-	self.m_DumpData = require 'DumpData'
+	self.m_DumpData = require 'DumpData' -- information only, not realy needed on a active server
+
 	self.m_functioncall = require 'functioncall'
 
 
 	self.m_Roundover = require 'Roundover'
 	self.m_PUE00_playerrounddata = require 'PUE00_playerrounddata'
 	self.m_ChatCommands = require('ChatCommands') -- pull stats on command,ugly setup, but works
-	self.m_spawn = require 'spawn'             -- play spawn sql stuff
-	self.m_Revives = require('Revives')        -- Player revives SQL stuff
+--	self.m_spawn = require 'spawn'             -- not needed under normal conditions, information only...
+	self.m_Revives = require('Revives')
 
 
 -- All data now in one file...

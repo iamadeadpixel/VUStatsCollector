@@ -45,7 +45,7 @@ print("No data found for "..data_playername.." and "..data_weapon_name.." Inject
 
 else
  --do some thing with results
-print('found data'..data_playername..' and '..data_weapon_name)
+print('found data: '..data_playername..' and '..data_weapon_name)
 end
 
 end -- End of function call

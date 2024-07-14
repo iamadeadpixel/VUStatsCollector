@@ -31,7 +31,7 @@ Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 		playerisbot = {}
 		getnamebot = {}
 
-		playerscollected = {}
+--		playerscollected = {}
 		tablebot = {}
 		tablehuman = {}
 

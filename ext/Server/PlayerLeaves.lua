@@ -14,7 +14,6 @@ Events:Subscribe('Player:Left', function(player)
 	-- player.name
 	CountPlayers = CountPlayers - 1
 	print("Human player count:" .. CountPlayers)
---	print("Human player " ..playerscollected[player.name] .. " leaving the server, removing from SQL")
 	print("Human player " ..getnamehuman[player.name] .. " leaving the server, removing from SQL")
 
 
@@ -73,7 +72,6 @@ Events:Subscribe('Player:Left', function(player)
 			Session_PlayTime_End[player.name] = {}
 			getnamehuman[player.name] = {}
 			playerishuman[player.name] = {}
-			playerscollected[player.name] = {}
 
 			print("*** Player has donked out of the server ***");
 		end

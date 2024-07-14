@@ -44,9 +44,8 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 
 	playerishuman[name] = true
 	getnamehuman[name] = name
-	playerscollected[name] = name
-	if playerscollected[name] then print("*** Human Player:" .. playerscollected[name] .. " Joined ***"); end
-	if playerishuman[name] then print("*** Human flag is set for " .. playerscollected[name]); end
+	if getnamehuman[name] then print("*** Human Player:" .. getnamehuman[name] .. " Joined ***"); end
+	if playerishuman[name] then print("*** Human flag is set for " .. getnamehuman[name]); end
 
 	CountPlayers = CountPlayers + 1
 	print("Human player count:" .. CountPlayers)
@@ -99,8 +98,6 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 				print("*** UpdateCheckInfo: Player new login times " .. s_PlayerLogins)
 				print(" ");
 
-				--
-				--
 
 				-- At here, if the name is changed, it updates the SQL
 				-- Dont forget to insert/update other type tables that contains a playername !
@@ -114,8 +111,6 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 					return
 				end
 
-				--	WHERE Soldiername = ?
-				--	, temp_PlayerName
 
 				mytables = {
 					"tbl_air_vehicles",
@@ -258,10 +253,6 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 
 				print("*** Total players found in tbl_serverstats:" .. temp_ServerPlayers)
 		print ("*** Injecting weapon / vehicle data ***")
---
---
---
-
 
 -- Injecting roadkills stuff
 	--
@@ -269,16 +260,13 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 	for key,s_weaponcode in ipairs(roadkills) do
 	print(s_weaponcode)
 		s_Query = 'INSERT INTO ' .. s_table ..'     (Weaponname,           Soldiername,        Kills) VALUES (?,?,?)'
-				if not SQL:Query(s_Query,   s_weaponcode,   playerscollected[name],   0) then
+				if not SQL:Query(s_Query,   s_weaponcode,   getnamehuman[name],   0) then
 			print(s0.." - Failed to insert kill data in "..s_table..": " .. SQL:Error())
 			return
 	end
 	end
 	print("")
 	print ("roadkills injection done")
---
-
-			
 
 			end)
 	end)

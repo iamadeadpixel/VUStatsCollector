@@ -26,7 +26,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 
 	print ("report back")
 
-for data_playername, pname in pairs(playerscollected) do
+for data_playername, pname in pairs(getnamehuman) do
 
 		if playerdeaths[pname] == nil then playerdeaths[pname] = 0; end
 		if playerdogtags[pname] == nil then playerdogtags[pname] = 0; end
@@ -50,11 +50,11 @@ for data_playername, pname in pairs(playerscollected) do
 		chat_roadkills = kill_roadkills[pname]
 
 	if getnamehuman[player.name] == pname then
-		print("** Fetching session data for " .. playerscollected[pname] .. " **");
+		print("** Fetching session data for " .. getnamehuman[pname] .. " **");
 		print("** Player round results")
-		print("** Player results:" ..playerscollected[pname] .. " - Score:" .. chat_Score .. " - Kills:" .. chat_Kills .. " - Deaths:" .. chat_Deaths)
-		print("** Player results:" ..playerscollected[pname] .. " - Suicides:" .. chat_Suicide .." - Headshots:" .. chat_Headshots .. " - Teamkilled:" .. chat_TeamKilled)
-		print("** Player results:" ..playerscollected[pname] .. " - Knife kills:" .. chat_Dogtags .. " - Revives:" ..chat_Revives .. " - Roadkills:" .. chat_roadkills)
+		print("** Player results:" ..getnamehuman[pname] .. " - Score:" .. chat_Score .. " - Kills:" .. chat_Kills .. " - Deaths:" .. chat_Deaths)
+		print("** Player results:" ..getnamehuman[pname] .. " - Suicides:" .. chat_Suicide .." - Headshots:" .. chat_Headshots .. " - Teamkilled:" .. chat_TeamKilled)
+		print("** Player results:" ..getnamehuman[pname] .. " - Knife kills:" .. chat_Dogtags .. " - Revives:" ..chat_Revives .. " - Roadkills:" .. chat_roadkills)
 		print("")
 
 

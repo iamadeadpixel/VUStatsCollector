@@ -82,7 +82,6 @@ Events:Subscribe('Player:Killed',
 				return
 			else
 		kill_roadkills[s_Inflictor.name] = kill_roadkills[s_Inflictor.name] + 1
---		print ("player "..playerscollected[s_Inflictor.name].." Made "..kill_roadkills[s_Inflictor.name].." roadkills")
 		end
 		end
 		--
@@ -93,7 +92,6 @@ Events:Subscribe('Player:Killed',
 		if playerdeaths[p_Player.name] == nil then playerdeaths[p_Player.name] = 0; end
 		playersuicides[p_Player.name] = playersuicides[p_Player.name] + 1
 		playerdeaths[p_Player.name] = playerdeaths[p_Player.name] + 1
---		print ("player "..playerscollected[p_Player.name].." Made "..playersuicides[p_Player.name].." suicides / Death count:"..playerdeaths[p_Player.name])
 		end
 		--
 
@@ -101,7 +99,6 @@ Events:Subscribe('Player:Killed',
 		if args[1] ~= args[4] and args[7] ~= "TEAMKILL" then
 		if playerkills[s_Inflictor.name] == nil then playerkills[s_Inflictor.name] = 0; end
 		playerkills[s_Inflictor.name] = playerkills[s_Inflictor.name] + 1
---		print ("player "..playerscollected[s_Inflictor.name].." Made "..playerkills[s_Inflictor.name].." kills")
 		end
 		--
 
@@ -109,7 +106,6 @@ Events:Subscribe('Player:Killed',
 		if args[1] ~= args[4] then
 		if playerdeaths[p_Player.name] == nil then playerdeaths[p_Player.name] = 0; end
 		playerdeaths[p_Player.name] = playerdeaths[p_Player.name] + 1
---		print ("Player "..playerscollected[p_Player.name].." died "..playerdeaths[p_Player.name].." times")
 		end
 		--
 
@@ -117,7 +113,6 @@ Events:Subscribe('Player:Killed',
 		if p_IsHeadShot then
 		if playerheadshot[s_Inflictor.name] == nil then playerheadshot[s_Inflictor.name] = 0; end
 		playerheadshot[s_Inflictor.name] = playerheadshot[s_Inflictor.name] + 1
---		print ("player "..playerscollected[s_Inflictor.name].." Made "..playerheadshot[s_Inflictor.name].." Headshot kills")
 		end
 		--
 
@@ -125,7 +120,6 @@ Events:Subscribe('Player:Killed',
 		if args[7] == "KNIFE" or args[7] == "ACB-90" then
 		if playerdogtags[s_Inflictor.name] == nil then playerdogtags[s_Inflictor.name] = 0; end
 		playerdogtags[s_Inflictor.name] = playerdogtags[s_Inflictor.name] + 1
---		print ("player "..playerscollected[s_Inflictor.name].." Made "..playerdogtags[s_Inflictor.name].." knife kills")
 		end
 		--
 
@@ -133,7 +127,6 @@ Events:Subscribe('Player:Killed',
 		if  args[7] == "TEAMKILL" then
 		if playerteamkilled[s_Inflictor.name] == nil then playerteamkilled[s_Inflictor.name] = 0; end
 		playerteamkilled[s_Inflictor.name] = playerteamkilled[s_Inflictor.name] + 1
---		print ("player "..playerscollected[s_Inflictor.name].." Made "..playerteamkilled[s_Inflictor.name].." team kills")
 		end
 
 		--
