@@ -20,6 +20,8 @@ function StatsCollector:RegisterEvents()
 end
 
 function StatsCollector:OnEngineInit()
+-- Experimental
+	self.m_ServerOwner = require 'ServerOwner'
 
 	self.m_LevelPrint = require 'LevelPrint'
 	self.m_Weapons_Tables = require 'Weapons_Tables'
@@ -38,19 +40,19 @@ function StatsCollector:OnEngineInit()
 	self.m_PlayerKilled = require 'PlayerKilled'
 	self.m_DumpData = require 'DumpData' -- information only, not realy needed on a active server
 
-	self.m_functioncall = require 'functioncall'
-
-
 	self.m_Roundover = require 'Roundover'
 	self.m_PUE00_playerrounddata = require 'PUE00_playerrounddata'
 	self.m_ChatCommands = require('ChatCommands') -- pull stats on command,ugly setup, but works
---	self.m_spawn = require 'spawn'             -- not needed under normal conditions, information only...
+	self.m_spawn = require 'spawn'             -- not needed under normal conditions, information only...
 	self.m_Revives = require('Revives')
+
+	self.m_functioncall = require 'functioncall'
 
 
 -- All data now in one file...
 	self.m_All_vehicles_and_weapons = require('All_vehicles_and_weapons')
 end
+
 
 function StatsCollector:OnLevelDestroy()
 	print("********* data whiped on level destroy *********");

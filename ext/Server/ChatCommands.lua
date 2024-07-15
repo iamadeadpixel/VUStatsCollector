@@ -79,12 +79,18 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 			chat_TeamKilled = l_Row["TeamKilled"]
 			chat_Dogtags = l_Row["Dogtags"]
 			chat_Revives = l_Row["Revives"]
+			chat_Wins = l_Row["Wins"]
+			chat_Losses = l_Row["Losses"]
+
 			if chat_Soldiername == player.name then
-				print("** Player total results")
-				print("** Player results:"..chat_Soldiername .." - Score:" ..chat_Score .." - Kills:" .. chat_Kills .. " - Deaths:" .. chat_Deaths .. " - Suicides:" .. chat_Suicide)
-				print("** Player results:"..chat_Soldiername .." - Headshots:" ..chat_Headshots .." - Teamkilled:" ..chat_TeamKilled .. " - Knife kills:" .. chat_Dogtags .. " - Revives:" .. chat_Revives)
+				print("** Player total results for "..chat_Soldiername)
+				print("** Player results: Score:" ..chat_Score .." - Kills:" .. chat_Kills .. " - Deaths:" .. chat_Deaths .. " - Suicides:" .. chat_Suicide)
+				print("** Player results: Headshots:" ..chat_Headshots .." - Teamkilled:" ..chat_TeamKilled .. " - Knife kills:" .. chat_Dogtags .. " - Revives:" .. chat_Revives)
+				print("** Player results: Matches won:"..chat_Wins.." - Matches lost:"..chat_Losses)
+
 				ChatManager:SendMessage("Score:" .. chat_Score .." - Kills:" .. chat_Kills .. " - Deaths:" .. chat_Deaths .. " - Suicides:" .. chat_Suicide, player)
 				ChatManager:SendMessage("Headshots:" ..chat_Headshots .." - Teamkilled:" ..chat_TeamKilled .. " - Knife kills:" .. chat_Dogtags .. " - Revives:" .. chat_Revives,player)
+				ChatManager:SendMessage("Matches won:"..chat_Wins.." - Matches lost:"..chat_Losses,player)
 			end
 		end
 	end

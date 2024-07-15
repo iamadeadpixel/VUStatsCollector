@@ -57,7 +57,9 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 	`Headshots` INTEGER,
 	`TeamKilled` INTEGER,
 	`Dogtags` INTEGER,
-	`Revives` INTEGER
+	`Revives` INTEGER,
+	`Wins` INTEGER,
+	`Losses` INTEGER
 	);
 		]]
 
@@ -450,6 +452,23 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 	--
 	--
 
+	local s_Results = SQL:Query('SELECT * FROM tbl_server_owner')
+	if not s_Results then
+		print("*** Creating Table: 'tbl_server_owner' ***")
+		s_Query = [[
+	CREATE TABLE IF NOT EXISTS `tbl_server_owner` (
+	`Soldiername` TEXT,
+	`VU_GUID` TEXT,
+	`Lock` TEXT,
+	`FirstSeenOnServer` INTEGER
+	);
+		]]
+
+		if not SQL:Query(s_Query) then
+			print('Failed to execute query for tbl_server_owner Table: ' .. SQL:Error())
+			return
+		end
+	end
 
 
 

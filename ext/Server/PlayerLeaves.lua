@@ -72,6 +72,7 @@ Events:Subscribe('Player:Left', function(player)
 			Session_PlayTime_End[player.name] = {}
 			getnamehuman[player.name] = {}
 			playerishuman[player.name] = {}
+			playerteamID[player.name] = {}
 
 			print("*** Player has donked out of the server ***");
 		end

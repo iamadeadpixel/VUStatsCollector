@@ -13,6 +13,7 @@ end)
 CountPlayers = 0
 getnamehuman = {}  -- value is name
 playerishuman = {} -- False or true
+playerteamID = {}  -- value is 1, 2, 3, 4 (US/RU or squad TDM alpha beta charlie delta)
 
 Session_PlayTime_Start = {}
 Session_PlayTime_End = {}
@@ -91,8 +92,6 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 				end
 
 
-
-
 				print(" ");
 				print('*** UpdateCheckInfo: ** Done Updating Player information on joining the server **')
 				print("*** UpdateCheckInfo: Player new login times " .. s_PlayerLogins)
@@ -106,11 +105,10 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 				print("*** UpdateCheckInfo: Updating Players name: " .. temp_PlayerName .. " -> " .. s_player);
 
 
-				if not SQL:Query('UPDATE tbl_playerdata SET PlayerLogins=?, Soldiername = ?,  LastSeenOnServer= ? WHERE Soldiername = ?', s_PlayerLogins, s_player, s_GetDateTime, temp_PlayerName) then
-					print('Failed to execute name change for tbl_playerdata query: ' .. SQL:Error())
+	if not SQL:Query('UPDATE tbl_playerdata SET PlayerLogins=?, Soldiername = ?,  LastSeenOnServer= ? WHERE Soldiername = ?', s_PlayerLogins, s_player, s_GetDateTime, temp_PlayerName) then
+		print('Failed to execute name change for tbl_playerdata query: ' .. SQL:Error())
 					return
 				end
-
 
 				mytables = {
 					"tbl_air_vehicles",
@@ -217,8 +215,8 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 					return
 				end
 
-		s_Query ='INSERT INTO tbl_playerstats     (Soldiername, Score, Kills, Deaths, Suicide, Headshots, TeamKilled, Dogtags, Revives) VALUES (?,?,?,?,?,?,?,?,?)'
-		if not SQL:Query(s_Query,		    s_player,	  0,	 0,	0,	 0,	  0,	      0,	 0,	  0) then
+		s_Query ='INSERT INTO tbl_playerstats     (Soldiername, Score, Kills, Deaths, Suicide, Headshots, TeamKilled, Dogtags, Revives, Wins, Losses) VALUES (?,?,?,?,?,?,?,?,?,?,?)'
+		if not SQL:Query(s_Query,		    s_player,	  0,	 0,	0,	 0,	  0,	      0,	 0,	  0,     0,      0) then
 					print('Failed to execute query: ' .. SQL:Error())
 					return
 				end
@@ -254,6 +252,7 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 				print("*** Total players found in tbl_serverstats:" .. temp_ServerPlayers)
 		print ("*** Injecting weapon / vehicle data ***")
 
+
 -- Injecting roadkills stuff
 	--
 	s_table = "tbl_roadkills"
@@ -267,6 +266,7 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 	end
 	print("")
 	print ("roadkills injection done")
+			
 
 			end)
 	end)

@@ -29,6 +29,9 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 -- --------------------------------------------------
 -- --------------------------------------------------
 
+
+
+
 -- Here update the round table in the tbl_playerdata database
 	print ("")
 	print ("*** Start section 01 ***")
@@ -287,13 +290,32 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 			end
 			--
 
--- Roadkills have its own tbl stuff
 
---			for data_playername, PDroadkilled in pairs(kill_roadkills) do
---				if getnamehuman[player.name] == data_playername then
---					print("End of round player ROADKILL report for " .. PDroadkilled .. " - roadkilled:" .. PDroadkilled)
---				end
---			end
+			for data_playername, myteam in pairs(playerteamID) do
+				if getnamehuman[player.name] == data_playername then
+					print("End of round player MATCH OUTCOME report for " .. data_playername .. " - My teamID:" .. myteam)
+					if playerteamID[player.name] == s_winningTeam then
+					s_Wins = 1
+					s_Losses = 0
+					else
+					s_Wins = 0
+					s_Losses = 1
+					end
+
+					if not SQL:Query('UPDATE tbl_playerstats SET Wins=Wins+?, Losses=Losses+? WHERE Soldiername = ?', s_Wins, s_Losses, getnamehuman[data_playername]) then
+						print('Failed to execute Update query: ' .. SQL:Error()) -- If everything works, this would never be printed...
+						return
+					end
+				end
+			end
+			--
+
+
+
+
+
+
+
 
 	print ("")
 	print ("*** End section 04 ***")
