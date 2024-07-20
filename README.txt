@@ -4,6 +4,7 @@ the VU alternative for procon's chatguidstatslogger
 heavy work in progress, not yet useable for a live server.
 use at own risk..
 
+Version 9.0.0 : More fixes, not sure if all works with multiple player now..
 Version 7.0.0 : Added wins / losses to playerstats
 Version 6.0.0 : fixed a player vs sql problem. (thanks doc-ice-elm)
 WARNING !
