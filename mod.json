@@ -1,7 +1,7 @@
 {
 	"Name": "StatsCollector",
 	"Description": "Collects all stats possible.",
-	"Version": "9.0.2",
+	"Version": "5.0.3",
 	"Reason": "optimized some code",
 	"Authors": ["Iamadeadpixel, and many more"],
 	"URL": "none",

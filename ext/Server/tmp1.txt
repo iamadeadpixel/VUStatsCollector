@@ -1,0 +1,33 @@
+	print ("--------------------------------------------------")
+	if player.teamId == 1 and s_winningTeam == 1 then print ("Your team "..n_winningTeam.." won this round") ; end
+	if player.teamId == 2 and s_winningTeam == 2 then print ("Your team "..n_winningTeam.." won this round") ; end
+	if player.teamId == 3 and s_winningTeam == 3 then print ("Your team "..n_winningTeam.." won this round") ; end
+	if player.teamId == 4 and s_winningTeam == 4 then print ("Your team "..n_winningTeam.." won this round") ; end
+	print ("--------------------------------------------------")
+
+
+Wins
+Losses
+	playerteamID[player.name] = player.teamId
+
+
+
+
+			for data_playername, myteam in pairs(playerteamID) do
+				if getnamehuman[player.name] == data_playername then
+					print("End of round player MATCH OUTCOME report for " .. data_playername .. " - My teamID:" .. myteam)
+					if playerteamID[player.name] == s_winningTeam then
+					s_Wins = 1
+					s_Losses = 0
+					else
+					s_Wins = 0
+					s_Losses = 1
+					end
+
+					if not SQL:Query('UPDATE tbl_playerstats SET Wins=Wins+?, Losses=Losses+? WHERE Soldiername = ?', s_Wins, s_Losses, getnamehuman[data_playername]) then
+						print('Failed to execute Update query: ' .. SQL:Error()) -- If everything works, this would never be printed...
+						return
+					end
+				end
+			end
+			--
