@@ -46,7 +46,8 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 			
 --			if player.name == getnamehuman[player.name] then
 			print("Session stats - Writting tbl_playerdata")
-			print ("Updating tbl_playerdata rounds for "..getnamehuman[rounddata])
+--			print ("Updating tbl_playerdata rounds for "..getnamehuman[rounddata])
+			print ("Updating tbl_playerdata rounds for "..getnamehuman[player.name])
 				if not SQL:Query('UPDATE tbl_playerdata SET Rounds=Rounds+?  WHERE Soldiername = ?', 1, getnamehuman[player.name]) then
 					print('Failed to execute Update Rounds query: ' .. SQL:Error())
 					return

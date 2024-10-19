@@ -7,6 +7,9 @@ Ups, missed some tdm commands in the documentation
 this is updated.
 
 
+5.0.4:
+Minor bug fixes on the roundover stuff
+
 5.0.3 : Updated minor isues
 #
 Some code used from: Doc-Ice-Elm, Joe_91
