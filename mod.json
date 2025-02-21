@@ -1,8 +1,8 @@
 {
 	"Name": "StatsCollector",
 	"Description": "Collects all stats possible.",
-	"Version": "5.0.4",
-	"Reason": "Minor bug fixes",
+	"Version": "5.0.3",
+	"Reason": "optimized some code",
 	"Authors": ["Iamadeadpixel, and many more"],
 	"URL": "none",
 	"Tags": ["statscollector"], 
