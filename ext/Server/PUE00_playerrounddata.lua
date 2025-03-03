@@ -12,7 +12,7 @@ end)
 
 -- Kick in when a player joins the server
 s_roundover_starttimer_PUE00 = os.time()
-s_roundover_timer_PUE00 = 10
+s_roundover_timer_PUE00 = 5
 
 -- --------------------------------------------------
 -- --------------------------------------------------
