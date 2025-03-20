@@ -452,6 +452,28 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 	--
 	--
 
+	local s_Results = SQL:Query('SELECT * FROM tbl_mcom')
+	if not s_Results then
+		print("*** Creating Table: 'tbl_mcom' ***")
+		s_Query = [[
+	CREATE TABLE IF NOT EXISTS `tbl_mcom` (
+	`Soldiername` TEXT,
+	`Armed` INTEGER,
+	`Disarmed` INTEGER,
+	`Destroyed` INTEGER
+	);
+		]]
+
+		if not SQL:Query(s_Query) then
+			print('Failed to execute query for tbl_mcom Table: ' .. SQL:Error())
+			return
+		end
+	end
+
+	--
+	--
+	--
+
 	local s_Results = SQL:Query('SELECT * FROM tbl_server_owner')
 	if not s_Results then
 		print("*** Creating Table: 'tbl_server_owner' ***")

@@ -91,6 +91,7 @@ Events:Subscribe('Server:RoundOver', function(roundTime, winningTeam)
 
 	PUE00_playerrounddata = true
 	if PUE00_playerrounddata == true then print("** Starting 1st event **"); end
+	print("Total round playtime "..roundTime.." Seconds, Winning team is team "..n_winningTeam)
 
 	haltprocess = true -- used in playerkilled.lua
 end)

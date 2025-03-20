@@ -1,8 +1,8 @@
 {
 	"Name": "StatsCollector",
 	"Description": "Collects all stats possible.",
-	"Version": "6.0.0",
-	"Reason": "optimized more code",
+	"Version": "7.0.0",
+	"Reason": "Added Mcom capture stuff",
 	"Authors": ["Iamadeadpixel, and many more"],
 	"URL": "none",
 	"Tags": ["statscollector"], 

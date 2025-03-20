@@ -301,18 +301,11 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 					end
 				end
 			end
-			--
-
-
-
-
-
 
 
 
 	print ("")
 	print ("*** End section 04 ***")
-	print ("")
 
 -- --------------------------------------------------
 -- --------------------------------------------------
@@ -3318,11 +3311,62 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 
 				print("")
 				print("** last table done **")
---				print("")
 
 	print ("")
 	print ("*** End section 05 ***")
+
+-- --------------------------------------------------
+-- --------------------------------------------------
+-- --------------------------------------------------
+
 	print ("")
+	print ("*** Start section 06 ***")
+	print ("")
+
+			print("")
+			print("Round is over, Writing Mcom round data")
+			print("Updating tbl_mcom ")
+			print("")
+			print(" Reading Mcom stuff from collected tables")
+			print("")
+
+-- -------------
+
+			for data_playername, count_armed in pairs(Mcom_Armed) do
+				r_mcomdata = Mcom_Armed[data_playername]
+				r_mcomtype = "Armed"
+
+				if r_mcomdata >= 1 then
+				updatemcomstats(player, data_playername)
+				end
+				end
+
+-- -------------
+
+			for data_playername, count_disarmed in pairs(Mcom_Disarmed) do
+				r_mcomdata = Mcom_Disarmed[data_playername]
+				r_mcomtype = "Disarmed"
+
+				if r_mcomdata >= 1 then
+				updatemcomstats(player, data_playername)
+				end
+				end
+
+-- -------------
+
+			for data_playername, count_destroyed in pairs(Mcom_Destroyed) do
+				r_mcomdata = Mcom_Destroyed[data_playername]
+				r_mcomtype = "Destroyed"
+
+				if r_mcomdata >= 1 then
+				updatemcomstats(player, data_playername)
+				end
+				end
+			print("Done updating tbl_mcom ")
+--		end
+
+	print ("")
+	print ("*** End section 06 ***")
 
 -- --------------------------------------------------
 -- --------------------------------------------------
@@ -3347,6 +3391,7 @@ function updateweaponkillstats(player, data_playername)
 --	if getnamehuman[player.name] then
 	if getnamehuman[player.name] and r_killdata >= 1 then
 
+--[[
 	WeaponResults = SQL:Query('SELECT Weaponname, Soldiername FROM ' .. s_table .. ' WHERE Soldiername = ? and Weaponname = ?', data_playername,s_weapon)
 	if not WeaponResults then
 		print('Failed to read "..s_table.." KILL query: ' .. SQL:Error()); return
@@ -3359,6 +3404,7 @@ function updateweaponkillstats(player, data_playername)
 		-- Updating existing playerdata
 		if founddata_Soldiername == data_playername and founddata_Weaponname == s_weapon then
 --			print(s1.." - Kill data for Soldier " .. data_playername .." found with weapon " .. s_weapon .. " in " .. s_table)
+]]
 
 -- Here also correct the kill we added when creating the table entry by removing 1 kill on the end.
 			if not SQL:Query('UPDATE ' .. s_table .. ' SET Kills=Kills+?-1 WHERE Soldiername = ? and Weaponname = ?', r_killdata, data_playername, s_weapon) then
@@ -3366,11 +3412,36 @@ function updateweaponkillstats(player, data_playername)
 				return
 			end
 --			print(s1.." - Done updating " .. data_playername)
-		end
-	end
+--		end
+--	end
 
+
+--end
 end
 end -- End of function call
 
+-- --------------------------------------------------
+-- --------------------------------------------------
+-- --------------------------------------------------
+
+function updatemcomstats(player, data_playername)
+	
+	print("FUNCTION: player "..data_playername.." "..r_mcomtype.." "..r_mcomdata.." Mcoms")
+				print("Updating player "..data_playername.." in Mcom Armed table, with "..r_mcomdata.." armed Mcoms")
+
+				if not SQL:Query('UPDATE tbl_mcom SET '..r_mcomtype..' = '..r_mcomtype..' + ? WHERE Soldiername = ?', r_mcomdata,data_playername) then
+
+				print("Failed to update "..r_mcomtype.." data in tbl_mcom "..SQL:Error())
+				return	end
+
+				print("Done updating player "..data_playername.." in Mcom "..r_mcomtype.." table, with "..r_mcomdata.." "..r_mcomtype.." Mcoms")
+				print("")
+
+
+end
+
+-- --------------------------------------------------
+-- --------------------------------------------------
+-- --------------------------------------------------
 
 return PUE00_setplayerrounds()

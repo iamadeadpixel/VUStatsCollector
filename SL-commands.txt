@@ -72,6 +72,10 @@
 .top map sqtdm
 .top map cqtdm
 
-# Roadkill command
+# Roadkill commands
 .top roadkill - Show your roadkill stats
 .top roadkill all - Show the top 3 roadkills players
+
+# M-Com commands
+.top mcom - Show your Mcom stats
+.top mcom all - Show the top 5 Mcom goons..

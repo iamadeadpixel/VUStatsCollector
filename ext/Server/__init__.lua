@@ -46,7 +46,7 @@ function StatsCollector:OnEngineInit()
 	self.m_PlayerLeaves = require 'PlayerLeaves'
 	self.m_PlayerJoins = require 'PlayerJoins'
 	self.m_Score = require 'Score'
-	self.m_DumpData = require 'DumpData' -- information only, not realy needed on a active server
+--	self.m_DumpData = require 'DumpData' -- information only, not realy needed on a active server
 	self.m_Roundover = require 'Roundover'
 	self.m_PUE00_playerrounddata = require 'PUE00_playerrounddata'
 	self.m_ChatCommands = require('ChatCommands') -- pull stats on command,ugly setup, but works
@@ -59,13 +59,13 @@ Here set all kill data per class
 ]]
 
 	
-	self.m_Collect_basedata = require('Collect_basedata')
+	self.m_Collect_base_data = require('Collect_base_data')
+	self.m_Collect_mcom_data = require('Collect_mcom_data')
 	self.m_Collect_common_data = require('Collect_common_data')
 	self.m_Collect_airvehicle_data = require('Collect_airvehicle_data')
 	self.m_Collect_landvehicle_data = require('Collect_landvehicle_data')
 	self.m_Collect_shotguns_data = require('Collect_shotguns_data')
 	self.m_Collect_handgun_data = require('Collect_handgun_data')
-
 
 	self.m_Collect_assault_weapons_data = require('Collect_assault_weapons_data')
 	self.m_Collect_engineer_weapons_data = require('Collect_engineer_weapons_data')

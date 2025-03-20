@@ -183,6 +183,13 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 	end
 end)
 -- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
 
 Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 	if message == ".top killer" or message == ".top killers" then
@@ -216,8 +223,6 @@ end)
 -- ------------------
 -- ------------------
 -- ------------------
-
-
 
 Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 	if message == ".top air" or message == ".top aircraft" then
@@ -604,6 +609,69 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 		end
 	end
 end)
+
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+
+Events:Subscribe('Player:Chat', function(player, recipientMask, message)
+	if message == ".top mcom" then
+		s_table = "tbl_mcom"
+		s_top_message1 = "** player top 3 Mcom **"
+		s_topSelect = "player"
+		s_topvehicletype = "Mcom:"
+
+	elseif message == ".top mcom all" then
+		s_table = "tbl_mcom"
+		s_top_message1 = "** top 3 Mcom players **"
+		s_topSelect = "all"
+		s_topvehicletype = "Mcom:"
+
+	else
+		return
+	end
+
+	ChatManager:SendMessage(s_top_message1, player)
+	print(s_top_message1);
+
+	if s_topSelect == "all" then
+		CHATresults = SQL:Query('SELECT Soldiername, Armed, Disarmed, Destroyed FROM ' ..s_table.. ' ORDER BY Armed DESC, Disarmed ASC, Destroyed ASC, Soldiername ASC LIMIT 5 ')
+		if not CHATresults then
+			print('Failed to got data query: ' .. SQL:Error()); return
+		end
+		print("ALL selected")
+
+	elseif s_topSelect == "player" then
+		CHATresults = SQL:Query('SELECT Soldiername, Armed, Disarmed, Destroyed FROM ' .. s_table ..'  WHERE Soldiername = ? ORDER BY Armed DESC LIMIT 1 ', player.name)
+		if not CHATresults then
+			print('Failed to got data query: ' .. SQL:Error()); return
+		end
+		print("Player selected")
+	end
+
+	for _, l_Row in pairs(CHATresults) do
+		chat_Soldiername = l_Row["Soldiername"]
+		chat_Armed = l_Row["Armed"]
+		chat_Disarmed = l_Row["Disarmed"]
+		chat_Destroyed = l_Row["Destroyed"]
+
+
+		if s_topSelect == "all" then
+			print(s_topvehicletype..": Soldier:"..chat_Soldiername.." Armed:"..chat_Armed.." Disarmed:"..chat_Disarmed.." Destroyed:"..chat_Destroyed)
+				     ChatManager:SendMessage(chat_Soldiername..": Armed:"..chat_Armed.." Disarmed:"..chat_Disarmed.." Destroyed:"..chat_Destroyed, player)
+
+		elseif s_topSelect == "player" then
+						      print(s_topvehicletype.. ": Armed:"..chat_Armed.." Disarmed:"..chat_Disarmed.." Destroyed:"..chat_Destroyed)
+							 ChatManager:SendMessage("Armed:"..chat_Armed.." Disarmed:"..chat_Disarmed.." Destroyed:"..chat_Destroyed, player)
+		end
+	end
+end)
+
+
 
 
 return ChatCommands()

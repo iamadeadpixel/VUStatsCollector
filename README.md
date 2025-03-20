@@ -3,13 +3,11 @@ Statscollector.
 the VU alternative for procon's chatguidstatslogger
 heavy work in progress, not yet useable for a live server,but works.
 
-Ups, missed some tdm commands in the documentation
-this is updated.
 
-6.0.0 : Split kits in own sections
+7.0.0 : Added the missing M-com stuff
 #
 Some code used from: Doc-Ice-Elm, Joe_91
-Code fixes: Bree_Arnold and Doc-Ice-Elm, Jassent, IllustrisJack, Bree_Arnold
+Code fixes: Bree_Arnold and Doc-Ice-Elm, Jassent, IllustrisJack
 SQLite fix for getting weapon kills: NoFaTe
 
 almost working: revive check - human vs bot, bot bs human , human vs human

@@ -11,6 +11,12 @@ end)
 
 -- init stuff
 CountPlayers = 0
+
+Mcom_Armed = {}
+Mcom_Disarmed = {}
+Mcom_Destroyed = {}
+
+getnameall = {}  -- value is name (this also gets bot names)
 getnamehuman = {}  -- value is name
 playerishuman = {} -- False or true
 playerteamID = {}  -- value is 1, 2, 3, 4 (US/RU or squad TDM alpha beta charlie delta)
@@ -19,8 +25,6 @@ Session_PlayTime_Start = {}
 Session_PlayTime_End = {}
 
 -- All other table / variable stuff goes in TableSetup.lua
-
-
 
 Events:Subscribe('Level:Loaded', function()
 	print("*** Level loaded ***");
@@ -73,8 +77,6 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 
 		if s_accountGuid == temp_Guid then
 			print("*** ServerInfo: GUID FOUND FOR PLAYER: " .. s_player .. " - :" .. temp_Guid)
-			--		if s_playerGuid  == temp_Guid then print("*** ServerInfo: GUID FOUND FOR PLAYER: " ..s_player.. " - :" .. temp_Guid)
-
 			print("*** UpdateCheckInfo: Player login times " .. temp_PlayerLogins)
 			print("*** UpdateCheckInfo: Player last play time in seconds " .. temp_PlayTime)
 
@@ -110,21 +112,23 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 					return
 				end
 
+			-- Tables what contain the Soldiername tag
 				mytables = {
 					"tbl_air_vehicles",
+					"tbl_land_vehicles",
+					"tbl_mcom",
+					"tbl_playerstats",
+					"tbl_primary_weapons",
+					"tbl_roadkills",
+					"tbl_handguns_weapons",
+					"tbl_shotguns_weapons",
 					"tbl_assault_gadgets",
 					"tbl_assault_weapons",
 					"tbl_auxiliary_gadgets",
 					"tbl_engineer_gadgets",
 					"tbl_engineer_weapons",
-					"tbl_handguns_weapons",
-					"tbl_land_vehicles",
-					"tbl_playerstats",
-					"tbl_primary_weapons",
 					"tbl_recon_gadgets",
 					"tbl_recon_weapons",
-					"tbl_roadkills",
-					"tbl_shotguns_weapons",
 					"tbl_support_gadgets",
 					"tbl_support_weapons"
 				}
@@ -137,9 +141,6 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 					end
 				end
 
-
-				-- ------------------------
-				--	
 				print(" ");
 				print('*** UpdateCheckInfo: ** Done Updating Player information on joining the server **')
 				print("*** UpdateCheckInfo: Player new login times " .. s_PlayerLogins)
@@ -148,6 +149,7 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 			return
 		end
 	end
+
 	--
 	--
 	print("*** ServerInfo: NO GUID FOUND FOR PLAYER " .. s_player .. " NEW PLAYER ***")
@@ -163,15 +165,12 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 		print("*** ServerInfo: IP FOUND FOR PLAYER: " .. s_player .. " - :" .. s_ServerIP)
 
 		-- Fully working thanks to Bree_Arnold
-		-- Used the EXTERNAL IP from server
+		-- Used to grab the players IP
 		---@param response HttpResponse
---	Net:GetHTTPAsync('https://api.cleantalk.org/?method_name=ip_info&ip='..s_ServerIP, function (response) -- Using the external IP fetched by the json
 	Net:GetHTTPAsync('https://api.cleantalk.org/?method_name=ip_info&ip='..s_playerIP, function (response) -- Using the Internal fetched IP by the player login
 				if response.status ~= 200 then return end
 
 				local s_Response = json.decode(response.body)
---	cc_CountryName = s_Response.data[s_ServerIP].country_name -- Using the external IP fetched by the json
---	cn_CountryCode = s_Response.data[s_ServerIP].country_code -- Using the external IP fetched by the json
 	cc_CountryName = s_Response.data[s_playerIP].country_name -- Using the internal IP fetched by the json -- Using the Internal fetched IP by the player login
 	cn_CountryCode = s_Response.data[s_playerIP].country_code -- Using the internal IP fetched by the json -- Using the Internal fetched IP by the player login
 
@@ -179,16 +178,13 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 				s_CountryName = tostring(cc_CountryName)
 
 				s_MapData = "New player Setup stuff"
-				print('' .. s_MapData .. ': - Client Info EXT:        Player name: ' .. s_player .. ' ')
-				print('' .. s_MapData .. ': - Client Info EXT:        Player   IP: ' .. s_playerIP .. ' ')
-				print('' .. s_MapData .. ': - Client Info EXT: Player global GUID: ' .. s_accountGuid .. ' ') -- Global Guid
-				print('' .. s_MapData .. ': - Client Info EXT:        Player GUID: ' .. s_playerGuid .. ' ') -- Guid for each player you made.
-				print('' .. s_MapData .. ': - Client Info EXT:  Players Join date: ' .. s_GetDateTime .. ' ')
-				print('' .. s_MapData .. ': - Client Info EXT: Player External IP: ' .. s_ServerIP .. ' ')
-				print('' ..
-					s_MapData ..
-					': - Client Info EXT:    Players country: ' ..
-					s_CountryName .. ' CountryCode: ' .. s_CountryCode .. ' ')
+				print('' ..s_MapData.. ': - Client Info EXT:        Player name: ' ..s_player.. ' ')
+				print('' ..s_MapData.. ': - Client Info EXT:        Player   IP: ' ..s_playerIP.. ' ')
+				print('' ..s_MapData.. ': - Client Info EXT: Player global GUID: ' ..s_accountGuid.. ' ') -- Global Guid
+				print('' ..s_MapData.. ': - Client Info EXT:        Player GUID: ' ..s_playerGuid.. ' ') -- Guid for each player you made.
+				print('' ..s_MapData.. ': - Client Info EXT:  Players Join date: ' ..s_GetDateTime.. ' ')
+				print('' ..s_MapData.. ': - Client Info EXT: Player External IP: ' ..s_ServerIP.. ' ')
+				print('' ..s_MapData.. ': - Client Info EXT:    Players country: ' ..s_CountryName.. ' CountryCode: ' ..s_CountryCode.. ' ')
 
 				-- Here we check the players Guid entry,  and insert the new player
 				local playerGuid_results = SQL:Query('SELECT VU_GUID FROM tbl_playerdata')
@@ -203,14 +199,12 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 					temp_PlayerGuid = l_Row["VU_GUID"]
 				end
 
-				-- Increasing playerID number by 1
 				if temp_PlayerGuid == nil then print("No Guid found"); end
 
 
 				s_FirstSeenDate = s_GetDateTime
 	s_Query ='INSERT INTO tbl_playerdata    (Soldiername,  PlayerLogins,      VU_GUID,         IP,      CountryCode,   CountryName,   FirstSeenOnServer, LastSeenOnServer,  Rounds, PlayTime) VALUES (?,?,?,?,?,?,?,?,?,?)'
 		if not SQL:Query(s_Query,         s_player,         1,         s_accountGuid,  s_playerIP, s_CountryCode, s_CountryName,   s_FirstSeenDate,   s_FirstSeenDate,     0,       0) then
---		if not SQL:Query(s_Query,         s_player,         1,          s_playerGuid,  s_playerIP, s_CountryCode, s_CountryName,   s_FirstSeenDate,   s_FirstSeenDate,     0,       0) then
 					print('Failed to execute query: ' .. SQL:Error())
 					return
 				end
@@ -222,12 +216,9 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 				end
 				--
 
-				print("** *** ** *** ServerInfo: SQL Data: Player IP address:" ..
-					s_playerIP .. " - Join date:" .. s_FirstSeenDate)
-				print("** *** ** *** ServerInfo: SQL Data: PlayerGuid:" .. s_accountGuid)
-				--	print("** *** ** *** ServerInfo: SQL Data: PlayerGuid:"..s_playerGuid )
-				print("** *** ** *** ServerInfo: SQL Data: CountryName:" ..
-					s_CountryName .. " - CountryCode:" .. s_CountryCode .. " ** End injection **")
+				print("** *** ** *** ServerInfo: SQL Data: Player IP address:" ..s_playerIP.. " - Join date:" ..s_FirstSeenDate)
+				print("** *** ** *** ServerInfo: SQL Data: PlayerGuid:" ..s_accountGuid)
+				print("** *** ** *** ServerInfo: SQL Data: CountryName:" ..s_CountryName.. " - CountryCode:" ..s_CountryCode.. " ** End injection **")
 				-- end of inserting new player data
 
 
@@ -253,14 +244,14 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 		print ("*** Injecting weapon / vehicle data ***")
 
 
--- Injecting roadkills stuff
+-- Injecting roadkills stuff for new players
 	--
 	s_table = "tbl_roadkills"
 	for key,s_weaponcode in ipairs(roadkills) do
 	print(s_weaponcode)
 		s_Query = 'INSERT INTO ' .. s_table ..'     (Weaponname,           Soldiername,        Kills) VALUES (?,?,?)'
 				if not SQL:Query(s_Query,   s_weaponcode,   getnamehuman[name],   0) then
-			print(s0.." - Failed to insert kill data in "..s_table..": " .. SQL:Error())
+			print("** Failed to insert kill data in "..s_table..": " ..SQL:Error())
 			return
 	end
 	end
