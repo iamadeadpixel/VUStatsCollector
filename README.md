@@ -4,7 +4,7 @@ the VU alternative for procon's chatguidstatslogger
 heavy work in progress, not yet useable for a live server,but works.
 
 
-7.0.0 : Added the missing M-com stuff
+7.0.1 : Fixed roadkill (i hope)
 #
 Some code used from: Doc-Ice-Elm, Joe_91
 Code fixes: Bree_Arnold and Doc-Ice-Elm, Jassent, IllustrisJack
