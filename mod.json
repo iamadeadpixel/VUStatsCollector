@@ -1,8 +1,8 @@
 {
 	"Name": "StatsCollector",
 	"Description": "Collects all stats possible.",
-	"Version": "7.0.1",
-	"Reason": "fixed the roadkill isue",
+	"Version": "8.0.0",
+	"Reason": "Bot are now logged",
 	"Authors": ["Iamadeadpixel, and many more"],
 	"URL": "none",
 	"Tags": ["statscollector"], 
