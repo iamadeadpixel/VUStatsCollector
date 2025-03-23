@@ -3,7 +3,7 @@ Statscollector.
 the VU alternative for procon's chatguidstatslogger
 heavy work in progress, not yet useable for a live server,but works.
 
-
+This version logs bots and human...
 8.0.0 : Bots are now logged to
 #
 Some code used from: Doc-Ice-Elm, Joe_91
