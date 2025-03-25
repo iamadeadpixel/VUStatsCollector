@@ -746,6 +746,35 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 	end
 end)
 
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+
+require('version')
+
+Events:Subscribe('Player:Chat', function(player, recipientMask, message)
+	if message == ".version" then
+			ChatManager:SendMessage("Statscollector version:"..localModVersion, player)
+			ChatManager:SendMessage("Mod:"..ModVersion, player)
+					  print("Statscollector version:"..localModVersion)
+					  print("Mod:"..ModVersion)
+	end
+end)
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
 
 
 
