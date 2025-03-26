@@ -14,7 +14,7 @@ end)
 -- spawn/respawn event
 Events:Subscribe('Player:Respawn', function(player, recipientMask, message, info, yell, playerGuid, accountGuid)
 	if haltprocess then return end
---	playerteamID[player.name] = player.teamId
+	playerteamID[player.name] = player.teamId
 
 end)
 
