@@ -1,6 +1,6 @@
 Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 	if screenInfo == "Running" or screenInfo == "Blocking on shader creation" or screenInfo == "Loading done" then
-	if Config.consolespam then
+	if Config.consolespam_header then
 		print("*** M-Com stuff loaded ***");
 Mcom_Armed = {}
 Mcom_Disarmed = {}
@@ -42,7 +42,7 @@ Events:Subscribe('MCOM:Armed', function(player)
 	end
 
 -- ------------------------------------------------------
-	if Config.consolespam then
+	if Config.consolespam_mcomevent then
 	print("MCOM:Armed by " ..player.name)
 	end
 
@@ -65,7 +65,7 @@ Events:Subscribe('MCOM:Disarmed', function(player)
 	end
 
 -- ------------------------------------------------------
-	if Config.consolespam then
+	if Config.consolespam_mcomevent then
 	print("MCOM:Disarmed by " ..player.name)
 	end
 
@@ -88,7 +88,7 @@ Events:Subscribe('MCOM:Destroyed', function(player)
 	end
 
 -- ------------------------------------------------------
-	if Config.consolespam then
+	if Config.consolespam_mcomevent then
 	print("MCOM:Destroyed by " ..player.name)
 	end
 
@@ -112,7 +112,7 @@ function data_Mcom(data_playername)
 	data_mcom_event = tostring (data_mcom_event)
 	data_playername = tostring (data_playername)
 
-	if Config.consolespam then
+	if Config.consolespam_mcomevent then
 	print ("")
 	print (data_catagory.." Weapon name:"..data_mcom_event)
 	print (data_catagory.." Player name:"..data_playername)
@@ -128,14 +128,14 @@ function data_Mcom(data_playername)
 	return
 	end
 
-	if Config.consolespam then
+	if Config.consolespam_mcomevent then
 	print ("Done reading tbl_mcom")
 	print ("")
 	end
 
  --If no player data is found, injecting it now
 if type(next(Results)) == "nil" then
-	if Config.consolespam then
+	if Config.consolespam_mcomevent then
 print("No player data for "..data_playername.." found for tbl_mcom - Injecting now")
 	end
 
@@ -145,31 +145,31 @@ print("No player data for "..data_playername.." found for tbl_mcom - Injecting n
 			return
 	end
 
-	if Config.consolespam then
+	if Config.consolespam_mcomevent then
 	print("")
 	print ("tbl_mcom injection done")
 	end
 
 	else
-	if Config.consolespam then
+	if Config.consolespam_mcomevent then
 		print('found M-com "'..data_mcom_event..'" data for : '..data_playername)
 		print('M-com Stats for "'..data_mcom_event)
 	end
 
 	if data_mcom_event == "Armed" then 
-	if Config.consolespam then
+	if Config.consolespam_mcomevent then
 		print ("M-com armed this round: "..Mcom_Armed[data_playername])
 		print ("Total M-com data this round: Armed:"..Mcom_Armed[data_playername].." Disarmed:"..Mcom_Disarmed[data_playername].." Destroyed:"..Mcom_Destroyed[data_playername])
 	end
 
 	elseif data_mcom_event == "Disarmed" then 
-	if Config.consolespam then
+	if Config.consolespam_mcomevent then
 		print ("M-com armed this round: "..Mcom_Disarmed[data_playername])
 		print ("Total M-com data this round: Armed:"..Mcom_Armed[data_playername].." Disarmed:"..Mcom_Disarmed[data_playername].." Destroyed:"..Mcom_Destroyed[data_playername])
 	end
 
 	elseif data_mcom_event == "Destroyed" then 
-	if Config.consolespam then
+	if Config.consolespam_mcomevent then
 		print ("M-com armed this round: "..Mcom_Destroyed[data_playername])
 		print ("Total M-com data this round: Armed:"..Mcom_Armed[data_playername].." Disarmed:"..Mcom_Disarmed[data_playername].." Destroyed:"..Mcom_Destroyed[data_playername])
 	end

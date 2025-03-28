@@ -5,7 +5,7 @@ PUE00_setplayerrounds = class 'PUE00_setplayerrounds'
 
 Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 	if screenInfo == "Running" or screenInfo == "Blocking on shader creation" or screenInfo == "Loading done" then
-	if Config.consolespam then
+	if Config.consolespam_header then
 		print("*** PUE00_setplayerrounds loaded ***");
 	end
 	end
@@ -14,7 +14,7 @@ end)
 
 -- Kick in when a player joins the server
 s_roundover_starttimer_PUE00 = os.time()
-s_roundover_timer_PUE00 = 5
+s_roundover_timer_PUE00 = 3
 
 -- --------------------------------------------------
 -- --------------------------------------------------
@@ -27,42 +27,24 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 	if s_roundover_elapsed_timer_PUE00 >= s_roundover_timer_PUE00 then
 		if PUE00_playerrounddata == true then
 
--- Here update the round table in the tbl_playerdata database
+	if Config.consolespam_section1 then
 	print ("")
 	print ("*** Start section 01 ***")
 	print ("")
-
-	if Config.consolespam then
-
-			print("")
-			print("Round is over, Writing player round data")
-			print("Updating tbl_playerdata player round ID")
-			print("")
 	end
-
 			for playerround, rounddata in pairs(getnamehuman) do
-	if Config.consolespam then
-			print("Session stats - Writting tbl_playerdata")
-			print ("Updating tbl_playerdata rounds for "..getnamehuman[player.name])
-	end
-
 	if not SQL:Query('UPDATE tbl_playerdata SET Rounds=Rounds+?  WHERE Soldiername = ?', 1, getnamehuman[player.name]) then
 					print('Failed to execute Update Rounds query: ' .. SQL:Error())
 					return
 			end
 	end
 
-	if Config.consolespam then
-	print ("")
-	print ("*** end section 01 ***")
-	print ("")
-	end
 -- --------------------------------------------------
 -- --------------------------------------------------
 -- --------------------------------------------------
 
 -- Here we update tbl_serverstats database with new player score data.
-	if Config.consolespam then
+	if Config.consolespam_section2 then
 	print ("")
 	print ("*** Start section 02 ***")
 	print ("")
@@ -70,7 +52,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 
 			pc = PlayerManager:GetPlayerCount()
 
-	if Config.consolespam then
+	if Config.consolespam_section2 then
 			print("")
 			print("** Start of score report **")
 	end
@@ -126,7 +108,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				eor_roadkills = eor_roadkills + tabledata
 			end
 
-	if Config.consolespam then
+	if Config.consolespam_section2 then
 			print("Session stats - Writting tbl_serverstats")
 			print("Session stats - Gamemode:" ..s_GameMode .." - Mapname:" ..s_LevelName .. " - Winning team:" .. n_winningTeam .. " - Total players this round:" .. pc)
 			print("Session stats - Time round start:" ..s_startroundtime .. " - Time round end:" ..s_endroundtime .. " - Total round time:" .. s_roundTime .. " Seconds **")
@@ -141,19 +123,12 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				return
 			end
 
-	if Config.consolespam then
-	print ("")
-	print("** End of score report **")
-	print ("*** End section 02 ***")
-	print ("")
-	end
-
 -- --------------------------------------------------
 -- --------------------------------------------------
 -- --------------------------------------------------
 
 -- Here we update the map stats in tbl_mapstats database.
-	if Config.consolespam then
+	if Config.consolespam_section3 then
 	print ("")
 	print ("*** Start section 03 ***")
 	print ("")
@@ -173,18 +148,18 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 			end
 
 			if temp_RoundID == nil then temp_RoundID = 0; end
-	if Config.consolespam then
+	if Config.consolespam_section3 then
 			print("Previous roundID:" .. temp_RoundID)
 	end
 
 		s_RoundID = temp_RoundID + 1
 
-	if Config.consolespam then
+	if Config.consolespam_section3 then
 			print("Session stats - Writting tbl_mapstats")
-			print("Updating tbl_mapstats with this data - Total rounds played:" .. s_RoundID)
-			print("Updating tbl_mapstats with this data - Roundstart time:" ..s_startroundtime .. " - Round over time:" .. s_endroundtime)
-			print("Updating tbl_mapstats with this data - Map name:" ..s_LevelName .. " - Game mode:" .. s_GameMode)
-			print("Updating tbl_mapstats with this data - Total score:" ..serverscore .. " - Round time:" .. s_roundTime .. " seconds - Winning team:" .. n_winningTeam .. " - Total players:" .. pc)
+			print("Updating tbl_mapstats with this data - Total rounds played:"..s_RoundID)
+			print("Updating tbl_mapstats with this data - Roundstart time:"..s_startroundtime.." - Round over time:"..s_endroundtime)
+			print("Updating tbl_mapstats with this data - Map name:"..s_LevelName.." - Game mode:"..s_GameMode)
+			print("Updating tbl_mapstats with this data - Total score:"..serverscore.." - Round time:"..s_roundTime.." seconds - Winning team:"..n_winningTeam.." - Total players:"..pc)
 	end
 
 			s_Query ='INSERT INTO tbl_mapstats (RoundID,  TimeRoundStarted,  TimeRoundEnd,    MapName,    Gamemode,  Roundscore,   Roundtime,   winningTeam,  MaxPlayers) VALUES (?,?,?,?,?,?,?,?,?)'
@@ -193,19 +168,13 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				return
 			end
 
-	if Config.consolespam then
-	print ("")
-	print ("*** End section 03 ***")
-	print ("")
-	end
-
 -- --------------------------------------------------
 -- --------------------------------------------------
 -- --------------------------------------------------
 
 -- Here we update tbl_playerstats database with player data
 -- needs atention,for some reason, sometimes it fails, specialy with more human players on the server
-	if Config.consolespam then
+	if Config.consolespam_section4 then
 	print ("")
 	print ("*** Start section 04 ***")
 	print ("")
@@ -218,8 +187,8 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 
 			for data_playername, PDscore in pairs(playerscore) do
 				if getnamehuman[player.name] == data_playername then
-	if Config.consolespam then
-					print("End of round player SCORE report for " .. data_playername .. " - Score:" .. PDscore)
+	if Config.consolespam_section4 then
+					print("End of round player SCORE report for "..data_playername.." - Score:"..PDscore)
 	end
 
 					if not SQL:Query('UPDATE tbl_playerstats SET Score=Score+? WHERE Soldiername = ?', PDscore, getnamehuman[data_playername]) then
@@ -232,7 +201,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 
 			for data_playername, PDkills in pairs(playerkills) do
 				if getnamehuman[player.name] == data_playername then
-	if Config.consolespam then
+	if Config.consolespam_section4 then
 					print("End of round player KILL report for " .. data_playername .. " - Kills:" .. PDkills)
 	end
 
@@ -246,7 +215,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 
 			for data_playername, PDdeaths in pairs(playerdeaths) do
 				if getnamehuman[player.name] == data_playername then
-	if Config.consolespam then
+	if Config.consolespam_section4 then
 					print("End of round player DEATH report for " .. data_playername .. " - Deaths:" .. PDdeaths)
 	end
 
@@ -260,7 +229,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 
 			for data_playername, PDsuicide in pairs(playersuicides) do
 				if getnamehuman[player.name] == data_playername then
-	if Config.consolespam then
+	if Config.consolespam_section4 then
 					print("End of round player SUICIDE report for " .. data_playername .. " - Suicides:" .. PDsuicide)
 	end
 
@@ -274,7 +243,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 
 			for data_playername, PDheadshot in pairs(playerheadshot) do
 				if getnamehuman[player.name] == data_playername then
-	if Config.consolespam then
+	if Config.consolespam_section4 then
 					print("End of round player HEADSHOT report for " .. data_playername .. " - Headshots:" .. PDheadshot)
 	end
 
@@ -288,7 +257,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 
 			for data_playername, PDteamkilled in pairs(playerteamkilled) do
 				if getnamehuman[player.name] == data_playername then
-	if Config.consolespam then
+	if Config.consolespam_section4 then
 					print("End of round player TEAMKILL report for " .. data_playername .. " - Teamkilled:" .. PDteamkilled)
 	end
 
@@ -302,7 +271,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 
 			for data_playername, PDdogtags in pairs(playerdogtags) do
 				if getnamehuman[player.name] == data_playername then
-	if Config.consolespam then
+	if Config.consolespam_section4 then
 					print("End of round player DOGTAG report for " .. data_playername .. " - Dogtags taken:" .. PDdogtags)
 	end
 
@@ -316,7 +285,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 
 			for data_playername, PDrevives in pairs(playerrevivs) do
 				if getnamehuman[player.name] == data_playername then
-	if Config.consolespam then
+	if Config.consolespam_section4 then
 					print("End of round player REVIVE report for " .. data_playername .. " - Revives:" .. PDrevives)
 	end
 
@@ -329,38 +298,46 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 			--
 
 
+--[[
+	if Config.consolespam_section4 then
+	end
+			print("End of round player MATCH OUTCOME report for "..data_playername) --.." - My teamID:"..myteam.." - Your side "..n_winningTeam.." Won this round")
+]]
+
+	if Config.consolespam_section4 then
+			print("End of round player MATCH OUTCOME report for current round: Team "..n_winningTeam.." Won this round")
+	end
+
 			for data_playername, myteam in pairs(playerteamID) do
 				if getnamehuman[player.name] == data_playername then
-	if Config.consolespam then
-					print("End of round player MATCH OUTCOME report for " .. data_playername .. " - My teamID:" .. myteam)
-	end
+
 				if playerteamID[player.name] == s_winningTeam then
 					s_Wins = 1
-					s_Losses = 0
-					else
+					s_Lost = 0
+
+				else
 					s_Wins = 0
-					s_Losses = 1
+					s_Lost = 1
 					end
 
-					if not SQL:Query('UPDATE tbl_playerstats SET Wins=Wins+?, Losses=Losses+? WHERE Soldiername = ?', s_Wins, s_Losses, getnamehuman[data_playername]) then
+	if Config.consolespam_section4 then
+		print ("END SQL info: wins="..s_Wins.." - Lost="..s_Lost)
+	end
+
+-- -----------------------
+					if not SQL:Query('UPDATE tbl_playerstats SET Wins=Wins+?, Losses=Losses+? WHERE Soldiername = ?', s_Wins, s_Lost, getnamehuman[data_playername]) then
 						print('Failed to execute Update query: ' .. SQL:Error()) -- If everything works, this would never be printed...
 						return
 					end
 				end
 			end
 
-
-	if Config.consolespam then
-	print ("")
-	print ("*** End section 04 ***")
-	end
-
 -- --------------------------------------------------
 -- --------------------------------------------------
 -- --------------------------------------------------
 
 -- This stuff should update all vehicle and weapon table data.
-	if Config.consolespam then
+	if Config.consolespam_section5 then
 	print ("")
 	print ("*** Start section 05 ***")
 	print ("")
@@ -381,11 +358,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "XBOW"
 				s_table = "tbl_auxiliary_gadgets"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -401,11 +374,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "KNIFE"
 				s_table = "tbl_auxiliary_gadgets"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -421,11 +390,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M67 GRENADE"
 				s_table = "tbl_auxiliary_gadgets"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -446,11 +411,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "P90"
 				s_table = "tbl_primary_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -466,11 +427,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "AS VAL"
 				s_table = "tbl_primary_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -486,11 +443,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M5K"
 				s_table = "tbl_primary_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -506,11 +459,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "MP7"
 				s_table = "tbl_primary_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -526,11 +475,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "PDW-R"
 				s_table = "tbl_primary_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -546,11 +491,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "PP-19"
 				s_table = "tbl_primary_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -566,11 +507,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "PP-2000"
 				s_table = "tbl_primary_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -586,11 +523,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "UMP-45"
 				s_table = "tbl_primary_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -611,11 +544,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = ".44 MAGNUM"
 				s_table = "tbl_handguns_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -631,11 +560,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "93R"
 				s_table = "tbl_handguns_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -651,11 +576,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "G17C"
 				s_table = "tbl_handguns_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -671,11 +592,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "G18"
 				s_table = "tbl_handguns_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -691,11 +608,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M1911"
 				s_table = "tbl_handguns_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -711,11 +624,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M9"
 				s_table = "tbl_handguns_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -731,11 +640,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "MP443"
 				s_table = "tbl_handguns_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -751,11 +656,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "MP412 REX"
 				s_table = "tbl_handguns_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -776,11 +677,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "870 MCS"
 				s_table = "tbl_shotguns_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -796,11 +693,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "DAO-12"
 				s_table = "tbl_shotguns_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -816,11 +709,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M1014"
 				s_table = "tbl_shotguns_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -836,11 +725,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "MK3A1"
 				s_table = "tbl_shotguns_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -856,11 +741,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "SAIGA 12K"
 				s_table = "tbl_shotguns_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -876,11 +757,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "SPAS-12"
 				s_table = "tbl_shotguns_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -896,11 +773,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "USAS-12"
 				s_table = "tbl_shotguns_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -921,11 +794,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "DEFIBRILLATOR"
 				s_table = "tbl_assault_gadgets"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -941,11 +810,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "GP-30 BUCK"
 				s_table = "tbl_assault_gadgets"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -961,11 +826,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "GP-30 DART"
 				s_table = "tbl_assault_gadgets"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -981,11 +842,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "GP-30 HE"
 				s_table = "tbl_assault_gadgets"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1001,11 +858,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "GP-30 LVG"
 				s_table = "tbl_assault_gadgets"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1021,11 +874,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "GP-30 SMOKE"
 				s_table = "tbl_assault_gadgets"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1041,11 +890,8 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M26 DART"
 				s_table = "tbl_assault_gadgets"
 
---				print("")
+
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1061,11 +907,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M26 FRAG"
 				s_table = "tbl_assault_gadgets"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1081,11 +923,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M26 MASS"
 				s_table = "tbl_assault_gadgets"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1101,11 +939,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M26 SLUG"
 				s_table = "tbl_assault_gadgets"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1121,11 +955,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M320 BUCK"
 				s_table = "tbl_assault_gadgets"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1141,11 +971,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M320 HE"
 				s_table = "tbl_assault_gadgets"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1161,11 +987,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M320 LVG"
 				s_table = "tbl_assault_gadgets"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1181,11 +1003,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M320 SMOKE"
 				s_table = "tbl_assault_gadgets"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1201,11 +1019,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "MEDIC KIT"
 				s_table = "tbl_assault_gadgets"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1226,11 +1040,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "AEK-971"
 				s_table = "tbl_assault_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1246,11 +1056,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "AK-74M"
 				s_table = "tbl_assault_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1266,11 +1072,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "AN-94"
 				s_table = "tbl_assault_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1286,11 +1088,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "AUG A3"
 				s_table = "tbl_assault_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1306,11 +1104,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "F2000"
 				s_table = "tbl_assault_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1326,11 +1120,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "FAMAS"
 				s_table = "tbl_assault_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1346,11 +1136,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "G3A3"
 				s_table = "tbl_assault_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1366,11 +1152,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "KH2002"
 				s_table = "tbl_assault_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1386,11 +1168,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "L85A2"
 				s_table = "tbl_assault_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1406,11 +1184,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M16A3"
 				s_table = "tbl_assault_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1426,11 +1200,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M16A4"
 				s_table = "tbl_assault_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1446,11 +1216,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M416"
 				s_table = "tbl_assault_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1466,11 +1232,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "SCAR-L"
 				s_table = "tbl_assault_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1491,11 +1253,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "EOD BOT"
 				s_table = "tbl_engineer_gadgets"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1511,11 +1269,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "FGM-148 JAVELIN"
 				s_table = "tbl_engineer_gadgets"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1531,11 +1285,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "FIM-92 STINGER"
 				s_table = "tbl_engineer_gadgets"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1551,11 +1301,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M15 AT MINE"
 				s_table = "tbl_engineer_gadgets"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1571,11 +1317,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "REPAIR TOOL"
 				s_table = "tbl_engineer_gadgets"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1591,11 +1333,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "RPG-7V2"
 				s_table = "tbl_engineer_gadgets"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1611,11 +1349,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "SA-18 IGLA"
 				s_table = "tbl_engineer_gadgets"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1631,11 +1365,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "SMAW"
 				s_table = "tbl_engineer_gadgets"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1656,11 +1386,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "A-91"
 				s_table = "tbl_engineer_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1676,11 +1402,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "ACW-R"
 				s_table = "tbl_engineer_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1696,11 +1418,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "AKS-74u"
 				s_table = "tbl_engineer_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1716,11 +1434,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "G36C"
 				s_table = "tbl_engineer_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1736,11 +1450,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "G53"
 				s_table = "tbl_engineer_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1756,11 +1466,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M4"
 				s_table = "tbl_engineer_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1776,11 +1482,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M4A1"
 				s_table = "tbl_engineer_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1796,11 +1498,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "MTAR-21"
 				s_table = "tbl_engineer_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1816,11 +1514,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "QBZ-95B"
 				s_table = "tbl_engineer_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1836,11 +1530,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "SCAR-H"
 				s_table = "tbl_engineer_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1856,11 +1546,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "SG553"
 				s_table = "tbl_engineer_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1881,11 +1567,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M224 MORTAR"
 				s_table = "tbl_support_gadgets"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1901,11 +1583,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "AMMO BOX"
 				s_table = "tbl_support_gadgets"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1921,11 +1599,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "C4 EXPLOSIVES"
 				s_table = "tbl_support_gadgets"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1941,11 +1615,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M18 CLAYMORE"
 				s_table = "tbl_support_gadgets"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1966,11 +1636,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "L86A2"
 				s_table = "tbl_support_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -1986,11 +1652,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "LSAT"
 				s_table = "tbl_support_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2006,11 +1668,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M240B"
 				s_table = "tbl_support_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2026,11 +1684,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M249"
 				s_table = "tbl_support_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2046,11 +1700,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M27 IAR"
 				s_table = "tbl_support_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2066,11 +1716,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M60E4"
 				s_table = "tbl_support_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2086,11 +1732,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "MG36"
 				s_table = "tbl_support_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2106,11 +1748,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "PKP PECHENEG"
 				s_table = "tbl_support_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2126,11 +1764,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "QBB-95"
 				s_table = "tbl_support_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2146,11 +1780,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "RPK-74M"
 				s_table = "tbl_support_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2166,11 +1796,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "TYPE 88 LMG"
 				s_table = "tbl_support_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2191,11 +1817,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "MAV"
 				s_table = "tbl_recon_gadgets"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2211,11 +1833,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "RADIO BEACON"
 				s_table = "tbl_recon_gadgets"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2231,11 +1849,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "SOFLAM"
 				s_table = "tbl_recon_gadgets"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2251,11 +1865,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "T-UGS"
 				s_table = "tbl_recon_gadgets"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2276,11 +1886,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "JNG-90"
 				s_table = "tbl_recon_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2296,11 +1902,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "L96"
 				s_table = "tbl_recon_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2316,11 +1918,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M39 EMR"
 				s_table = "tbl_recon_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2336,11 +1934,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M40A5"
 				s_table = "tbl_recon_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2356,11 +1950,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M417"
 				s_table = "tbl_recon_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2376,11 +1966,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "M98B"
 				s_table = "tbl_recon_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2396,11 +1982,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "MK11 MOD 0"
 				s_table = "tbl_recon_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2416,11 +1998,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "QBU-88"
 				s_table = "tbl_recon_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2436,11 +2014,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "SKS"
 				s_table = "tbl_recon_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2456,11 +2030,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "SV98"
 				s_table = "tbl_recon_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2476,11 +2046,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 				s_weapon = "SVD"
 				s_table = "tbl_recon_weapons"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2491,51 +2057,14 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-
---[[
-Maps with vehicles
-ConquestLarge0"		Conquest Large
-ConquestSmall0"		Conquest Small
-RushLarge0"		Rush
-ConquestAssaultSmall0"	Assault
-ConquestAssaultLarge0"	Assault64
-ConquestAssaultSmall1"	Assault #2
-TankSuperiority0"	Tank Superiority
-AirSuperiority0"	Air Superiority
-CaptureTheFlag0"	Capture the flag
-
-HeliSuperiority0"	Heli Superiority
-
-Maps with no vehicles
-SquadRush0"		Squad Rush
-SquadDeathMatch0"	Squad Deathmatch
-TeamDeathMatch0"	Team DeathMatch
-TeamDeathMatchC0"	Team DeathMatch Close Quarters
-Scavenger0"		Scavenger
-GunMaster0"		Gun Master
-Domination0"		Domination
-
-KingOfTheHill0"		King of the hill
-]]
-
-
---[[
-or SharedUtils:GetCurrentGameMode() == "xxx" or SharedUtils:GetCurrentGameMode() == "xxx"
-or SharedUtils:GetCurrentGameMode() == "xxx" or SharedUtils:GetCurrentGameMode() == "xxx"
-or SharedUtils:GetCurrentGameMode() == "xxx" or SharedUtils:GetCurrentGameMode() == "xxx"
-or SharedUtils:GetCurrentGameMode() == "xxx" or SharedUtils:GetCurrentGameMode() == "xxx"
-or SharedUtils:GetCurrentGameMode() == "xxx" or SharedUtils:GetCurrentGameMode() == "xxx" then
-]]
-
-
 if SharedUtils:GetCurrentGameMode() == "ConquestLarge0" or SharedUtils:GetCurrentGameMode() == "ConquestSmall0"
 or SharedUtils:GetCurrentGameMode() == "RushLarge0" or SharedUtils:GetCurrentGameMode() == "ConquestAssaultSmall0"
 or SharedUtils:GetCurrentGameMode() == "ConquestAssaultLarge0" or SharedUtils:GetCurrentGameMode() == "ConquestAssaultSmall1"
 or SharedUtils:GetCurrentGameMode() == "TankSuperiority0" or SharedUtils:GetCurrentGameMode() == "AirSuperiority0"
 or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurrentGameMode() == "HeliSuperiority0" then
 
---				print("")
-	if Config.consolespam then
+
+	if Config.consolespam_section5 then
 			print(" Reading Air and Land vehicle kills from collected tables")
 	end
 
@@ -2553,11 +2082,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "A-10 THUNDERBOLT"
 				s_table = "tbl_air_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2573,11 +2098,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "AH-1Z VIPER"
 				s_table = "tbl_air_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2593,11 +2114,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "AH-6J LITTLE BIRD"
 				s_table = "tbl_air_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2613,11 +2130,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "F-35"
 				s_table = "tbl_air_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2633,11 +2146,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "F/A-18E SUPER HORNET"
 				s_table = "tbl_air_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2653,11 +2162,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "GUNSHIP"
 				s_table = "tbl_air_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2673,11 +2178,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "KA-60 KASATKA"
 				s_table = "tbl_air_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2693,11 +2194,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "MI-28 HAVOC"
 				s_table = "tbl_air_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2713,11 +2210,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "SU-25TM FROGFOOT"
 				s_table = "tbl_air_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2733,11 +2226,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "SU-35BM FLANKER-E"
 				s_table = "tbl_air_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2753,11 +2242,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "SU-37"
 				s_table = "tbl_air_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2773,11 +2258,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "TV MISSILE"
 				s_table = "tbl_air_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2793,11 +2274,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "UH-1Y VENOM"
 				s_table = "tbl_air_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2813,11 +2290,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "Z-11W"
 				s_table = "tbl_air_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2838,11 +2311,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "9K22 TUNGUSKA-M"
 				s_table = "tbl_land_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2858,11 +2327,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "9M133 KORNET LAUNCHER"
 				s_table = "tbl_land_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2878,11 +2343,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "AAV-7A1 AMTRAC"
 				s_table = "tbl_land_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2898,11 +2359,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "BARSUK"
 				s_table = "tbl_land_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2918,11 +2375,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "BM-23"
 				s_table = "tbl_land_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2938,11 +2391,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "BMP-2M"
 				s_table = "tbl_land_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2958,11 +2407,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "BTR-90"
 				s_table = "tbl_land_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2978,11 +2423,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "CENTURION C-RAM"
 				s_table = "tbl_land_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -2998,11 +2439,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "CIVILIAN CAR"
 				s_table = "tbl_land_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -3018,11 +2455,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "DELIVERY VAN"
 				s_table = "tbl_land_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -3038,11 +2471,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "DIRTBIKE"
 				s_table = "tbl_land_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -3058,11 +2487,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "DPV"
 				s_table = "tbl_land_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -3078,11 +2503,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "GAZ-3937 VODNIK"
 				s_table = "tbl_land_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -3098,11 +2519,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "GROWLER ITV"
 				s_table = "tbl_land_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -3118,11 +2535,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "HMMWV ASRAD"
 				s_table = "tbl_land_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -3138,11 +2551,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "LAV-25"
 				s_table = "tbl_land_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -3158,11 +2567,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "LAV-AD"
 				s_table = "tbl_land_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -3178,11 +2583,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "M1 ABRAMS"
 				s_table = "tbl_land_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -3198,11 +2599,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "M1114 HMMWV"
 				s_table = "tbl_land_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -3218,11 +2615,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "M1128"
 				s_table = "tbl_land_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -3238,11 +2631,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "M142"
 				s_table = "tbl_land_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -3258,11 +2647,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "M220 TOW LAUNCHER"
 				s_table = "tbl_land_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -3278,11 +2663,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "PANTSIR-S1"
 				s_table = "tbl_land_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -3298,11 +2679,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "PHOENIX"
 				s_table = "tbl_land_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -3318,11 +2695,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "POLICE VAN"
 				s_table = "tbl_land_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -3338,11 +2711,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "QUAD BIKE"
 				s_table = "tbl_land_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -3358,11 +2727,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "RHIB BOAT"
 				s_table = "tbl_land_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -3378,11 +2743,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "RHINO"
 				s_table = "tbl_land_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -3398,11 +2759,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "SKID LOADER"
 				s_table = "tbl_land_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -3418,11 +2775,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "SPRUT-SD"
 				s_table = "tbl_land_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -3438,11 +2791,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "SUV"
 				s_table = "tbl_land_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -3458,11 +2807,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "T-90A"
 				s_table = "tbl_land_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -3478,11 +2823,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "TECHNICAL TRUCK"
 				s_table = "tbl_land_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -3498,11 +2839,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "VDV Buggy"
 				s_table = "tbl_land_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -3518,11 +2855,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "VODNIK AA"
 				s_table = "tbl_land_vehicles"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-				end
 				end
 
 				do
@@ -3543,11 +2876,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				s_weapon = "Roadkills"
 				s_table = "tbl_roadkills"
 
---				print("")
 				if getnamehuman[player.name] and r_killdata >= 1 then
-	if Config.consolespam then
-					print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
-	end
 		end
 
 				do
@@ -3558,28 +2887,22 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
---				print("")
-	if Config.consolespam then
+
+	if Config.consolespam_section5 then
 				print("** last table done **")
 	end
 
 	else 
-	if Config.consolespam then
+	if Config.consolespam_section5 then
 			print ("*** Skipping !,No data, not a Vehicle map ***")
 	end
 	end
 
-
-	if Config.consolespam then
-	print ("")
-	print ("*** End section 05 ***")
-	end
-
 -- --------------------------------------------------
 -- --------------------------------------------------
 -- --------------------------------------------------
 
-	if Config.consolespam then
+	if Config.consolespam_section6 then
 	print ("")
 	print ("*** Start section 06 ***")
 	print ("")
@@ -3587,7 +2910,7 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 
 	if SharedUtils:GetCurrentGameMode() == "RushLarge0" or SharedUtils:GetCurrentGameMode() == "SquadRush0" then
  
-	if Config.consolespam then
+	if Config.consolespam_section6 then
 			print("")
 			print("Round is over, Writing Mcom round data")
 			print("Updating tbl_mcom ")
@@ -3628,21 +2951,22 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 				updatemcomstats(player, data_playername)
 				end
 				end
-	if Config.consolespam then
+	if Config.consolespam_section6 then
 			print("Done updating tbl_mcom ")
 	end
 
 	else 
-	if Config.consolespam then
+	if Config.consolespam_section6 then
 			print ("*** Skipping !,No data, not a Rush/Squad Rush map ***")
 	end
 
 		end
 
---	if Config.consolespam then
+	if Config.consolespam_section6 then
 	print ("")
 	print ("*** End section 06 ***")
---	end
+	end
+	print("** End SQL event stuff **")
 
 -- --------------------------------------------------
 -- --------------------------------------------------
@@ -3666,6 +2990,10 @@ end)
 function updateweaponkillstats(player, data_playername)
 	if getnamehuman[player.name] and r_killdata >= 1 then
 
+	if Config.consolespam_killtable then
+			print("Found player "..data_playername.." in "..s_table.." table, with the "..s_weapon.." - Kills:"..r_killdata)
+	end
+
 -- Here also correct the kill we added when creating the table entry by removing 1 kill on the end.
 			if not SQL:Query('UPDATE ' .. s_table .. ' SET Kills=Kills+?-1 WHERE Soldiername = ? and Weaponname = ?', r_killdata, data_playername, s_weapon) then
 				print(" - Failed to update kill data in "..s_table..": " .. SQL:Error())
@@ -3681,7 +3009,7 @@ function updateweaponkillstats(player, data_playername)
 function updatemcomstats(player, data_playername)
 	if getnamehuman[player.name] and r_mcomdata >= 1 then
 	
-	if Config.consolespam then
+	if Config.consolespam_mcomtable then
 				print("Updating player "..data_playername.." in Mcom Armed table, with "..r_mcomdata.." armed Mcoms")
 	end
 
@@ -3690,7 +3018,7 @@ function updatemcomstats(player, data_playername)
 				print("Failed to update "..r_mcomtype.." data in tbl_mcom "..SQL:Error())
 				return	end
 
-	if Config.consolespam then
+	if Config.consolespam_mcomtable then
 				print("Done updating player "..data_playername.." in Mcom "..r_mcomtype.." table, with "..r_mcomdata.." "..r_mcomtype.." Mcoms")
 				print("")
 	end

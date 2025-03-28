@@ -5,7 +5,7 @@ Roundover = class 'Roundover'
 
 Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 	if screenInfo == "Running" or screenInfo == "Blocking on shader creation" or screenInfo == "Loading done" then
-	if Config.consolespam then
+	if Config.consolespam_header then
 		print("*** Roundover loaded ***");
 	end
 	end
@@ -86,24 +86,17 @@ Events:Subscribe('Server:RoundOver', function(roundTime, winningTeam)
 
 	if SharedUtils:GetCurrentGameMode() == "SquadDeathMatch0" and s_winningTeam == 0 then n_winningTeam = "DRAW"; end
 	if SharedUtils:GetCurrentGameMode() == "SquadDeathMatch0" and s_winningTeam == 1 then n_winningTeam = "Alpha"; end
-	if SharedUtils:GetCurrentGameMode() == "SquadDeathMatch0" and s_winningTeam == 2 then n_winningTeam = "Beta"; end
+	if SharedUtils:GetCurrentGameMode() == "SquadDeathMatch0" and s_winningTeam == 2 then n_winningTeam = "Bravo"; end
 	if SharedUtils:GetCurrentGameMode() == "SquadDeathMatch0" and s_winningTeam == 3 then n_winningTeam = "Charlie"; end
 	if SharedUtils:GetCurrentGameMode() == "SquadDeathMatch0" and s_winningTeam == 4 then n_winningTeam = "Delta"; end
 
 	PUE00_playerrounddata = true
 
 	if Config.consolespam then
-	if PUE00_playerrounddata == true then print("** Starting 1st event **"); end
+	if PUE00_playerrounddata == true then print("** Round over ! - Starting SQL event stuff **"); end
 	end
 
 	haltprocess = true -- used in playerkilled.lua
 end)
 
 return Roundover()
-
---[[
-
-
-
-
-]]

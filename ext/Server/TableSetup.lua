@@ -1,6 +1,6 @@
 Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 	if screenInfo == "Running" or screenInfo == "Blocking on shader creation" or screenInfo == "Loading done" then
-	if Config.consolespam then
+	if Config.consolespam_header then
 		print("*** Table setup stuff loaded ***");
 		print("*** ALL Tables empty at here ***");
 	end
@@ -70,6 +70,7 @@ Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 		--
 		PUE_test = false
 		PUE00_playerrounddata = false
+--[[
 		PUE01_mapstats = false
 		PUE02_vehiclekilldata = false
 		PUE03_vehicledeathdata = false
@@ -78,5 +79,6 @@ Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 		PUE06_weapondeathstats = false
 		PUE07_roadkillkilldata = false
 		PUE08_roadkilldeathdata = false
+]]
 	end
 end)

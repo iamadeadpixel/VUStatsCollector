@@ -5,12 +5,11 @@ basedata = class 'basedata'
 
 Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 	if screenInfo == "Running" or screenInfo == "Blocking on shader creation" or screenInfo == "Loading done" then
-	if Config.consolespam then
+	if Config.consolespam_header then
 		print("*** Base stuff loaded ***");
 	end
 	end
 end)
-
 
 Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_Weapon, p_IsRoadKill, p_IsHeadShot, p_WasVictimInReviveState, p_Info)
 		if haltprocess then return end
@@ -25,8 +24,6 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 		end
 
 		args[4] = s_Inflictor.name
-		args[5] = s_Inflictor.teamId
-		args[6] = s_Inflictor.squadId
 
 		if p_Player.name == s_Inflictor.name then
 			if p_Weapon == "Death" or p_Weapon == "DamageArea" or p_Weapon == "SoldierCollision" then
@@ -49,23 +46,10 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 			end
 		end
 
-		args[8] = p_IsRoadKill
-		args[9] = p_IsHeadShot
-		args[10] = p_WasVictimInReviveState
-		--
-		-- Victim: args[1]
-		-- TeamId: args[2]
-		-- SquadId: args[3]
-		-- Killer: args[4]
-		-- Inflictor TeamId: args[5]
-		-- Inflictor SquadId: args[6]
-		-- Weapon: args[7]
-		-- Roadkilled: args[8]
-		-- Headshot: args[9]
-		-- Revived: args[10]
 
 -- Print lines will be removed on the end
 -- ------------------------------------------------------
+
 -- Here we collect the base stats for tbl_playerstats
 
 		-- Counts suicides
@@ -95,13 +79,6 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 		if p_IsHeadShot then
 		if playerheadshot[s_Inflictor.name] == nil then playerheadshot[s_Inflictor.name] = 0; end
 		playerheadshot[s_Inflictor.name] = playerheadshot[s_Inflictor.name] + 1
-		end
-		--
-
-		-- Count knife kills
-		if args[7] == "KNIFE" or args[7] == "ACB-90" then
-		if playerdogtags[s_Inflictor.name] == nil then playerdogtags[s_Inflictor.name] = 0; end
-		playerdogtags[s_Inflictor.name] = playerdogtags[s_Inflictor.name] + 1
 		end
 		--
 

@@ -4,6 +4,9 @@
 .playerdata - show personal information for the server
 .serverstats - shows total stats count ever collected on the server
 
+# post  shows your best 3 killers on the server
+.top killer
+
 # Weapon commands
 .top assault
 .top assault all
@@ -40,9 +43,6 @@
 
 .top handgun
 .top handgun all
-
-# post  shows your best 3 killers on the server
-.top killer
 
 # post Air or Land vehicles
 .top air

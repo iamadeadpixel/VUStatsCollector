@@ -3,7 +3,7 @@ ChatCommands = class 'ChatCommands'
 
 Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 	if screenInfo == "Running" or screenInfo == "Blocking on shader creation" or screenInfo == "Loading done" then
-	if Config.consolespam then
+	if Config.consolespam_header then
 		print("*** Chatcommands loaded ***");
 	end
 	end
@@ -36,7 +36,7 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 		chat_roadkills = kill_roadkills[player.name]
 
 		ChatManager:SendMessage("Fetching session data for " .. player.name, player)
-	if Config.consolespam then
+	if Config.consolespam_chat then
 		print("** Fetching session data for " .. player.name .. " **");
 		print("** Player round results")
 		print("** Player results:" ..player.name .. " - Score:" .. chat_Score .. " - Kills:" .. chat_Kills .. " - Deaths:" .. chat_Deaths)
@@ -86,7 +86,7 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 			chat_Losses = l_Row["Losses"]
 
 			if chat_Soldiername == player.name then
-	if Config.consolespam then
+	if Config.consolespam_chat then
 				print("** Player total results for "..chat_Soldiername)
 				print("** Player results: Score:" ..chat_Score .." - Kills:" .. chat_Kills .. " - Deaths:" .. chat_Deaths .. " - Suicides:" .. chat_Suicide)
 				print("** Player results: Headshots:" ..chat_Headshots .." - Teamkilled:" ..chat_TeamKilled .. " - Knife kills:" .. chat_Dogtags .. " - Revives:" .. chat_Revives)
@@ -131,7 +131,7 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 		chat_PlayTime = hours .. " hours " .. mins .. " minutes " .. secs .. " seconds"
 
 
-	if Config.consolespam then
+	if Config.consolespam_chat then
 				print("** Player results")
 				print("** Player results:"..chat_Soldiername .." - Total logins:"..chat_PlayerLogins.." - You VU Guid:"..chat_VU_GUID)
 				print("** Player results:"..chat_Soldiername .." - Your IP on first login:"..chat_IP.." - your country:"..chat_CountryName.." - First login:"..chat_FirstSeenOnServer)
@@ -176,7 +176,7 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 			chat_Roadkills = l_Row["SumRoadkills"]
 			chat_Playtime = l_Row["SumPlaytime"]
 
-	if Config.consolespam then
+	if Config.consolespam_chat then
 			print("** Server total results")
 			print("** server results - Total players:"..chat_Players .. " - Score:" .. chat_Score .. " - Kills:" .. chat_Kills .. " - Deaths:" .. chat_Deaths)
 			print("** server results - Suicides:"..chat_Suicide .." - Headshots:" .. chat_Headshots .. " - Teamkilled:" .. chat_TeamKilled .. " - Knife kills:" .. chat_Dogtags)
@@ -202,7 +202,7 @@ end)
 Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 	if message == ".top killer" or message == ".top killers" then
 		ChatManager:SendMessage("Fetching top 3 killers", player)
-	if Config.consolespam then
+	if Config.consolespam_chat then
 		print("** Fetching top 3 killers **");
 	end
 
@@ -212,7 +212,7 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 			print('Failed to got data query: ' .. SQL:Error()); return
 		end
 
-	if Config.consolespam then
+	if Config.consolespam_chat then
 		print("** Top 3 killer results")
 	end
 
@@ -220,7 +220,7 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 			chat_Soldiername = l_Row["Soldiername"]
 			chat_Kills = l_Row["Kills"]
 
-	if Config.consolespam then
+	if Config.consolespam_chat then
 			print("** Player results - Top killers " .. chat_Soldiername .. " - Kills:" .. chat_Kills)
 	end
 
@@ -391,7 +391,7 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 	end
 
 	ChatManager:SendMessage(s_top_message1, player)
-	if Config.consolespam then
+	if Config.consolespam_chat then
 	print(s_top_message1);
 	end
 
@@ -401,7 +401,7 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 			print('Failed to got data query: ' .. SQL:Error()); return
 		end
 
-	if Config.consolespam then
+	if Config.consolespam_chat then
 		print("ALL selected")
 		end
 
@@ -411,7 +411,7 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 			print('Failed to got data query: ' .. SQL:Error()); return
 		end
 
-	if Config.consolespam then
+	if Config.consolespam_chat then
 		print("Player selected")
 		end
 
@@ -424,14 +424,14 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 
 
 		if s_topSelect == "all" then
-	if Config.consolespam then
+	if Config.consolespam_chat then
 			print(chat_Soldiername .. ":" .. s_topvehicletype .. ":" .. chat_Weaponname .. " - Kills:" .. chat_Kills)
 			end
 
 			ChatManager:SendMessage(chat_Soldiername .. ":" .. chat_Weaponname .. " - Kills:" .. chat_Kills, player)
 		elseif s_topSelect == "player" then
 
-	if Config.consolespam then
+	if Config.consolespam_chat then
 			print(s_topvehicletype .. ":" .. chat_Weaponname .. " - Kills:" .. chat_Kills)
 			end
 
@@ -548,7 +548,7 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 	end
 	--
 	ChatManager:SendMessage(s_map_message1, player)
-	if Config.consolespam then
+	if Config.consolespam_chat then
 	print(s_map_message1);
 	end
 
@@ -558,7 +558,7 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 			print('Failed to got data query: ' .. SQL:Error()); return
 		end
 
-	if Config.consolespam then
+	if Config.consolespam_chat then
 		print("ALL selected")
 		end
 
@@ -568,7 +568,7 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 			print('Failed to got data query: ' .. SQL:Error()); return
 		end
 
-	if Config.consolespam then
+	if Config.consolespam_chat then
 		print("MAP selected")
 		end
 
@@ -587,7 +587,7 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 		secs = string.format(math.floor(seconds - hours * 3600 - mins * 60));
 		chat_Roundtime = hours .. " hours " .. mins .. " minutes " .. secs .. " seconds"
 
-	if Config.consolespam then
+	if Config.consolespam_chat then
 		print(s_map_message1 ..":" ..chat_MapName .." - " ..chat_Gamemode .." - Score:" .. chat_Roundscore .. " - Roundtime:" .. chat_Roundtime .. " - Winning team:" .. chat_winningTeam)
 		end
 
@@ -623,7 +623,7 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 	end
 
 	ChatManager:SendMessage(s_top_message1, player)
-	if Config.consolespam then
+	if Config.consolespam_chat then
 	print(s_top_message1);
 	end
 
@@ -633,7 +633,7 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 			print('Failed to got data query: ' .. SQL:Error()); return
 		end
 
-	if Config.consolespam then
+	if Config.consolespam_chat then
 		print("ALL selected")
 		end
 
@@ -643,7 +643,7 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 			print('Failed to got data query: ' .. SQL:Error()); return
 		end
 
-	if Config.consolespam then
+	if Config.consolespam_chat then
 		print("Player selected")
 		end
 
@@ -656,13 +656,13 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 
 
 		if s_topSelect == "all" then
-	if Config.consolespam then
+	if Config.consolespam_chat then
 			print(chat_Soldiername .. ":" .. s_topvehicletype .. ":" .. chat_Weaponname .. " - Kills:" .. chat_Kills)
 			end
 
 			ChatManager:SendMessage(chat_Soldiername .. ":" .. chat_Weaponname .. " - Kills:" .. chat_Kills, player)
 		elseif s_topSelect == "player" then
-	if Config.consolespam then
+	if Config.consolespam_chat then
 			print(s_topvehicletype .. ":" .. chat_Weaponname .. " - Kills:" .. chat_Kills)
 			end
 
@@ -697,7 +697,7 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 	end
 
 	ChatManager:SendMessage(s_top_message1, player)
-	if Config.consolespam then
+	if Config.consolespam_chat then
 	print(s_top_message1);
 	end
 
@@ -707,7 +707,7 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 			print('Failed to got data query: ' .. SQL:Error()); return
 		end
 
-	if Config.consolespam then
+	if Config.consolespam_chat then
 		print("ALL selected")
 	end
 
@@ -716,7 +716,7 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 		if not CHATresults then
 			print('Failed to got data query: ' .. SQL:Error()); return
 		end
-	if Config.consolespam then
+	if Config.consolespam_chat then
 		print("Player selected")
 		end
 
@@ -730,14 +730,14 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 
 
 		if s_topSelect == "all" then
-	if Config.consolespam then
+	if Config.consolespam_chat then
 			print(s_topvehicletype..": Soldier:"..chat_Soldiername.." Armed:"..chat_Armed.." Disarmed:"..chat_Disarmed.." Destroyed:"..chat_Destroyed)
 			end
 
 				     ChatManager:SendMessage(chat_Soldiername..": Armed:"..chat_Armed.." Disarmed:"..chat_Disarmed.." Destroyed:"..chat_Destroyed, player)
 
 		elseif s_topSelect == "player" then
-	if Config.consolespam then
+	if Config.consolespam_chat then
 						      print(s_topvehicletype.. ": Armed:"..chat_Armed.." Disarmed:"..chat_Disarmed.." Destroyed:"..chat_Destroyed)
 						    end
 

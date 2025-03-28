@@ -5,7 +5,7 @@ PlayerJoins = class 'PlayerJoins'
 
 Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 	if screenInfo == "Running" or screenInfo == "Blocking on shader creation" or screenInfo == "Loading done" then
-	if Config.consolespam then
+	if Config.consolespam_header then
 		print("*** PlayerJoins loaded ***");
 	end
 	end
@@ -25,14 +25,11 @@ Session_PlayTime_End = {}
 -- All other table / variable stuff goes in TableSetup.lua
 
 Events:Subscribe('Level:Loaded', function()
-	print("*** Level loaded ***");
+	print("*** Level loaded and reseting stuff **")
 	endofround = false
 
 	s_startroundtime = os.date('%Y-%m-%d %H:%M:%S')
 	roundoverstate = false
-	if Config.consolespam then
-	print("** reseting stuff **")
-	end
 	end)
 
 --
@@ -49,15 +46,7 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 
 	playerishuman[name] = true
 	getnamehuman[name] = name
-
-	if getnamehuman[name] then print("*** UpdateCheckInfo: Human Player:" .. getnamehuman[name] .. " Joined ***"); end
-	if playerishuman[name] then print("*** UpdateCheckInfo: Human flag is set for " .. getnamehuman[name]); end
-
 	CountPlayers = CountPlayers + 1
-	print("*** UpdateCheckInfo: Human player count:" .. CountPlayers)
-
-	-- Players ID get checked by its Guid
-	print('*** UpdateCheckInfo: Check if the player is found **')
 
 	local guid_results = SQL:Query('SELECT Soldiername, PlayerLogins, VU_GUID, PlayTime FROM tbl_playerdata')
 	if not guid_results then
@@ -73,26 +62,15 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 		temp_PlayTime = l_Row["PlayTime"]
 
 		if s_accountGuid == temp_Guid then
-			print("*** UpdateCheckInfo: GUID FOUND FOR PLAYER: " .. s_player .. " - :" .. temp_Guid)
-			print("*** UpdateCheckInfo: Player login times " .. temp_PlayerLogins)
-			print("*** UpdateCheckInfo: Player last play time in seconds " .. temp_PlayTime)
-
 			s_PlayerLogins = temp_PlayerLogins + 1
-			print("*** UpdateCheckInfo: Players name found in SQL base:" .. temp_PlayerName)
-			print("*** UpdateCheckInfo: Players name fetched from Login:" .. s_player)
 
 			-- Check if player has used a different character account
 			if temp_PlayerName == s_player then
-				print("*** UpdateCheckInfo: Players name not changed: " .. temp_PlayerName .. " - " .. s_player)
 
 				if not SQL:Query('UPDATE tbl_playerdata SET PlayerLogins=PlayerLogins+?,   LastSeenOnServer= ? WHERE Soldiername = ?', 1, s_GetDateTime, s_player) then
 					print('Failed to execute Update query: ' .. SQL:Error())
 					return
 				end
-
-				print('*** UpdateCheckInfo: ** Done Updating Player information on joining the server **')
-				print("*** UpdateCheckInfo: Player new login times " .. s_PlayerLogins)
-				print(" ");
 
 
 				-- At here, if the name is changed, it updates the SQL
@@ -138,7 +116,6 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 
 				print(" ");
 				print('*** UpdateCheckInfo: ** Done Updating Player information on joining the server **')
-				print("*** UpdateCheckInfo: Player new login times " .. s_PlayerLogins)
 				print(" ");
 			end
 			return

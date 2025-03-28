@@ -1,10 +1,9 @@
 Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 	if screenInfo == "Running" or screenInfo == "Blocking on shader creation" or screenInfo == "Loading done" then
-	if Config.consolespam then
+	if Config.consolespam_header then
 		print("*** TableSetup vehicles loaded ***");
 	end
 
-		-- experimental, transform all weapon stuff to tables
 		-- Air Vehicles
 		kill_A10_THUNDERBOLT = {}
 		kill_AH_1Z_VIPER = {}

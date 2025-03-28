@@ -5,12 +5,11 @@ Engineer = class 'Engineer'
 
 Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 	if screenInfo == "Running" or screenInfo == "Blocking on shader creation" or screenInfo == "Loading done" then
-	if Config.consolespam then
+	if Config.consolespam_header then
 		print("*** Engineer weapons loaded ***");
 	end
 	end
 end)
-
 
 Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_Weapon, p_IsRoadKill, p_IsHeadShot, p_WasVictimInReviveState, p_Info)
 		if haltprocess then return end
@@ -25,8 +24,6 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 		end
 
 		args[4] = s_Inflictor.name
-		args[5] = s_Inflictor.teamId
-		args[6] = s_Inflictor.squadId
 
 		if p_Player.name == s_Inflictor.name then
 			if p_Weapon == "Death" or p_Weapon == "DamageArea" or p_Weapon == "SoldierCollision" then
@@ -49,20 +46,6 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 			end
 		end
 
-		args[8] = p_IsRoadKill
-		args[9] = p_IsHeadShot
-		args[10] = p_WasVictimInReviveState
-		--
-		-- Victim: args[1]
-		-- TeamId: args[2]
-		-- SquadId: args[3]
-		-- Killer: args[4]
-		-- Inflictor TeamId: args[5]
-		-- Inflictor SquadId: args[6]
-		-- Weapon: args[7]
-		-- Roadkilled: args[8]
-		-- Headshot: args[9]
-		-- Revived: args[10]
 
 -- Print lines will be removed on the end
 -- ------------------------------------------------------
@@ -165,7 +148,7 @@ function data_engineer_weapons(data_playername)
 	data_playername = tostring (data_playername)
 	data_weaponkills = tostring (data_weaponkills)
 
-	if Config.consolespam then
+	if Config.consolespam_engineer_weapons then
 	print ("")
 	print (data_catagory.." Weapon name:"..data_weapon_name)
 	print (data_catagory.." Mod DB Table name:"..data_table_name)
@@ -184,14 +167,14 @@ function data_engineer_weapons(data_playername)
 	return
 	end
 
-	if Config.consolespam then
+	if Config.consolespam_engineer_weapons then
 	print ("Done reading "..data_table_name)
 	print (Results)
 	print ("")
 	end
 
 if type(next(Results)) == "nil" then
-	if Config.consolespam then
+	if Config.consolespam_engineer_weapons then
 print("No data found for "..data_playername.." and "..data_weapon_name.." - Injecting now")
 	end
 
@@ -203,14 +186,14 @@ print("No data found for "..data_playername.." and "..data_weapon_name.." - Inje
 			return
 	end
 
-	if Config.consolespam then
+	if Config.consolespam_engineer_weapons then
 	print("")
 	print (data_table_name.." injection done")
 	end
 
 else
  --do some thing with results
-	if Config.consolespam then
+	if Config.consolespam_engineer_weapons then
 print('found data: '..data_playername..' and '..data_weapon_name..' - Kills:'..data_weaponkills)
 	end
 end
