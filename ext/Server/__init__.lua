@@ -22,14 +22,7 @@ end
 function StatsCollector:OnEngineInit()
 -- Experimental, Reserved for, eh, what ever i want to do with it..
 
---[[
-	config.lua content
-	humansonly = true  : if this is set to true, Only humans are logged / false = includes bots in logging.
-	updatecheck = true : if this is set to true, it checks for updates (disabled due ises)
-	consolespam = true : if this is set to true, the console wil spam all line (this will increase log file)
-]]
 	self.m_config = require 'config'
-
 
 	self.m_LevelPrint = require 'LevelPrint'
 	self.m_DatabaseSetup = require 'DatabaseSetup'
@@ -42,6 +35,7 @@ function StatsCollector:OnEngineInit()
 
 	self.m_PlayerLeaves = require 'PlayerLeaves'
 	self.m_PlayerJoins = require 'PlayerJoins'
+	self.m_PlayerCheck = require 'PlayerCheck'
 	self.m_Score = require 'Score'
 	self.m_Roundover = require 'Roundover'
 	self.m_PUE00_playerrounddata = require 'PUE00_playerrounddata'

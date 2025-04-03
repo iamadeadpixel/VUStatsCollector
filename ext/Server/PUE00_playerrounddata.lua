@@ -43,6 +43,7 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 -- --------------------------------------------------
 -- --------------------------------------------------
 
+
 -- Here we update tbl_serverstats database with new player score data.
 	if Config.consolespam_section2 then
 	print ("")
@@ -3010,7 +3011,8 @@ function updatemcomstats(player, data_playername)
 	if getnamehuman[player.name] and r_mcomdata >= 1 then
 	
 	if Config.consolespam_mcomtable then
-				print("Updating player "..data_playername.." in Mcom Armed table, with "..r_mcomdata.." armed Mcoms")
+--				print("Updating player "..data_playername.." in Mcom "..r_mcomtype.." table, with "..r_mcomdata.." armed Mcoms")
+				print("Updating player "..data_playername.." in Mcom "..r_mcomtype.." table, with "..r_mcomdata.." "..r_mcomtype.." Mcoms")
 	end
 
 				if not SQL:Query('UPDATE tbl_mcom SET '..r_mcomtype..' = '..r_mcomtype..' + ? WHERE Soldiername = ?', r_mcomdata,data_playername) then

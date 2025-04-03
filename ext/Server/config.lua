@@ -20,9 +20,9 @@ Config = {
 	consolespam_killtable = true, -- if true, the console wil spam all SQL messages related to weapon/vehicle stuff
 	consolespam_mcomtable = true, -- if true, the console wil spam all SQL messages related to M-com stuff
 	consolespam_mcomevent = true, -- if true, the console wil spam all M-com event messages
-	consolespam_join = false, -- if true, the console wil spam all Join messages
-	consolespam_leaves = false, -- if true, the console wil spam all leaves messages
-	consolespam_header = false, -- if true, the console wil spam header info on mapload..
+	consolespam_join = true, -- if true, the console wil spam all Join messages
+	consolespam_leaves = true, -- if true, the console wil spam all leaves messages
+	consolespam_header = true, -- if true, the console wil spam header info on mapload..
 
 	consolespam_common = true, -- if true, the console wil spam common weapon kills in the console
 	consolespam_roadkill = true, -- if true, the console wil spam roadkill kills in the console

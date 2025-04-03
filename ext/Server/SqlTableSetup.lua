@@ -4,7 +4,6 @@ Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 		print("*** SqlTablesetup stuff loaded ***");
 	end
 
-	s0 = "New player entries"
 
 	air_vehicles = {
 	-- Air Vehicles

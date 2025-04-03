@@ -37,13 +37,7 @@ Events:Subscribe('Player:Left', function(player) -- player.name
 		-- Removing table data on player left.
 		Session_PlayTime_Start[player.name] = {}
 		Session_PlayTime_End[player.name] = {}
-		getnamehuman[player.name] = {}
-		playerishuman[player.name] = {}
-		playerteamID[player.name] = {}
-		Mcom_Armed[player.name] = {}
-		Mcom_Disarmed[player.name] = {}
-		Mcom_Destroyed[player.name] = {}
-			
+
 		end
 end)
 

@@ -96,7 +96,7 @@ Events:Subscribe('Server:RoundOver', function(roundTime, winningTeam)
 	if PUE00_playerrounddata == true then print("** Round over ! - Starting SQL event stuff **"); end
 	end
 
-	haltprocess = true -- used in playerkilled.lua
+	haltprocess = true
 end)
 
 return Roundover()

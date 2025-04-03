@@ -4,6 +4,7 @@ the VU alternative for procon's chatguidstatslogger
 heavy work in progress, not yet useable for a live server.
 use at own risk..
 
+Version 13.0.0 : trying to fix some isues when a player leave the server on roundend.
 Version 12.0.0 : minor bug fixes
 Version 10.0.0 : minor bug fixes
 Version 9.0.0  : More fixes, not sure if all works with multiple player now..

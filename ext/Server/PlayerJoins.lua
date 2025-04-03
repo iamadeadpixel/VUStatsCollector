@@ -11,30 +11,6 @@ Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 	end
 end)
 
--- init stuff
-CountPlayers = 0
-
-getnameall = {}  -- value is name (this also gets bot names)
-getnamehuman = {}  -- value is name
-playerishuman = {} -- False or true
-playerteamID = {}  -- value is 1, 2, 3, 4 (US/RU or squad TDM alpha beta charlie delta)
-
-Session_PlayTime_Start = {}
-Session_PlayTime_End = {}
-
--- All other table / variable stuff goes in TableSetup.lua
-
-Events:Subscribe('Level:Loaded', function()
-	print("*** Level loaded and reseting stuff **")
-	endofround = false
-
-	s_startroundtime = os.date('%Y-%m-%d %H:%M:%S')
-	roundoverstate = false
-	end)
-
---
---
---
 
 Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, accountGuid)
 	s_player = name
