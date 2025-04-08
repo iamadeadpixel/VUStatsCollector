@@ -84,6 +84,9 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 			chat_Revives = l_Row["Revives"]
 			chat_Wins = l_Row["Wins"]
 			chat_Losses = l_Row["Losses"]
+		
+		-- KDR check
+		KDR = string.format( "%.2f",   chat_Kills / chat_Deaths )
 
 			if chat_Soldiername == player.name then
 	if Config.consolespam_chat then
@@ -91,11 +94,13 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 				print("** Player results: Score:" ..chat_Score .." - Kills:" .. chat_Kills .. " - Deaths:" .. chat_Deaths .. " - Suicides:" .. chat_Suicide)
 				print("** Player results: Headshots:" ..chat_Headshots .." - Teamkilled:" ..chat_TeamKilled .. " - Knife kills:" .. chat_Dogtags .. " - Revives:" .. chat_Revives)
 				print("** Player results: Matches won:"..chat_Wins.." - Matches lost:"..chat_Losses)
+				print("** Player KDR results: :"..KDR.." Kill / Death ratio")
 	end
 
 				ChatManager:SendMessage("Score:" .. chat_Score .." - Kills:" .. chat_Kills .. " - Deaths:" .. chat_Deaths .. " - Suicides:" .. chat_Suicide, player)
 				ChatManager:SendMessage("Headshots:" ..chat_Headshots .." - Teamkilled:" ..chat_TeamKilled .. " - Knife kills:" .. chat_Dogtags .. " - Revives:" .. chat_Revives,player)
 				ChatManager:SendMessage("Matches won:"..chat_Wins.." - Matches lost:"..chat_Losses,player)
+				ChatManager:SendMessage("KDR Ratio:"..KDR.." Kill / Death ratio",player)
 			end
 		end
 	end
@@ -176,17 +181,22 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 			chat_Roadkills = l_Row["SumRoadkills"]
 			chat_Playtime = l_Row["SumPlaytime"]
 
+		-- KDR check
+		KDR = string.format( "%.2f",   chat_Kills / chat_Deaths )
+
 	if Config.consolespam_chat then
 			print("** Server total results")
 			print("** server results - Total players:"..chat_Players .. " - Score:" .. chat_Score .. " - Kills:" .. chat_Kills .. " - Deaths:" .. chat_Deaths)
 			print("** server results - Suicides:"..chat_Suicide .." - Headshots:" .. chat_Headshots .. " - Teamkilled:" .. chat_TeamKilled .. " - Knife kills:" .. chat_Dogtags)
 			print("** server results - Revives:"..chat_Revives .." - rounds played:" .. chat_Round .. " - Roadkills:" .. chat_Roadkills .. " - Playtime:" .. chat_Playtime)
+			print("** server KDR results: :"..KDR.." Kill / Death ratio")
 	end
 
 			-- at here we use the chatmanager to print the content in chat.
 			ChatManager:SendMessage("Total Players:"..chat_Players .. " - Score:" .. chat_Score .. " - Kills:" .. chat_Kills .. " - Deaths:" .. chat_Deaths,player)
 			ChatManager:SendMessage("Suicides:"..chat_Suicide .." - Headshots:"..chat_Headshots .. " - Teamkilled:" .. chat_TeamKilled .. " - Knife kills:" .. chat_Dogtags,player)
 			ChatManager:SendMessage("Revives:" ..chat_Revives .." - Rounds played:" .. chat_Round .. " - Roadkills:" .. chat_Roadkills .. " - Playtime:" .. chat_Playtime,player)
+			ChatManager:SendMessage("Server KDR Ratio:"..KDR.." Kill / Death ratio",player)
 		end
 	end
 end)
