@@ -26,7 +26,7 @@ This stuff is not yet used.
 	consolespam_section10 = true, -- if true, the console wil spam all 
 ]]
 
-	consolespam_idspawn = false, -- if true, the console wil spam all base kill/death/revives etc,etc messages
+	consolespam_idspawn = true, -- if true, the console wil spam all base kill/death/revives etc,etc messages
 	consolespam_base = false, -- if true, the console wil spam all base kill/death/revives etc,etc messages
 	consolespam_hook01 = false, -- if true, the console wil spam all shots and hits messages
 	consolespam_playerstatsstuff = false, -- if true, the console wil spam all SQL messages related to player SQL stuff stuff
