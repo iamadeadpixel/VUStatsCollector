@@ -61,36 +61,113 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 
 	if args[7] == "AMMO BOX" then
 	kill_AMMO_BOX[s_Inflictor.name] = kill_AMMO_BOX[s_Inflictor.name] + 1
+
+	Death_AMMO_BOX[p_Player.name] = Death_AMMO_BOX[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_AMMO_BOX[p_Player.name] = Headshot_AMMO_BOX[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_AMMO_BOX[p_Player.name]
+	Dead_data = Death_AMMO_BOX[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_support_gadgets_msg then
+	data_support_gadgets_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_AMMO_BOX[s_Inflictor.name]
 	end
 --
 	if args[7] == "C4 EXPLOSIVES" then
 	kill_C4_EXPLOSIVES[s_Inflictor.name] = kill_C4_EXPLOSIVES[s_Inflictor.name] + 1
+
+	Death_C4_EXPLOSIVES[p_Player.name] = Death_C4_EXPLOSIVES[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_C4_EXPLOSIVES[p_Player.name] = Headshot_C4_EXPLOSIVES[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_C4_EXPLOSIVES[p_Player.name]
+	Dead_data = Death_C4_EXPLOSIVES[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_support_gadgets_msg then
+	data_support_gadgets_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_C4_EXPLOSIVES[s_Inflictor.name]
 	end
 --
 	if args[7] == "M18 CLAYMORE" then
 	kill_M18_CLAYMORE[s_Inflictor.name] = kill_M18_CLAYMORE[s_Inflictor.name] + 1
+
+	Death_M18_CLAYMORE[p_Player.name] = Death_M18_CLAYMORE[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_M18_CLAYMORE[p_Player.name] = Headshot_M18_CLAYMORE[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_M18_CLAYMORE[p_Player.name]
+	Dead_data = Death_M18_CLAYMORE[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_support_gadgets_msg then
+	data_support_gadgets_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_M18_CLAYMORE[s_Inflictor.name]
 	end
 --
 	if args[7] == "M224 MORTAR" then
 	kill_M224_MORTAR[s_Inflictor.name] = kill_M224_MORTAR[s_Inflictor.name] + 1
+
+	Death_M224_MORTAR[p_Player.name] = Death_M224_MORTAR[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_M224_MORTAR[p_Player.name] = Headshot_M224_MORTAR[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_M224_MORTAR[p_Player.name]
+	Dead_data = Death_M224_MORTAR[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_support_gadgets_msg then
+	data_support_gadgets_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_M224_MORTAR[s_Inflictor.name]
 	end
---
 --
 
 	if args[7] == "AMMO BOX" or args[7] == "C4 EXPLOSIVES" or args[7] == "M18 CLAYMORE" or args[7] == "M224 MORTAR" then
 
+-- Read and set kill status
 	data_weapon_name = args[7]
 	data_table_name = "tbl_support_gadgets"
-	data_playername = s_Inflictor.name
 	data_catagory = "Support gadgets data:"
+	data_playername = killer_name
+	data_support_gadgets(data_playername)
+
+-- Read and set death status
+	data_playername = victim_name
 	data_support_gadgets(data_playername)
 	end
 
 end)
+
+-- ------------------------------------------------------
+
+function data_support_gadgets_msg(player, data_playername)
+
+	if hs_tempdata[victim_name] == 1 then
+	print ("player "..victim_name.." got 3th eye`d thanks to "..killer_name.."`s "..args[7].." "..Headshot_data.." times and died "..Dead_data.." times by the "..args[7].." and died "..playerdeaths[victim_name].." times in total")
+	else
+	print ("player "..victim_name.." got killed, thanks to "..killer_name.."`s "..args[7].." and died "..Dead_data.." times by the "..args[7].." and died "..playerdeaths[victim_name].." times in total")
+	end
+
+	hs_tempdata[victim_name] = 0
+end -- End of function call
 
 -- ------------------------------------------------------
 
@@ -100,15 +177,13 @@ function data_support_gadgets(data_playername)
 	data_playername = tostring (data_playername)
 	data_weaponkills = tostring (data_weaponkills)
 
-	if Config.consolespam_support_gadgets then
+	if Config.consolespam_support_gadgets1 then
 	print ("")
 	print (data_catagory.." Weapon name:"..data_weapon_name)
 	print (data_catagory.." Mod DB Table name:"..data_table_name)
 	print (data_catagory.." Player name:"..data_playername)
 	print (data_catagory.." Weapon kills:"..data_weaponkills)
-
 	print ("")
-
 	print ("Accessing "..data_table_name)
 	end
 
@@ -119,37 +194,35 @@ function data_support_gadgets(data_playername)
 	return
 	end
 
-	if Config.consolespam_support_gadgets then
+	if Config.consolespam_support_gadgets2 then
 	print ("Done reading "..data_table_name)
 	print (Results)
 	print ("")
 	end
 
 if type(next(Results)) == "nil" then
-	if Config.consolespam_support_gadgets then
+	if Config.consolespam_support_gadgets3 then
 print("No data found for "..data_playername.." and "..data_weapon_name.." - Injecting now")
 	end
 
---add new entry 
-
-		           s_Query = 'INSERT INTO ' ..data_table_name..'     (Weaponname,     Soldiername,    Kills, Shot, Hits) VALUES (?,?,?,?,?)'
-			                        if not SQL:Query(s_Query, data_weapon_name,   data_playername,  1,    0,    0) then
+		           s_Query = 'INSERT INTO ' ..data_table_name..'     (Weaponname,     Soldiername,    Kills, Headshot, Deaths, Shot, Hits) VALUES (?,?,?,?,?,?,?)'
+			                        if not SQL:Query(s_Query, data_weapon_name,   data_playername,  0,      0,       0,     0,    0) then
 			print(" - Failed to insert assault weapon data in "..data_table_name..": " .. SQL:Error())
 			return
 	end
 
-	if Config.consolespam_support_gadgets then
+	if Config.consolespam_support_gadgets4 then
 	print("")
 	print (data_table_name.." injection done")
 	end
 
 else
- --do some thing with results
-	if Config.consolespam_support_gadgets then
+
+	if Config.consolespam_airvehicles5 then
 print('found data: '..data_playername..' and '..data_weapon_name..' - Kills:'..data_weaponkills)
 	end
-end
 
+end
 end -- End of function call
 
 -- ------------------------------------------------------

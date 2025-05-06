@@ -61,36 +61,113 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 
 	if args[7] == "MAV" then
 	kill_MAV[s_Inflictor.name] = kill_MAV[s_Inflictor.name] + 1
+
+	Death_MAV[p_Player.name] = Death_MAV[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_MAV[p_Player.name] = Headshot_MAV[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_MAV[p_Player.name]
+	Dead_data = Death_MAV[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_recon_gadgets_msg then
+	data_recon_gadgets_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_MAV[s_Inflictor.name]
 	end
 --
 	if args[7] == "RADIO BEACON" then
 	kill_RADIO_BEACON[s_Inflictor.name] = kill_RADIO_BEACON[s_Inflictor.name] + 1
+
+	Death_RADIO_BEACON[p_Player.name] = Death_RADIO_BEACON[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_RADIO_BEACON[p_Player.name] = Headshot_RADIO_BEACON[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_RADIO_BEACON[p_Player.name]
+	Dead_data = Death_RADIO_BEACON[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_recon_gadgets_msg then
+	data_recon_gadgets_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_RADIO_BEACON[s_Inflictor.name]
 	end
 --
 	if args[7] == "SOFLAM" then
 	kill_SOFLAM[s_Inflictor.name] = kill_SOFLAM[s_Inflictor.name] + 1
+
+	Death_SOFLAM[p_Player.name] = Death_SOFLAM[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_SOFLAM[p_Player.name] = Headshot_SOFLAM[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_SOFLAM[p_Player.name]
+	Dead_data = Death_SOFLAM[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_recon_gadgets_msg then
+	data_recon_gadgets_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_SOFLAM[s_Inflictor.name]
 	end
 --
 	if args[7] == "T-UGS" then
 	kill_T_UGS[s_Inflictor.name] = kill_T_UGS[s_Inflictor.name] + 1
+
+	Death_T_UGS[p_Player.name] = Death_T_UGS[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_T_UGS[p_Player.name] = Headshot_T_UGS[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_T_UGS[p_Player.name]
+	Dead_data = Death_T_UGS[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_recon_gadgets_msg then
+	data_recon_gadgets_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_T_UGS[s_Inflictor.name]
 	end
---
 --
 
 	if args[7] == "MAV" or args[7] == "RADIO BEACON" or args[7] == "SOFLAM" or args[7] == "T-UGS" then
 
+-- Read and set kill status
 	data_weapon_name = args[7]
 	data_table_name = "tbl_recon_gadgets"
-	data_playername = s_Inflictor.name
 	data_catagory = "Recon gadgets data:"
+	data_playername = killer_name
+	data_recon_gadgets(data_playername)
+
+-- Read and set death status
+	data_playername = victim_name
 	data_recon_gadgets(data_playername)
 	end
 
 end)
+
+-- ------------------------------------------------------
+
+function data_recon_gadgets_msg(player, data_playername)
+
+	if hs_tempdata[victim_name] == 1 then
+	print ("player "..victim_name.." got 3th eye`d thanks to "..killer_name.."`s "..args[7].." "..Headshot_data.." times and died "..Dead_data.." times by the "..args[7].." and died "..playerdeaths[victim_name].." times in total")
+	else
+	print ("player "..victim_name.." got killed, thanks to "..killer_name.."`s "..args[7].." and died "..Dead_data.." times by the "..args[7].." and died "..playerdeaths[victim_name].." times in total")
+	end
+
+	hs_tempdata[victim_name] = 0
+end -- End of function call
 
 -- ------------------------------------------------------
 
@@ -100,15 +177,13 @@ function data_recon_gadgets(data_playername)
 	data_playername = tostring (data_playername)
 	data_weaponkills = tostring (data_weaponkills)
 
-	if Config.consolespam_recon_gadgets then
+	if Config.consolespam_recon_gadgets1 then
 	print ("")
 	print (data_catagory.." Weapon name:"..data_weapon_name)
 	print (data_catagory.." Mod DB Table name:"..data_table_name)
 	print (data_catagory.." Player name:"..data_playername)
 	print (data_catagory.." Weapon kills:"..data_weaponkills)
-
 	print ("")
-
 	print ("Accessing "..data_table_name)
 	end
 
@@ -119,37 +194,35 @@ function data_recon_gadgets(data_playername)
 	return
 	end
 
-	if Config.consolespam_recon_gadgets then
+	if Config.consolespam_recon_gadgets2 then
 	print ("Done reading "..data_table_name)
 	print (Results)
 	print ("")
 	end
 
 if type(next(Results)) == "nil" then
-	if Config.consolespam_recon_gadgets then
+	if Config.consolespam_recon_gadgets3 then
 print("No data found for "..data_playername.." and "..data_weapon_name.." - Injecting now")
 	end
 
---add new entry 
-
-		           s_Query = 'INSERT INTO ' ..data_table_name..'     (Weaponname,     Soldiername,    Kills, Shot, Hits) VALUES (?,?,?,?,?)'
-			                        if not SQL:Query(s_Query, data_weapon_name,   data_playername,  1,    0,    0) then
+		           s_Query = 'INSERT INTO ' ..data_table_name..'     (Weaponname,     Soldiername,    Kills, Headshot, Deaths, Shot, Hits) VALUES (?,?,?,?,?,?,?)'
+			                        if not SQL:Query(s_Query, data_weapon_name,   data_playername,  0,      0,       0,     0,    0) then
 			print(" - Failed to insert assault weapon data in "..data_table_name..": " .. SQL:Error())
 			return
 	end
 
-	if Config.consolespam_recon_gadgets then
+	if Config.consolespam_recon_gadgets4 then
 	print("")
 	print (data_table_name.." injection done")
 	end
 
 else
- --do some thing with results
-	if Config.consolespam_recon_gadgets then
+
+	if Config.consolespam_airvehicles5 then
 print('found data: '..data_playername..' and '..data_weapon_name..' - Kills:'..data_weaponkills)
 	end
-end
 
+end
 end -- End of function call
 
 -- ------------------------------------------------------

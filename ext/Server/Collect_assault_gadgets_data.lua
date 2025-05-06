@@ -61,79 +61,303 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 
 	if args[7] == "M320 SMOKE" then
 	kill_M320_SMOKE[s_Inflictor.name] = kill_M320_SMOKE[s_Inflictor.name] + 1
+
+	Death_M320_SMOKE[p_Player.name] = Death_M320_SMOKE[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_M320_SMOKE[p_Player.name] = Headshot_M320_SMOKE[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_M320_SMOKE[p_Player.name]
+	Dead_data = Death_M320_SMOKE[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_assault_gadgets_msg then
+	data_assault_gadgets_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_M320_SMOKE[s_Inflictor.name]
 	end
 --
 	if args[7] == "M320 LVG" then
 	kill_M320_LVG[s_Inflictor.name] = kill_M320_LVG[s_Inflictor.name] + 1
+
+	Death_M320_LVG[p_Player.name] = Death_M320_LVG[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_M320_LVG[p_Player.name] = Headshot_M320_LVG[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_M320_LVG[p_Player.name]
+	Dead_data = Death_M320_LVG[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_assault_gadgets_msg then
+	data_assault_gadgets_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_M320_LVG[s_Inflictor.name]
 	end
 --
 	if args[7] == "M320 HE" then
 	kill_M320_HE[s_Inflictor.name] = kill_M320_HE[s_Inflictor.name] + 1
+
+	Death_M320_HE[p_Player.name] = Death_M320_HE[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_M320_HE[p_Player.name] = Headshot_M320_HE[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_M320_HE[p_Player.name]
+	Dead_data = Death_M320_HE[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_assault_gadgets_msg then
+	data_assault_gadgets_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_M320_HE[s_Inflictor.name]
 	end
 --
 	if args[7] == "M320 BUCK" then
 	kill_M320_BUCK[s_Inflictor.name] = kill_M320_BUCK[s_Inflictor.name] + 1
+
+	Death_M320_BUCK[p_Player.name] = Death_M320_BUCK[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_M320_BUCK[p_Player.name] = Headshot_M320_BUCK[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_M320_BUCK[p_Player.name]
+	Dead_data = Death_M320_BUCK[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_assault_gadgets_msg then
+	data_assault_gadgets_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_M320_BUCK[s_Inflictor.name]
 	end
 --
 	if args[7] == "M26 SLUG" then
 	kill_M26_SLUG[s_Inflictor.name] = kill_M26_SLUG[s_Inflictor.name] + 1
+
+	Death_M26_SLUG[p_Player.name] = Death_M26_SLUG[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_M26_SLUG[p_Player.name] = Headshot_M26_SLUG[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_M26_SLUG[p_Player.name]
+	Dead_data = Death_M26_SLUG[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_assault_gadgets_msg then
+	data_assault_gadgets_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_M26_SLUG[s_Inflictor.name]
 	end
 --
 	if args[7] == "M26 MASS" then
 	kill_M26_MASS[s_Inflictor.name] = kill_M26_MASS[s_Inflictor.name] + 1
+
+	Death_M26_MASS[p_Player.name] = Death_M26_MASS[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_M26_MASS[p_Player.name] = Headshot_M26_MASS[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_M26_MASS[p_Player.name]
+	Dead_data = Death_M26_MASS[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_assault_gadgets_msg then
+	data_assault_gadgets_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_M26_MASS[s_Inflictor.name]
 	end
 --
 	if args[7] == "M26 FRAG" then
 	kill_M26_FRAG[s_Inflictor.name] = kill_M26_FRAG[s_Inflictor.name] + 1
+
+	Death_M26_FRAG[p_Player.name] = Death_M26_FRAG[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_M26_FRAG[p_Player.name] = Headshot_M26_FRAG[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_M26_FRAG[p_Player.name]
+	Dead_data = Death_M26_FRAG[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_assault_gadgets_msg then
+	data_assault_gadgets_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_M26_FRAG[s_Inflictor.name]
 	end
 --
 	if args[7] == "M26 DART" then
 	kill_M26_DART[s_Inflictor.name] = kill_M26_DART[s_Inflictor.name] + 1
+
+	Death_M26_DART[p_Player.name] = Death_M26_DART[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_M26_DART[p_Player.name] = Headshot_M26_DART[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_M26_DART[p_Player.name]
+	Dead_data = Death_M26_DART[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_assault_gadgets_msg then
+	data_assault_gadgets_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_M26_DART[s_Inflictor.name]
 	end
 --
 	if args[7] == "GP-30 SMOKE" then
 	kill_GP_30_SMOKE[s_Inflictor.name] = kill_GP_30_SMOKE[s_Inflictor.name] + 1
+
+	Death_GP_30_SMOKE[p_Player.name] = Death_GP_30_SMOKE[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_GP_30_SMOKE[p_Player.name] = Headshot_GP_30_SMOKE[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_GP_30_SMOKE[p_Player.name]
+	Dead_data = Death_GP_30_SMOKE[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_assault_gadgets_msg then
+	data_assault_gadgets_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_GP_30_SMOKE[s_Inflictor.name]
 	end
 --
 	if args[7] == "GP-30 LVG" then
 	kill_GP_30_LVG[s_Inflictor.name] = kill_GP_30_LVG[s_Inflictor.name] + 1
+
+	Death_GP_30_LVG[p_Player.name] = Death_GP_30_LVG[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_GP_30_LVG[p_Player.name] = Headshot_GP_30_LVG[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_GP_30_LVG[p_Player.name]
+	Dead_data = Death_GP_30_LVG[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_assault_gadgets_msg then
+	data_assault_gadgets_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_GP_30_LVG[s_Inflictor.name]
 	end
 --
 	if args[7] == "GP-30 HE" then
 	kill_GP_30_HE[s_Inflictor.name] = kill_GP_30_HE[s_Inflictor.name] + 1
+
+	Death_GP_30_HE[p_Player.name] = Death_GP_30_HE[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_GP_30_HE[p_Player.name] = Headshot_GP_30_HE[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_GP_30_HE[p_Player.name]
+	Dead_data = Death_GP_30_HE[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_assault_gadgets_msg then
+	data_assault_gadgets_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_GP_30_HE[s_Inflictor.name]
 	end
 --
 	if args[7] == "GP-30 DART" then
 	kill_GP_30_DART[s_Inflictor.name] = kill_GP_30_DART[s_Inflictor.name] + 1
+
+	Death_GP_30_DART[p_Player.name] = Death_GP_30_DART[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_GP_30_DART[p_Player.name] = Headshot_GP_30_DART[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_GP_30_DART[p_Player.name]
+	Dead_data = Death_GP_30_DART[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_assault_gadgets_msg then
+	data_assault_gadgets_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_GP_30_DART[s_Inflictor.name]
 	end
 --
 	if args[7] == "GP-30 BUCK" then
 	kill_GP_30_BUCK[s_Inflictor.name] = kill_GP_30_BUCK[s_Inflictor.name] + 1
+
+	Death_GP_30_BUCK[p_Player.name] = Death_GP_30_BUCK[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_GP_30_BUCK[p_Player.name] = Headshot_GP_30_BUCK[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_GP_30_BUCK[p_Player.name]
+	Dead_data = Death_GP_30_BUCK[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_assault_gadgets_msg then
+	data_assault_gadgets_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_GP_30_BUCK[s_Inflictor.name]
 	end
 --
 	if args[7] == "MEDIC KIT" then
 	kill_MEDIC_KIT[s_Inflictor.name] = kill_MEDIC_KIT[s_Inflictor.name] + 1
+
+	Death_MEDIC_KIT[p_Player.name] = Death_MEDIC_KIT[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_MEDIC_KIT[p_Player.name] = Headshot_MEDIC_KIT[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_MEDIC_KIT[p_Player.name]
+	Dead_data = Death_MEDIC_KIT[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_assault_gadgets_msg then
+	data_assault_gadgets_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_MEDIC_KIT[s_Inflictor.name]
 	end
 --
 	if args[7] == "DEFIBRILLATOR" then
 	kill_DEFIBRILLATOR[s_Inflictor.name] = kill_DEFIBRILLATOR[s_Inflictor.name] + 1
+
+	Death_DEFIBRILLATOR[p_Player.name] = Death_DEFIBRILLATOR[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_DEFIBRILLATOR[p_Player.name] = Headshot_DEFIBRILLATOR[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_DEFIBRILLATOR[p_Player.name]
+	Dead_data = Death_DEFIBRILLATOR[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_assault_gadgets_msg then
+	data_assault_gadgets_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_DEFIBRILLATOR[s_Inflictor.name]
 	end
---
 --
 
 	if args[7] == "DEFIBRILLATOR" or args[7] == "MEDIC KIT" or args[7] == "GP-30 BUCK"
@@ -142,14 +366,32 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 	or args[7] == "M26 MASS" or args[7] == "M26 SLUG" or args[7] == "M320 BUCK"
 	or args[7] == "M320 HE" or args[7] == "M320 LVG" or args[7] == "M320 SMOKE" then
 
+-- Read and set kill status
 	data_weapon_name = args[7]
 	data_table_name = "tbl_assault_gadgets"
-	data_playername = s_Inflictor.name
 	data_catagory = "Assault gadget data:"
+	data_playername = killer_name
+	data_assault_gadgets(data_playername)
+
+-- Read and set death status
+	data_playername = victim_name
 	data_assault_gadgets(data_playername)
 	end
 
 end)
+
+-- ------------------------------------------------------
+
+function data_assault_gadgets_msg(player, data_playername)
+
+	if hs_tempdata[victim_name] == 1 then
+	print ("player "..victim_name.." got 3th eye`d thanks to "..killer_name.."`s "..args[7].." "..Headshot_data.." times and died "..Dead_data.." times by the "..args[7].." and died "..playerdeaths[victim_name].." times in total")
+	else
+	print ("player "..victim_name.." got killed, thanks to "..killer_name.."`s "..args[7].." and died "..Dead_data.." times by the "..args[7].." and died "..playerdeaths[victim_name].." times in total")
+	end
+
+	hs_tempdata[victim_name] = 0
+end -- End of function call
 
 -- ------------------------------------------------------
 
@@ -159,15 +401,13 @@ function data_assault_gadgets(data_playername)
 	data_playername = tostring (data_playername)
 	data_weaponkills = tostring (data_weaponkills)
 
-	if Config.consolespam_assault_gadgets then
+	if Config.consolespam_assault_gadgets1 then
 	print ("")
 	print (data_catagory.." Weapon name:"..data_weapon_name)
 	print (data_catagory.." Mod DB Table name:"..data_table_name)
 	print (data_catagory.." Player name:"..data_playername)
 	print (data_catagory.." Weapon kills:"..data_weaponkills)
-
 	print ("")
-
 	print ("Accessing "..data_table_name)
 	end
 
@@ -178,37 +418,35 @@ function data_assault_gadgets(data_playername)
 	return
 	end
 
-	if Config.consolespam_assault_gadgets then
+	if Config.consolespam_assault_gadgets2 then
 	print ("Done reading "..data_table_name)
 	print (Results)
 	print ("")
 	end
 
 if type(next(Results)) == "nil" then
-	if Config.consolespam_assault_gadgets then
+	if Config.consolespam_assault_gadgets3 then
 print("No data found for "..data_playername.." and "..data_weapon_name.." - Injecting now")
 	end
 
---add new entry 
-
-		           s_Query = 'INSERT INTO ' ..data_table_name..'     (Weaponname,     Soldiername,    Kills, Shot, Hits) VALUES (?,?,?,?,?)'
-			                        if not SQL:Query(s_Query, data_weapon_name,   data_playername,  1,    0,    0) then
+		           s_Query = 'INSERT INTO ' ..data_table_name..'     (Weaponname,     Soldiername,    Kills, Headshot, Deaths, Shot, Hits) VALUES (?,?,?,?,?,?,?)'
+			                        if not SQL:Query(s_Query, data_weapon_name,   data_playername,  0,      0,       0,     0,    0) then
 			print(" - Failed to insert assault weapon data in "..data_table_name..": " .. SQL:Error())
 			return
 	end
 
-	if Config.consolespam_assault_gadgets then
+	if Config.consolespam_assault_gadgets4 then
 	print("")
 	print (data_table_name.." injection done")
 	end
 
 else
- --do some thing with results
-	if Config.consolespam_assault_gadgets then
+
+	if Config.consolespam_airvehicles5 then
 print('found data: '..data_playername..' and '..data_weapon_name..' - Kills:'..data_weaponkills)
 	end
-end
 
+end
 end -- End of function call
 
 -- ------------------------------------------------------

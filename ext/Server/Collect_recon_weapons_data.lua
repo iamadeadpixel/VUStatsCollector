@@ -61,73 +61,255 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 
 	if args[7] == "JNG-90" then
 	kill_JNG_90[s_Inflictor.name] = kill_JNG_90[s_Inflictor.name] + 1
+
+	Death_JNG_90[p_Player.name] = Death_JNG_90[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_JNG_90[p_Player.name] = Headshot_JNG_90[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_JNG_90[p_Player.name]
+	Dead_data = Death_JNG_90[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_recon_weapons_msg then
+	data_recon_weapons_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_JNG_90[s_Inflictor.name]
 	end
 --
 	if args[7] == "L96" then
 	kill_L96[s_Inflictor.name] = kill_L96[s_Inflictor.name] + 1
+
+	Death_L96[p_Player.name] = Death_L96[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_L96[p_Player.name] = Headshot_L96[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_L96[p_Player.name]
+	Dead_data = Death_L96[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_recon_weapons_msg then
+	data_recon_weapons_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_L96[s_Inflictor.name]
 	end
 --
 	if args[7] == "M39 EMR" then
 	kill_M39_EMR[s_Inflictor.name] = kill_M39_EMR[s_Inflictor.name] + 1
+
+	Death_M39_EMR[p_Player.name] = Death_M39_EMR[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_M39_EMR[p_Player.name] = Headshot_M39_EMR[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_M39_EMR[p_Player.name]
+	Dead_data = Death_M39_EMR[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_recon_weapons_msg then
+	data_recon_weapons_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_M39_EMR[s_Inflictor.name]
 	end
 --
 	if args[7] == "M40A5" then
 	kill_M40A5[s_Inflictor.name] = kill_M40A5[s_Inflictor.name] + 1
+
+	Death_M40A5[p_Player.name] = Death_M40A5[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_M40A5[p_Player.name] = Headshot_M40A5[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_M40A5[p_Player.name]
+	Dead_data = Death_M40A5[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_recon_weapons_msg then
+	data_recon_weapons_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_M40A5[s_Inflictor.name]
 	end
 --
 	if args[7] == "M417" then
 	kill_M417[s_Inflictor.name] = kill_M417[s_Inflictor.name] + 1
+
+	Death_M417[p_Player.name] = Death_M417[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_M417[p_Player.name] = Headshot_M417[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_M417[p_Player.name]
+	Dead_data = Death_M417[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_recon_weapons_msg then
+	data_recon_weapons_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_M417[s_Inflictor.name]
 	end
 --
 	if args[7] == "M98B" then
 	kill_M98B[s_Inflictor.name] = kill_M98B[s_Inflictor.name] + 1
+
+	Death_M98B[p_Player.name] = Death_M98B[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_M98B[p_Player.name] = Headshot_M98B[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_M98B[p_Player.name]
+	Dead_data = Death_M98B[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_recon_weapons_msg then
+	data_recon_weapons_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_M98B[s_Inflictor.name]
 	end
 --
 	if args[7] == "MK11 MOD 0" then
 	kill_MK11_MOD_0[s_Inflictor.name] = kill_MK11_MOD_0[s_Inflictor.name] + 1
+
+	Death_MK11_MOD_0[p_Player.name] = Death_MK11_MOD_0[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_MK11_MOD_0[p_Player.name] = Headshot_MK11_MOD_0[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_MK11_MOD_0[p_Player.name]
+	Dead_data = Death_MK11_MOD_0[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_recon_weapons_msg then
+	data_recon_weapons_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_MK11_MOD_0[s_Inflictor.name]
 	end
 --
 	if args[7] == "QBU-88" then
 	kill_QBU_88[s_Inflictor.name] = kill_QBU_88[s_Inflictor.name] + 1
+
+	Death_QBU_88[p_Player.name] = Death_QBU_88[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_QBU_88[p_Player.name] = Headshot_QBU_88[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_QBU_88[p_Player.name]
+	Dead_data = Death_QBU_88[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_recon_weapons_msg then
+	data_recon_weapons_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_QBU_88[s_Inflictor.name]
 	end
 --
 	if args[7] == "SKS" then
 	kill_SKS[s_Inflictor.name] = kill_SKS[s_Inflictor.name] + 1
+
+	Death_SKS[p_Player.name] = Death_SKS[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_SKS[p_Player.name] = Headshot_SKS[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_SKS[p_Player.name]
+	Dead_data = Death_SKS[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_recon_weapons_msg then
+	data_recon_weapons_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_SKS[s_Inflictor.name]
 	end
 --
 	if args[7] == "SV98" then
 	kill_SV98[s_Inflictor.name] = kill_SV98[s_Inflictor.name] + 1
+
+	Death_SV98[p_Player.name] = Death_SV98[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_SV98[p_Player.name] = Headshot_SV98[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_SV98[p_Player.name]
+	Dead_data = Death_SV98[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_recon_weapons_msg then
+	data_recon_weapons_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_SV98[s_Inflictor.name]
 	end
 --
 	if args[7] == "SVD" then
 	kill_SVD[s_Inflictor.name] = kill_SVD[s_Inflictor.name] + 1
+
+	Death_SVD[p_Player.name] = Death_SVD[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_SVD[p_Player.name] = Headshot_SVD[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_SVD[p_Player.name]
+	Dead_data = Death_SVD[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_recon_weapons_msg then
+	data_recon_weapons_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_SVD[s_Inflictor.name]
 	end
---
 --
 
 	if args[7] == "JNG-90" or args[7] == "L96" or args[7] == "M39 EMR" or args[7] == "M40A5" or args[7] == "M417"
 	or args[7] == "M98B" or args[7] == "MK11 MOD 0" or args[7] == "QBU-88"
 	or args[7] == "SKS" or args[7] == "SV98" or args[7] == "SVD" then
 
+-- Read and set kill status
 	data_weapon_name = args[7]
 	data_table_name = "tbl_recon_weapons"
-	data_playername = s_Inflictor.name
 	data_catagory = "Recon weapon data:"
+	data_playername = killer_name
+	data_recon_weapons(data_playername)
+
+-- Read and set death status
+	data_playername = victim_name
 	data_recon_weapons(data_playername)
 	end
 
 end)
+
+-- ------------------------------------------------------
+
+function data_recon_weapons_msg(player, data_playername)
+
+	if hs_tempdata[victim_name] == 1 then
+	print ("player "..victim_name.." got 3th eye`d thanks to "..killer_name.."`s "..args[7].." "..Headshot_data.." times and died "..Dead_data.." times by the "..args[7].." and died "..playerdeaths[victim_name].." times in total")
+	else
+	print ("player "..victim_name.." got killed, thanks to "..killer_name.."`s "..args[7].." and died "..Dead_data.." times by the "..args[7].." and died "..playerdeaths[victim_name].." times in total")
+	end
+
+	hs_tempdata[victim_name] = 0
+end -- End of function call
 
 -- ------------------------------------------------------
 
@@ -137,15 +319,13 @@ function data_recon_weapons(data_playername)
 	data_playername = tostring (data_playername)
 	data_weaponkills = tostring (data_weaponkills)
 
-	if Config.consolespam_recon_weapons then
+	if Config.consolespam_recon_weapons1 then
 	print ("")
 	print (data_catagory.." Weapon name:"..data_weapon_name)
 	print (data_catagory.." Mod DB Table name:"..data_table_name)
 	print (data_catagory.." Player name:"..data_playername)
 	print (data_catagory.." Weapon kills:"..data_weaponkills)
-
 	print ("")
-
 	print ("Accessing "..data_table_name)
 	end
 
@@ -156,37 +336,35 @@ function data_recon_weapons(data_playername)
 	return
 	end
 
-	if Config.consolespam_recon_weapons then
+	if Config.consolespam_recon_weapons2 then
 	print ("Done reading "..data_table_name)
 	print (Results)
 	print ("")
 	end
 
 if type(next(Results)) == "nil" then
-	if Config.consolespam_recon_weapons then
+	if Config.consolespam_recon_weapons3 then
 print("No data found for "..data_playername.." and "..data_weapon_name.." - Injecting now")
 	end
 
---add new entry 
-
-		           s_Query = 'INSERT INTO ' ..data_table_name..'     (Weaponname,     Soldiername,    Kills, Shot, Hits) VALUES (?,?,?,?,?)'
-			                        if not SQL:Query(s_Query, data_weapon_name,   data_playername,  1,    0,    0) then
+		           s_Query = 'INSERT INTO ' ..data_table_name..'     (Weaponname,     Soldiername,    Kills, Headshot, Deaths, Shot, Hits) VALUES (?,?,?,?,?,?,?)'
+			                        if not SQL:Query(s_Query, data_weapon_name,   data_playername,  0,      0,       0,     0,    0) then
 			print(" - Failed to insert assault weapon data in "..data_table_name..": " .. SQL:Error())
 			return
 	end
 
-	if Config.consolespam_recon_weapons then
+	if Config.consolespam_recon_weapons4 then
 	print("")
 	print (data_table_name.." injection done")
 	end
 
 else
- --do some thing with results
-	if Config.consolespam_recon_weapons then
+
+	if Config.consolespam_airvehicles5 then
 print('found data: '..data_playername..' and '..data_weapon_name..' - Kills:'..data_weaponkills)
 	end
-end
 
+end
 end -- End of function call
 
 -- ------------------------------------------------------

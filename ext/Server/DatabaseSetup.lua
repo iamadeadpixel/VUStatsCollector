@@ -142,6 +142,31 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 	--
 	--
 
+	local s_Results = SQL:Query('SELECT * FROM tbl_assault_weapons')
+	if not s_Results then
+		print("*** Creating Table: 'tbl_assault_weapons' ***")
+		s_Query = [[
+	CREATE TABLE IF NOT EXISTS `tbl_assault_weapons` (
+	`Weaponname` TEXT,
+	`Soldiername` TEXT,
+	`Kills` INTEGER,
+	`Headshot` INTEGER,
+	`Deaths` INTEGER,
+	`Shot` INTEGER,
+	`Hits` INTEGER
+	);
+		]]
+
+		if not SQL:Query(s_Query) then
+			print('Failed to execute query for tbl_assault_weapons Table: ' .. SQL:Error())
+			return
+		end
+	end
+
+	--
+	--
+	--
+
 	local s_Results = SQL:Query('SELECT * FROM tbl_assault_gadgets')
 	if not s_Results then
 		print("*** Creating Table: 'tbl_assault_gadgets' ***")
@@ -150,6 +175,8 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 	`Weaponname` TEXT,
 	`Soldiername` TEXT,
 	`Kills` INTEGER,
+	`Headshot` INTEGER,
+	`Deaths` INTEGER,
 	`Shot` INTEGER,
 	`Hits` INTEGER
 	);
@@ -165,21 +192,23 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 	--
 	--
 
-	local s_Results = SQL:Query('SELECT * FROM tbl_primary_weapons')
+	local s_Results = SQL:Query('SELECT * FROM tbl_engineer_weapons')
 	if not s_Results then
-		print("*** Creating Table: 'tbl_primary_weapons' ***")
+		print("*** Creating Table: 'tbl_engineer_weapons' ***")
 		s_Query = [[
-	CREATE TABLE IF NOT EXISTS `tbl_primary_weapons` (
+	CREATE TABLE IF NOT EXISTS `tbl_engineer_weapons` (
 	`Weaponname` TEXT,
 	`Soldiername` TEXT,
 	`Kills` INTEGER,
+	`Headshot` INTEGER,
+	`Deaths` INTEGER,
 	`Shot` INTEGER,
 	`Hits` INTEGER
 	);
 		]]
 
 		if not SQL:Query(s_Query) then
-			print('Failed to execute query for tbl_primary_weapons Table: ' .. SQL:Error())
+			print('Failed to execute query for tbl_engineer_weapons Table: ' .. SQL:Error())
 			return
 		end
 	end
@@ -196,6 +225,8 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 	`Weaponname` TEXT,
 	`Soldiername` TEXT,
 	`Kills` INTEGER,
+	`Headshot` INTEGER,
+	`Deaths` INTEGER,
 	`Shot` INTEGER,
 	`Hits` INTEGER
 	);
@@ -203,6 +234,31 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 
 		if not SQL:Query(s_Query) then
 			print('Failed to execute query for tbl_engineer_gadgets Table: ' .. SQL:Error())
+			return
+		end
+	end
+
+	--
+	--
+	--
+
+	local s_Results = SQL:Query('SELECT * FROM tbl_support_weapons')
+	if not s_Results then
+		print("*** Creating Table: 'tbl_support_weapons' ***")
+		s_Query = [[
+	CREATE TABLE IF NOT EXISTS `tbl_support_weapons` (
+	`Weaponname` TEXT,
+	`Soldiername` TEXT,
+	`Kills` INTEGER,
+	`Headshot` INTEGER,
+	`Deaths` INTEGER,
+	`Shot` INTEGER,
+	`Hits` INTEGER
+	);
+		]]
+
+		if not SQL:Query(s_Query) then
+			print('Failed to execute query for tbl_support_weapons Table: ' .. SQL:Error())
 			return
 		end
 	end
@@ -219,6 +275,8 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 	`Weaponname` TEXT,
 	`Soldiername` TEXT,
 	`Kills` INTEGER,
+	`Headshot` INTEGER,
+	`Deaths` INTEGER,
 	`Shot` INTEGER,
 	`Hits` INTEGER
 	);
@@ -226,6 +284,31 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 
 		if not SQL:Query(s_Query) then
 			print('Failed to execute query for tbl_support_gadgets Table: ' .. SQL:Error())
+			return
+		end
+	end
+
+	--
+	--
+	--
+
+	local s_Results = SQL:Query('SELECT * FROM tbl_recon_weapons')
+	if not s_Results then
+		print("*** Creating Table: 'tbl_recon_weapons' ***")
+		s_Query = [[
+	CREATE TABLE IF NOT EXISTS `tbl_recon_weapons` (
+	`Weaponname` TEXT,
+	`Soldiername` TEXT,
+	`Kills` INTEGER,
+	`Headshot` INTEGER,
+	`Deaths` INTEGER,
+	`Shot` INTEGER,
+	`Hits` INTEGER
+	);
+		]]
+
+		if not SQL:Query(s_Query) then
+			print('Failed to execute query for tbl_recon_weapons Table: ' .. SQL:Error())
 			return
 		end
 	end
@@ -242,6 +325,8 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 	`Weaponname` TEXT,
 	`Soldiername` TEXT,
 	`Kills` INTEGER,
+	`Headshot` INTEGER,
+	`Deaths` INTEGER,
 	`Shot` INTEGER,
 	`Hits` INTEGER
 	);
@@ -249,6 +334,31 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 
 		if not SQL:Query(s_Query) then
 			print('Failed to execute query for tbl_recon_gadgets Table: ' .. SQL:Error())
+			return
+		end
+	end
+
+	--
+	--
+	--
+
+	local s_Results = SQL:Query('SELECT * FROM tbl_primary_weapons')
+	if not s_Results then
+		print("*** Creating Table: 'tbl_primary_weapons' ***")
+		s_Query = [[
+	CREATE TABLE IF NOT EXISTS `tbl_primary_weapons` (
+	`Weaponname` TEXT,
+	`Soldiername` TEXT,
+	`Kills` INTEGER,
+	`Headshot` INTEGER,
+	`Deaths` INTEGER,
+	`Shot` INTEGER,
+	`Hits` INTEGER
+	);
+		]]
+
+		if not SQL:Query(s_Query) then
+			print('Failed to execute query for tbl_primary_weapons Table: ' .. SQL:Error())
 			return
 		end
 	end
@@ -265,6 +375,8 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 	`Weaponname` TEXT,
 	`Soldiername` TEXT,
 	`Kills` INTEGER,
+	`Headshot` INTEGER,
+	`Deaths` INTEGER,
 	`Shot` INTEGER,
 	`Hits` INTEGER
 	);
@@ -288,6 +400,8 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 	`Weaponname` TEXT,
 	`Soldiername` TEXT,
 	`Kills` INTEGER,
+	`Headshot` INTEGER,
+	`Deaths` INTEGER,
 	`Shot` INTEGER,
 	`Hits` INTEGER
 	);
@@ -303,90 +417,23 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 	--
 	--
 
-	local s_Results = SQL:Query('SELECT * FROM tbl_assault_weapons')
+	local s_Results = SQL:Query('SELECT * FROM tbl_auxiliary_gadgets')
 	if not s_Results then
-		print("*** Creating Table: 'tbl_assault_weapons' ***")
+		print("*** Creating Table: 'tbl_auxiliary_gadgets' ***")
 		s_Query = [[
-	CREATE TABLE IF NOT EXISTS `tbl_assault_weapons` (
+	CREATE TABLE IF NOT EXISTS `tbl_auxiliary_gadgets` (
 	`Weaponname` TEXT,
 	`Soldiername` TEXT,
 	`Kills` INTEGER,
+	`Headshot` INTEGER,
+	`Deaths` INTEGER,
 	`Shot` INTEGER,
 	`Hits` INTEGER
 	);
 		]]
 
 		if not SQL:Query(s_Query) then
-			print('Failed to execute query for tbl_assault_weapons Table: ' .. SQL:Error())
-			return
-		end
-	end
-
-	--
-	--
-	--
-
-	local s_Results = SQL:Query('SELECT * FROM tbl_engineer_weapons')
-	if not s_Results then
-		print("*** Creating Table: 'tbl_engineer_weapons' ***")
-		s_Query = [[
-	CREATE TABLE IF NOT EXISTS `tbl_engineer_weapons` (
-	`Weaponname` TEXT,
-	`Soldiername` TEXT,
-	`Kills` INTEGER,
-	`Shot` INTEGER,
-	`Hits` INTEGER
-	);
-		]]
-
-		if not SQL:Query(s_Query) then
-			print('Failed to execute query for tbl_engineer_weapons Table: ' .. SQL:Error())
-			return
-		end
-	end
-
-	--
-	--
-	--
-
-	local s_Results = SQL:Query('SELECT * FROM tbl_support_weapons')
-	if not s_Results then
-		print("*** Creating Table: 'tbl_support_weapons' ***")
-		s_Query = [[
-	CREATE TABLE IF NOT EXISTS `tbl_support_weapons` (
-	`Weaponname` TEXT,
-	`Soldiername` TEXT,
-	`Kills` INTEGER,
-	`Shot` INTEGER,
-	`Hits` INTEGER
-	);
-		]]
-
-		if not SQL:Query(s_Query) then
-			print('Failed to execute query for tbl_support_weapons Table: ' .. SQL:Error())
-			return
-		end
-	end
-
-	--
-	--
-	--
-
-	local s_Results = SQL:Query('SELECT * FROM tbl_recon_weapons')
-	if not s_Results then
-		print("*** Creating Table: 'tbl_recon_weapons' ***")
-		s_Query = [[
-	CREATE TABLE IF NOT EXISTS `tbl_recon_weapons` (
-	`Weaponname` TEXT,
-	`Soldiername` TEXT,
-	`Kills` INTEGER,
-	`Shot` INTEGER,
-	`Hits` INTEGER
-	);
-		]]
-
-		if not SQL:Query(s_Query) then
-			print('Failed to execute query for tbl_recon_weapons Table: ' .. SQL:Error())
+			print('Failed to execute query for tbl_auxiliary_gadgets Table: ' .. SQL:Error())
 			return
 		end
 	end
@@ -403,6 +450,8 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 	`Weaponname` TEXT,
 	`Soldiername` TEXT,
 	`Kills` INTEGER,
+	`Headshot` INTEGER,
+	`Deaths` INTEGER,
 	`Shot` INTEGER,
 	`Hits` INTEGER
 	);
@@ -426,6 +475,8 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 	`Weaponname` TEXT,
 	`Soldiername` TEXT,
 	`Kills` INTEGER,
+	`Headshot` INTEGER,
+	`Deaths` INTEGER,
 	`Shot` INTEGER,
 	`Hits` INTEGER
 	);
@@ -433,29 +484,6 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 
 		if not SQL:Query(s_Query) then
 			print('Failed to execute query for tbl_air_vehicles Table: ' .. SQL:Error())
-			return
-		end
-	end
-
-	--
-	--
-	--
-
-	local s_Results = SQL:Query('SELECT * FROM tbl_auxiliary_gadgets')
-	if not s_Results then
-		print("*** Creating Table: 'tbl_auxiliary_gadgets' ***")
-		s_Query = [[
-	CREATE TABLE IF NOT EXISTS `tbl_auxiliary_gadgets` (
-	`Weaponname` TEXT,
-	`Soldiername` TEXT,
-	`Kills` INTEGER,
-	`Shot` INTEGER,
-	`Hits` INTEGER
-	);
-		]]
-
-		if not SQL:Query(s_Query) then
-			print('Failed to execute query for tbl_auxiliary_gadgets Table: ' .. SQL:Error())
 			return
 		end
 	end
@@ -472,6 +500,8 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 	`Weaponname` TEXT,
 	`Soldiername` TEXT,
 	`Kills` INTEGER,
+	`Headshot` INTEGER,
+	`Deaths` INTEGER,
 	`Shot` INTEGER,
 	`Hits` INTEGER
 	);

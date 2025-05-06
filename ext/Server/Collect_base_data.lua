@@ -85,7 +85,7 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 
 		-- Counts headshot
 		if p_IsHeadShot then
-		playerheadshot[s_Inflictor.name] = playerheadshot[s_Inflictor.name] + 1
+		playerheadshot[s_Inflictor.name] = playerheadshot[s_Inflictor.name] + 1 -- Kill
 
 	if Config.consolespam_base then
 		print("==== Headshot stats for :"..s_Inflictor.name.." - Headshots:"..playerheadshot[s_Inflictor.name])

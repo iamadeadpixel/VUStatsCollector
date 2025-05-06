@@ -4,7 +4,7 @@ the VU alternative for procon's chatguidstatslogger
 heavy work in progress, not yet useable for a live server,but works.
 
 Here you can log humans only, or both...
-9.0.0 : stripping down more and more code
+10.0.3 : SQL stuff full revamp.....
 #
 Some code used from: Doc-Ice-Elm, Joe_91
 Code fixes: Bree_Arnold and Doc-Ice-Elm, Jassent, IllustrisJack

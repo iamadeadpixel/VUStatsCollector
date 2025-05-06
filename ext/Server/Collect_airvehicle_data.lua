@@ -61,74 +61,283 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 
 	if args[7] == "TV MISSILE" then
 	kill_TV_MISSILE[s_Inflictor.name] = kill_TV_MISSILE[s_Inflictor.name] + 1
+
+	Death_TV_MISSILE[p_Player.name] = Death_TV_MISSILE[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_TV_MISSILE[p_Player.name] = Headshot_TV_MISSILE[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_TV_MISSILE[p_Player.name]
+	Dead_data = Death_TV_MISSILE[p_Player.name] 
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_airvehicles_msg then
+	data_airvehicles_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_TV_MISSILE[s_Inflictor.name]
 	end
 --
 	if args[7] == "A-10 THUNDERBOLT" then
 	kill_A10_THUNDERBOLT[s_Inflictor.name] = kill_A10_THUNDERBOLT[s_Inflictor.name] + 1
+
+	Death_A10_THUNDERBOLT[p_Player.name] = Death_A10_THUNDERBOLT[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_A10_THUNDERBOLT[p_Player.name] = Headshot_A10_THUNDERBOLT[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_A10_THUNDERBOLT[p_Player.name]
+	Dead_data = Death_A10_THUNDERBOLT[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_airvehicles_msg then
+	data_airvehicles_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_A10_THUNDERBOLT[s_Inflictor.name]
 	end
 --
 	if args[7] == "AH-1Z VIPER" then
 	kill_AH_1Z_VIPER[s_Inflictor.name] = kill_AH_1Z_VIPER[s_Inflictor.name] + 1
+
+	Death_AH_1Z_VIPER[p_Player.name] = Death_AH_1Z_VIPER[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_AH_1Z_VIPER[p_Player.name] = Headshot_AH_1Z_VIPER[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_AH_1Z_VIPER[p_Player.name]
+	Dead_data = Death_AH_1Z_VIPER[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_airvehicles_msg then
+	data_airvehicles_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_AH_1Z_VIPER[s_Inflictor.name]
 	end
 --
 	if args[7] == "AH-6J LITTLE BIRD" then
 	kill_AH_6J_LITTLE_BIRD[s_Inflictor.name] = kill_AH_6J_LITTLE_BIRD[s_Inflictor.name] + 1
+
+	Death_AH_6J_LITTLE_BIRD[p_Player.name] = Death_AH_6J_LITTLE_BIRD[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_AH_6J_LITTLE_BIRD[p_Player.name] = Headshot_AH_6J_LITTLE_BIRD[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_AH_6J_LITTLE_BIRD[p_Player.name]
+	Dead_data = Death_AH_6J_LITTLE_BIRD[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_airvehicles_msg then
+	data_airvehicles_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_AH_6J_LITTLE_BIRD[s_Inflictor.name]
 	end
 --
 	if args[7] == "F-35" then
 	kill_F_35[s_Inflictor.name] = kill_F_35[s_Inflictor.name] + 1
+
+	Death_F_35[p_Player.name] = Death_F_35[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_F_35[p_Player.name] = Headshot_F_35[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_F_35[p_Player.name]
+	Dead_data = Death_F_35[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_airvehicles_msg then
+	data_airvehicles_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_F_35[s_Inflictor.name]
 	end
 --
 	if args[7] == "F/A-18E SUPER HORNET" then
 	kill_FA_18E_SUPER_HORNET[s_Inflictor.name] = kill_FA_18E_SUPER_HORNET[s_Inflictor.name] + 1
+
+	Death_FA_18E_SUPER_HORNET[p_Player.name] = Death_FA_18E_SUPER_HORNET[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_FA_18E_SUPER_HORNET[p_Player.name] = Headshot_FA_18E_SUPER_HORNET[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_FA_18E_SUPER_HORNET[p_Player.name]
+	Dead_data = Death_FA_18E_SUPER_HORNET[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_airvehicles_msg then
+	data_airvehicles_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_FA_18E_SUPER_HORNET[s_Inflictor.name]
 	end
 --
 	if args[7] == "GUNSHIP" then
 	kill_GUNSHIP[s_Inflictor.name] = kill_GUNSHIP[s_Inflictor.name] + 1
+
+	Death_GUNSHIP[p_Player.name] = Death_GUNSHIP[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_GUNSHIP[p_Player.name] = Headshot_GUNSHIP[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_GUNSHIP[p_Player.name]
+	Dead_data = Death_GUNSHIP[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_airvehicles_msg then
+	data_airvehicles_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_GUNSHIP[s_Inflictor.name]
 	end
 --
 	if args[7] == "KA-60 KASATKA" then
 	kill_KA_60_KASATKA[s_Inflictor.name] = kill_KA_60_KASATKA[s_Inflictor.name] + 1
+
+	Death_KA_60_KASATKA[p_Player.name] = Death_KA_60_KASATKA[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_KA_60_KASATKA[p_Player.name] = Headshot_KA_60_KASATKA[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_KA_60_KASATKA[p_Player.name]
+	Dead_data = Death_KA_60_KASATKA[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_airvehicles_msg then
+	data_airvehicles_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_KA_60_KASATKA[s_Inflictor.name]
 	end
 --
 	if args[7] == "MI-28 HAVOC" then
 	kill_MI_28_HAVOC[s_Inflictor.name] = kill_MI_28_HAVOC[s_Inflictor.name] + 1
+
+	Death_MI_28_HAVOC[p_Player.name] = Death_MI_28_HAVOC[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_MI_28_HAVOC[p_Player.name] = Headshot_MI_28_HAVOC[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_MI_28_HAVOC[p_Player.name]
+	Dead_data = Death_MI_28_HAVOC[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_airvehicles_msg then
+	data_airvehicles_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_MI_28_HAVOC[s_Inflictor.name]
 	end
 --
 	if args[7] == "SU-25TM FROGFOOT" then
 	kill_SU_25TM_FROGFOOT[s_Inflictor.name] = kill_SU_25TM_FROGFOOT[s_Inflictor.name] + 1
+
+	Death_SU_25TM_FROGFOOT[p_Player.name] = Death_SU_25TM_FROGFOOT[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_SU_25TM_FROGFOOT[p_Player.name] = Headshot_SU_25TM_FROGFOOT[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_SU_25TM_FROGFOOT[p_Player.name]
+	Dead_data = Death_SU_25TM_FROGFOOT[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_airvehicles_msg then
+	data_airvehicles_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_SU_25TM_FROGFOOT[s_Inflictor.name]
 	end
 --
 	if args[7] == "SU-35BM FLANKER-E" then
 	kill_SU_35BM_FLANKER_E[s_Inflictor.name] = kill_SU_35BM_FLANKER_E[s_Inflictor.name] + 1
+
+	Death_SU_35BM_FLANKER_E[p_Player.name] = Death_SU_35BM_FLANKER_E[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_SU_35BM_FLANKER_E[p_Player.name] = Headshot_SU_35BM_FLANKER_E[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_SU_35BM_FLANKER_E[p_Player.name]
+	Dead_data = Death_SU_35BM_FLANKER_E[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_airvehicles_msg then
+	data_airvehicles_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_SU_35BM_FLANKER_E[s_Inflictor.name]
 	end
 --
 	if args[7] == "SU-37" then
 	kill_SU_37[s_Inflictor.name] = kill_SU_37[s_Inflictor.name] + 1
+
+	Death_SU_37[p_Player.name] = Death_SU_37[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_SU_37[p_Player.name] = Headshot_SU_37[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_SU_37[p_Player.name]
+	Dead_data = Death_SU_37[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_airvehicles_msg then
+	data_airvehicles_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_SU_37[s_Inflictor.name]
 	end
 --
 	if args[7] == "UH-1Y VENOM" then
 	kill_UH_1Y_VENOM[s_Inflictor.name] = kill_UH_1Y_VENOM[s_Inflictor.name] + 1
+
+	Death_UH_1Y_VENOM[p_Player.name] = Death_UH_1Y_VENOM[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_UH_1Y_VENOM[p_Player.name] = Headshot_UH_1Y_VENOM[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_UH_1Y_VENOM[p_Player.name]
+	Dead_data = Death_UH_1Y_VENOM[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_airvehicles_msg then
+	data_airvehicles_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_UH_1Y_VENOM[s_Inflictor.name]
 	end
 --
 	if args[7] == "Z-11W" then
 	kill_Z_11W[s_Inflictor.name] = kill_Z_11W[s_Inflictor.name] + 1
+
+	Death_Z_11W[p_Player.name] = Death_Z_11W[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_Z_11W[p_Player.name] = Headshot_Z_11W[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_Z_11W[p_Player.name]
+	Dead_data = Death_Z_11W[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_airvehicles_msg then
+	data_airvehicles_msg(player, data_playername)
+	end
+
 	data_weaponkills = kill_Z_11W[s_Inflictor.name]
 	end
---
 --
 
 	if args[7] == "A-10 THUNDERBOLT" or args[7] == "AH-1Z VIPER" or args[7] == "AH-6J LITTLE BIRD" or args[7] == "F-35"
@@ -136,14 +345,32 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 	or args[7] == "SU-25TM FROGFOOT" or args[7] == "SU-35BM FLANKER-E" or args[7] == "SU-37"
 	or args[7] == "TV MISSILE" or args[7] == "UH-1Y VENOM" or args[7] == "Z-11W" then
 
+-- Read and set kill status
 	data_weapon_name = args[7]
 	data_table_name = "tbl_air_vehicles"
-	data_playername = s_Inflictor.name
 	data_catagory = "Air vehicles data:"
+	data_playername = killer_name
+	data_airvehicles(data_playername)
+
+-- Read and set death status
+	data_playername = victim_name
 	data_airvehicles(data_playername)
 	end
 
 end)
+
+-- ------------------------------------------------------
+
+function data_airvehicles_msg(player, data_playername)
+
+	if hs_tempdata[victim_name] == 1 then
+	print ("player "..victim_name.." got 3th eye`d thanks to "..killer_name.."`s "..args[7].." "..Headshot_data.." times and died "..Dead_data.." times by the "..args[7].." and died "..playerdeaths[victim_name].." times in total")
+	else
+	print ("player "..victim_name.." got killed, thanks to "..killer_name.."`s "..args[7].." and died "..Dead_data.." times by the "..args[7].." and died "..playerdeaths[victim_name].." times in total")
+	end
+
+	hs_tempdata[victim_name] = 0
+end -- End of function call
 
 -- ------------------------------------------------------
 
@@ -153,17 +380,15 @@ function data_airvehicles(data_playername)
 	data_playername = tostring (data_playername)
 	data_weaponkills = tostring (data_weaponkills)
 
-	if Config.consolespam_airvehicles then
+	if Config.consolespam_airvehicles1 then
 	print ("")
 	print (data_catagory.." Weapon name:"..data_weapon_name)
 	print (data_catagory.." Mod DB Table name:"..data_table_name)
 	print (data_catagory.." Player name:"..data_playername)
 	print (data_catagory.." Weapon kills:"..data_weaponkills)
-
 	print ("")
-
 	print ("Accessing "..data_table_name)
-	end -- end for the config stuff
+	end
 
 	Results = SQL:Query('SELECT Weaponname, Soldiername FROM '..data_table_name..' WHERE Soldiername = ? and Weaponname = ?', data_playername,data_weapon_name) -- works
 
@@ -172,37 +397,35 @@ function data_airvehicles(data_playername)
 	return
 	end
 
-	if Config.consolespam_airvehicles then
+	if Config.consolespam_airvehicles2 then
 	print ("Done reading "..data_table_name)
 	print (Results)
 	print ("")
 	end
 
 if type(next(Results)) == "nil" then
-	if Config.consolespam_airvehicles then
+	if Config.consolespam_airvehicles3 then
 print("No data found for "..data_playername.." and "..data_weapon_name.." - Injecting now")
 	end
 
---add new entry 
-
-		           s_Query = 'INSERT INTO ' ..data_table_name..'     (Weaponname,     Soldiername,    Kills, Shot, Hits) VALUES (?,?,?,?,?)'
-			                        if not SQL:Query(s_Query, data_weapon_name,   data_playername,  1,    0,    0) then
+		           s_Query = 'INSERT INTO ' ..data_table_name..'     (Weaponname,     Soldiername,    Kills, Headshot, Deaths, Shot, Hits) VALUES (?,?,?,?,?,?,?)'
+			                        if not SQL:Query(s_Query, data_weapon_name,   data_playername,  0,      0,       0,     0,    0) then
 			print(" - Failed to insert assault weapon data in "..data_table_name..": " .. SQL:Error())
 			return
 	end
 
-	if Config.consolespam_airvehicles then
+	if Config.consolespam_airvehicles4 then
 	print("")
 	print (data_table_name.." injection done")
 	end
 
 else
- --do some thing with results
-	if Config.consolespam_airvehicles then
+
+	if Config.consolespam_airvehicles5 then
 print('found data: '..data_playername..' and '..data_weapon_name..' - Kills:'..data_weaponkills)
 	end
-end
 
+end
 end -- End of function call
 
 -- ------------------------------------------------------

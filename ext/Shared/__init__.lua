@@ -37,7 +37,6 @@ Hooks:Install('BulletEntity:Collision', 1, function(p_HookCtx, p_Entity, p_Hit, 
 	end
 
 	if s_InstanceIds[p_Entity.instanceId] == nil then
-	if playershot[p_Shooter.giver.name] == nil then playershot[p_Shooter.giver.name] = 0 ; end
 	playershot[p_Shooter.giver.name] = playershot[p_Shooter.giver.name] + 1
 	server_acc_shot = server_acc_shot + 1
 
@@ -52,7 +51,6 @@ Hooks:Install('BulletEntity:Collision', 1, function(p_HookCtx, p_Entity, p_Hit, 
 	end
 
 	if p_Hit.rigidBody ~= nil and p_Hit.rigidBody:Is("CharacterPhysicsEntity") then
-	if playerhit[p_Shooter.giver.name] == nil then playerhit[p_Shooter.giver.name] = 0 ; end
 	playerhit[p_Shooter.giver.name] = playerhit[p_Shooter.giver.name] + 1
 	server_acc_hit = server_acc_hit + 1
 

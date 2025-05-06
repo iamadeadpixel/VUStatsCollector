@@ -19,6 +19,36 @@ Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 		kill_TV_MISSILE = {}
 		kill_UH_1Y_VENOM = {}
 		kill_Z_11W = {}
+--
+		Death_A10_THUNDERBOLT = {}
+		Death_AH_1Z_VIPER = {}
+		Death_AH_6J_LITTLE_BIRD = {}
+		Death_F_35 = {}
+		Death_FA_18E_SUPER_HORNET = {}
+		Death_GUNSHIP = {}
+		Death_KA_60_KASATKA = {}
+		Death_MI_28_HAVOC = {}
+		Death_SU_25TM_FROGFOOT = {}
+		Death_SU_35BM_FLANKER_E = {}
+		Death_SU_37 = {}
+		Death_TV_MISSILE = {}
+		Death_UH_1Y_VENOM = {}
+		Death_Z_11W = {}
+--
+		Headshot_A10_THUNDERBOLT = {}
+		Headshot_AH_1Z_VIPER = {}
+		Headshot_AH_6J_LITTLE_BIRD = {}
+		Headshot_F_35 = {}
+		Headshot_FA_18E_SUPER_HORNET = {}
+		Headshot_GUNSHIP = {}
+		Headshot_KA_60_KASATKA = {}
+		Headshot_MI_28_HAVOC = {}
+		Headshot_SU_25TM_FROGFOOT = {}
+		Headshot_SU_35BM_FLANKER_E = {}
+		Headshot_SU_37 = {}
+		Headshot_TV_MISSILE = {}
+		Headshot_UH_1Y_VENOM = {}
+		Headshot_Z_11W = {}
 
 		-- Land Vehicles
 		kill_9K22_TUNGUSKA_M = {}
@@ -57,5 +87,80 @@ Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 		kill_TECHNICAL_TRUCK = {}
 		kill_VDV_Buggy = {}
 		kill_VODNIK_AA = {}
+--
+		Death_9K22_TUNGUSKA_M = {}
+		Death_9M133_KORNET_LAUNCHER = {}
+		Death_AAV_7A1_AMTRAC = {}
+		Death_BARSUK = {}
+		Death_BM_23 = {}
+		Death_BMP_2M = {}
+		Death_BTR_90 = {}
+		Death_CENTURION_C_RAM = {}
+		Death_CIVILIAN_CAR = {}
+		Death_DELIVERY_VAN = {}
+		Death_DIRTBIKE = {}
+		Death_DPV = {}
+		Death_GAZ_3937_VODNIK = {}
+		Death_GROWLER_ITV = {}
+		Death_HMMWV_ASRAD = {}
+		Death_LAV_25 = {}
+		Death_LAV_AD = {}
+		Death_M1_ABRAMS = {}
+		Death_M1114_HMMWV = {}
+		Death_M1128 = {}
+		Death_M142 = {}
+		Death_M220_TOW_LAUNCHER = {}
+		Death_M224_MORTAR = {}
+		Death_PANTSIR_S1 = {}
+		Death_PHOENIX = {}
+		Death_POLICE_VAN = {}
+		Death_QUAD_BIKE = {}
+		Death_RHIB_BOAT = {}
+		Death_RHINO = {}
+		Death_SKID_LOADER = {}
+		Death_SPRUT_SD = {}
+		Death_SUV = {}
+		Death_T_90A = {}
+		Death_TECHNICAL_TRUCK = {}
+		Death_VDV_Buggy = {}
+		Death_VODNIK_AA = {}
+--
+		Headshot_9K22_TUNGUSKA_M = {}
+		Headshot_9M133_KORNET_LAUNCHER = {}
+		Headshot_AAV_7A1_AMTRAC = {}
+		Headshot_BARSUK = {}
+		Headshot_BM_23 = {}
+		Headshot_BMP_2M = {}
+		Headshot_BTR_90 = {}
+		Headshot_CENTURION_C_RAM = {}
+		Headshot_CIVILIAN_CAR = {}
+		Headshot_DELIVERY_VAN = {}
+		Headshot_DIRTBIKE = {}
+		Headshot_DPV = {}
+		Headshot_GAZ_3937_VODNIK = {}
+		Headshot_GROWLER_ITV = {}
+		Headshot_HMMWV_ASRAD = {}
+		Headshot_LAV_25 = {}
+		Headshot_LAV_AD = {}
+		Headshot_M1_ABRAMS = {}
+		Headshot_M1114_HMMWV = {}
+		Headshot_M1128 = {}
+		Headshot_M142 = {}
+		Headshot_M220_TOW_LAUNCHER = {}
+		Headshot_M224_MORTAR = {}
+		Headshot_PANTSIR_S1 = {}
+		Headshot_PHOENIX = {}
+		Headshot_POLICE_VAN = {}
+		Headshot_QUAD_BIKE = {}
+		Headshot_RHIB_BOAT = {}
+		Headshot_RHINO = {}
+		Headshot_SKID_LOADER = {}
+		Headshot_SPRUT_SD = {}
+		Headshot_SUV = {}
+		Headshot_T_90A = {}
+		Headshot_TECHNICAL_TRUCK = {}
+		Headshot_VDV_Buggy = {}
+		Headshot_VODNIK_AA = {}
+
 	end
 end)

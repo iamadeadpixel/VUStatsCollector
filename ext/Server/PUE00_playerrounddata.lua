@@ -49,6 +49,8 @@ section 02
 Here we update tbl_serverstats database with new player score data.
 ]]
 
+	print ("*** Start section 02 ***")
+	print ("")
 
 			pc = PlayerManager:GetPlayerCount()
 
@@ -68,9 +70,9 @@ Here we update tbl_serverstats database with new player score data.
 				teamscore4 = teamscore4 + score4
 			end
 
-			serverscore = teamscoreUS + teamscoreRU + teamscore3 + teamscore4
-			--
-
+			eor_serverscore = teamscoreUS + teamscoreRU + teamscore3 + teamscore4
+--
+--
 			for playerdata, tabledata in pairs(playerteamkilled) do
 				eor_teamskills = eor_teamskills + tabledata
 			end
@@ -118,6 +120,8 @@ section 03
 Here we update the map stats in tbl_mapstats database.
 ]]
 
+	print ("*** Start section 03 ***")
+	print ("")
 
 	local RoundID_results = SQL:Query('SELECT RoundID FROM tbl_mapstats')
 			if not RoundID_results then
@@ -145,96 +149,38 @@ section 04
 Here we update tbl_playerstats database with player data
 needs atention,for some reason, sometimes it fails, specialy with more human players on the server
 unless i already fixed it.....................
+could be combined with section 7
 ]]
 
-			for data_playername, PDscore in pairs(playerscore) do
-	s_table = "tbl_playerstats"
-	r_data = PDscore
-	s_sqltype = "Score"
+	print ("*** Start section 04 ***")
+	print ("")
 
-    playerstatsstuff(player, data_playername)
+	for data_playername, pname in pairs(getnameall) do
+
+	pScore=playerscore[data_playername]
+	pKills=playerkills[data_playername]
+	pDeaths=playerdeaths[data_playername]
+	pSuicide=playersuicides[data_playername]
+	pHeadshots=playerheadshot[data_playername]
+	pTeamKilled=playerteamkilled[data_playername]
+	pDogtags=playerdogtags[data_playername]
+	pRevives=playerrevivs[data_playername]
+	pKillstreaks=killstreak_counter[data_playername]
+
+	pshots=playershot[data_playername]
+	phits=playerhit[data_playername]
+
+	if playerteamID[data_playername] == s_winningTeam then
+	pWins=1
+	pLosses=0
+		else
+	pWins=0
+	pLosses=1
 	end
 
-			for data_playername, PDkills in pairs(playerkills) do
-	s_table = "tbl_playerstats"
-	r_data = PDkills
-	s_sqltype = "Kills"
+	playerstatscombo(player, data_playername)
+end
 
-    playerstatsstuff(player, data_playername)
-	end
-
-			for data_playername, PDdeaths in pairs(playerdeaths) do
-	s_table = "tbl_playerstats"
-	r_data = PDdeaths
-	s_sqltype = "Deaths"
-
-    playerstatsstuff(player, data_playername)
-	end
-
-			for data_playername, PDsuicide in pairs(playersuicides) do
-	s_table = "tbl_playerstats"
-	r_data = PDsuicide
-	s_sqltype = "Suicide"
-
-    playerstatsstuff(player, data_playername)
-	end
-
-			for data_playername, PDheadshot in pairs(playerheadshot) do
-	s_table = "tbl_playerstats"
-	r_data = PDheadshot
-	s_sqltype = "Headshots"
-
-    playerstatsstuff(player, data_playername)
-	end
-
-			for data_playername, PDteamkilled in pairs(playerteamkilled) do
-	s_table = "tbl_playerstats"
-	r_data = PDteamkilled
-	s_sqltype = "TeamKilled"
-
-    playerstatsstuff(player, data_playername)
-	end
-
-			for data_playername, PDdogtags in pairs(playerdogtags) do
-	s_table = "tbl_playerstats"
-	r_data = PDdogtags
-	s_sqltype = "Dogtags"
-
-    playerstatsstuff(player, data_playername)
-	end
-
-			for data_playername, PDrevives in pairs(playerrevivs) do
-	s_table = "tbl_playerstats"
-	r_data = PDrevives
-	s_sqltype = "Revives"
-
-    playerstatsstuff(player, data_playername)
-	end
-
-
-			for data_playername, PDkillsstreaks in pairs(killstreak_counter) do
-	s_sqltype = "Killstreaks"
-	r_data = PDkillsstreaks
-	s_table = "tbl_playerstats"
-
-	playerstatsstuff(player, data_playername)
-	end
-
--- ---------------------------------------------
-
-		print ("")
-			for data_playername, myteam in pairs(playerteamID) do
-	s_table = "tbl_playerstats"
-	r_data = "1"
-
-				if playerteamID[data_playername] == s_winningTeam then
-	s_sqltype = "Wins"
-				else
-	s_sqltype = "Losses"
-				end
-
-    playerstatsstuff(player, data_playername)
-	end
 
 -- --------------------------------------------------
 -- --------------------------------------------------
@@ -242,484 +188,12 @@ unless i already fixed it.....................
 
 --[[
 section 05
-This stuff should update all vehicle and weapon table data.
+This stuff should update all vehicle and weapon kill stuff in table data.
 ]]
 
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			--	auxiliary weapon stuff
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
+	print ("*** Start section 05 ***")
+	print ("")
 
-			for data_playername, count_kills in pairs(kill_XBOW) do
-				r_killdata = kill_XBOW[data_playername]
-				s_weapon = "XBOW"
-				s_table = "tbl_auxiliary_gadgets"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_KNIFE) do
-				r_killdata = kill_KNIFE[data_playername]
-				s_weapon = "KNIFE"
-				s_table = "tbl_auxiliary_gadgets"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_M67_GRENADE) do
-				r_killdata = kill_M67_GRENADE[data_playername]
-				s_weapon = "M67 GRENADE"
-				s_table = "tbl_auxiliary_gadgets"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			--	Common weapon stuff
-			--	tbl_primary_weapons
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_P90) do
-				r_killdata = kill_P90[data_playername]
-				s_weapon = "P90"
-				s_table = "tbl_primary_weapons"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_AS_VAL) do
-				r_killdata = kill_AS_VAL[data_playername]
-				s_weapon = "AS VAL"
-				s_table = "tbl_primary_weapons"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_M5K) do
-				r_killdata = kill_M5K[data_playername]
-				s_weapon = "M5K"
-				s_table = "tbl_primary_weapons"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_MP7) do
-				r_killdata = kill_MP7[data_playername]
-				s_weapon = "MP7"
-				s_table = "tbl_primary_weapons"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_PDW_R) do
-				r_killdata = kill_PDW_R[data_playername]
-				s_weapon = "PDW-R"
-				s_table = "tbl_primary_weapons"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_PP_19) do
-				r_killdata = kill_PP_19[data_playername]
-				s_weapon = "PP-19"
-				s_table = "tbl_primary_weapons"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_PP_2000) do
-				r_killdata = kill_PP_2000[data_playername]
-				s_weapon = "PP-2000"
-				s_table = "tbl_primary_weapons"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_UMP_45) do
-				r_killdata = kill_UMP_45[data_playername]
-				s_weapon = "UMP-45"
-				s_table = "tbl_primary_weapons"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			--	Handguns stuff
-			--	tbl_handguns_weapons
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_44_MAGNUM) do
-				r_killdata = kill_44_MAGNUM[data_playername]
-				s_weapon = ".44 MAGNUM"
-				s_table = "tbl_handguns_weapons"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_93R) do
-				r_killdata = kill_93R[data_playername]
-				s_weapon = "93R"
-				s_table = "tbl_handguns_weapons"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_G17C) do
-				r_killdata = kill_G17C[data_playername]
-				s_weapon = "G17C"
-				s_table = "tbl_handguns_weapons"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_G18) do
-				r_killdata = kill_G18[data_playername]
-				s_weapon = "G18"
-				s_table = "tbl_handguns_weapons"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_M1911) do
-				r_killdata = kill_M1911[data_playername]
-				s_weapon = "M1911"
-				s_table = "tbl_handguns_weapons"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_M9) do
-				r_killdata = kill_M9[data_playername]
-				s_weapon = "M9"
-				s_table = "tbl_handguns_weapons"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_MP443) do
-				r_killdata = kill_MP443[data_playername]
-				s_weapon = "MP443"
-				s_table = "tbl_handguns_weapons"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_MP412_REX) do
-				r_killdata = kill_MP412_REX[data_playername]
-				s_weapon = "MP412 REX"
-				s_table = "tbl_handguns_weapons"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			--	Shotgun stuff
-			--	tbl_shotguns_weapons
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_870MCS) do
-				r_killdata = kill_870MCS[data_playername]
-				s_weapon = "870 MCS"
-				s_table = "tbl_shotguns_weapons"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_DAO_12) do
-				r_killdata = kill_DAO_12[data_playername]
-				s_weapon = "DAO-12"
-				s_table = "tbl_shotguns_weapons"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_M1014) do
-				r_killdata = kill_M1014[data_playername]
-				s_weapon = "M1014"
-				s_table = "tbl_shotguns_weapons"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_MK3A1) do
-				r_killdata = kill_MK3A1[data_playername]
-				s_weapon = "MK3A1"
-				s_table = "tbl_shotguns_weapons"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_SAIGA_12K) do
-				r_killdata = kill_SAIGA_12K[data_playername]
-				s_weapon = "SAIGA 12K"
-				s_table = "tbl_shotguns_weapons"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_SPAS_12) do
-				r_killdata = kill_SPAS_12[data_playername]
-				s_weapon = "SPAS-12"
-				s_table = "tbl_shotguns_weapons"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_USAS_12) do
-				r_killdata = kill_USAS_12[data_playername]
-				s_weapon = "USAS-12"
-				s_table = "tbl_shotguns_weapons"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			--	Assault gadget stuff
-			--	tbl_assault_gadgets
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_DEFIBRILLATOR) do
-				r_killdata = kill_DEFIBRILLATOR[data_playername]
-				s_weapon = "DEFIBRILLATOR"
-				s_table = "tbl_assault_gadgets"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_GP_30_BUCK) do
-				r_killdata = kill_GP_30_BUCK[data_playername]
-				s_weapon = "GP-30 BUCK"
-				s_table = "tbl_assault_gadgets"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_GP_30_DART) do
-				r_killdata = kill_GP_30_DART[data_playername]
-				s_weapon = "GP-30 DART"
-				s_table = "tbl_assault_gadgets"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_GP_30_HE) do
-				r_killdata = kill_GP_30_HE[data_playername]
-				s_weapon = "GP-30 HE"
-				s_table = "tbl_assault_gadgets"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_GP_30_LVG) do
-				r_killdata = kill_GP_30_LVG[data_playername]
-				s_weapon = "GP-30 LVG"
-				s_table = "tbl_assault_gadgets"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_GP_30_SMOKE) do
-				r_killdata = kill_GP_30_SMOKE[data_playername]
-				s_weapon = "GP-30 SMOKE"
-				s_table = "tbl_assault_gadgets"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_M26_DART) do
-				r_killdata = kill_M26_DART[data_playername]
-				s_weapon = "M26 DART"
-				s_table = "tbl_assault_gadgets"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_M26_FRAG) do
-				r_killdata = kill_M26_FRAG[data_playername]
-				s_weapon = "M26 FRAG"
-				s_table = "tbl_assault_gadgets"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_M26_MASS) do
-				r_killdata = kill_M26_MASS[data_playername]
-				s_weapon = "M26 MASS"
-				s_table = "tbl_assault_gadgets"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_M26_SLUG) do
-				r_killdata = kill_M26_SLUG[data_playername]
-				s_weapon = "M26 SLUG"
-				s_table = "tbl_assault_gadgets"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_M320_BUCK) do
-				r_killdata = kill_M320_BUCK[data_playername]
-				s_weapon = "M320 BUCK"
-				s_table = "tbl_assault_gadgets"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_M320_HE) do
-				r_killdata = kill_M320_HE[data_playername]
-				s_weapon = "M320 HE"
-				s_table = "tbl_assault_gadgets"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_M320_LVG) do
-				r_killdata = kill_M320_LVG[data_playername]
-				s_weapon = "M320 LVG"
-				s_table = "tbl_assault_gadgets"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_M320_SMOKE) do
-				r_killdata = kill_M320_SMOKE[data_playername]
-				s_weapon = "M320 SMOKE"
-				s_table = "tbl_assault_gadgets"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_MEDIC_KIT) do
-				r_killdata = kill_MEDIC_KIT[data_playername]
-				s_weapon = "MEDIC KIT"
-				s_table = "tbl_assault_gadgets"
-
-					updateweaponkillstats(player, data_playername)
-			end
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -729,238 +203,455 @@ This stuff should update all vehicle and weapon table data.
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_AEK_971) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_AEK_971[data_playername]
+				r_headshotdata = Headshot_AEK_971[data_playername]
+				r_deathdata = Death_AEK_971[data_playername]
 				s_weapon = "AEK-971"
 				s_table = "tbl_assault_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_AK_74M) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_AK_74M[data_playername]
+				r_headshotdata = Headshot_AK_74M[data_playername]
+				r_deathdata = Death_AK_74M[data_playername]
 				s_weapon = "AK-74M"
 				s_table = "tbl_assault_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_AN_94) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_AN_94[data_playername]
+				r_headshotdata = Headshot_AN_94[data_playername]
+				r_deathdata = Death_AN_94[data_playername]
 				s_weapon = "AN-94"
 				s_table = "tbl_assault_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_AUG_A3) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_AUG_A3[data_playername]
+				r_headshotdata = Headshot_AUG_A3[data_playername]
+				r_deathdata = Death_AUG_A3[data_playername]
 				s_weapon = "AUG A3"
 				s_table = "tbl_assault_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_F2000) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_F2000[data_playername]
+				r_headshotdata = Headshot_F2000[data_playername]
+				r_deathdata = Death_F2000[data_playername]
 				s_weapon = "F2000"
 				s_table = "tbl_assault_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_FAMAS) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_FAMAS[data_playername]
+				r_headshotdata = Headshot_FAMAS[data_playername]
+				r_deathdata = Death_FAMAS[data_playername]
 				s_weapon = "FAMAS"
 				s_table = "tbl_assault_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_G3A3) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_G3A3[data_playername]
+				r_headshotdata = Headshot_G3A3[data_playername]
+				r_deathdata = Death_G3A3[data_playername]
 				s_weapon = "G3A3"
 				s_table = "tbl_assault_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_KH2002) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_KH2002[data_playername]
+				r_headshotdata = Headshot_KH2002[data_playername]
+				r_deathdata = Death_KH2002[data_playername]
 				s_weapon = "KH2002"
 				s_table = "tbl_assault_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_L85A2) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_L85A2[data_playername]
+				r_headshotdata = Headshot_L85A2[data_playername]
+				r_deathdata = Death_L85A2[data_playername]
 				s_weapon = "L85A2"
 				s_table = "tbl_assault_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_M16A3) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_M16A3[data_playername]
+				r_headshotdata = Headshot_M16A3[data_playername]
+				r_deathdata = Death_M16A3[data_playername]
 				s_weapon = "M16A3"
 				s_table = "tbl_assault_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_M16A4) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_M16A4[data_playername]
+				r_headshotdata = Headshot_M16A4[data_playername]
+				r_deathdata = Death_M16A4[data_playername]
 				s_weapon = "M16A4"
 				s_table = "tbl_assault_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_M416) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_M416[data_playername]
+				r_headshotdata = Headshot_M416[data_playername]
+				r_deathdata = Death_M416[data_playername]
 				s_weapon = "M416"
 				s_table = "tbl_assault_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_SCAR_L) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_SCAR_L[data_playername]
+				r_headshotdata = Headshot_SCAR_L[data_playername]
+				r_deathdata = Death_SCAR_L[data_playername]
 				s_weapon = "SCAR-L"
 				s_table = "tbl_assault_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
-			--	Engineer gadgets stuff
-			--	tbl_engineer_gadgets
+			--	Assault gadget stuff
+			--	tbl_assault_gadgets
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_EOD_BOT) do
-				r_killdata = kill_EOD_BOT[data_playername]
-				s_weapon = "EOD BOT"
-				s_table = "tbl_engineer_gadgets"
-
-					updateweaponkillstats(player, data_playername)
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_DEFIBRILLATOR[data_playername]
+				r_headshotdata = Headshot_DEFIBRILLATOR[data_playername]
+				r_deathdata = Death_DEFIBRILLATOR[data_playername]
+				s_weapon = "DEFIBRILLATOR"
+				s_table = "tbl_assault_gadgets"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_FGM_148_JAVELIN) do
-				r_killdata = kill_FGM_148_JAVELIN[data_playername]
-				s_weapon = "FGM-148 JAVELIN"
-				s_table = "tbl_engineer_gadgets"
-
-					updateweaponkillstats(player, data_playername)
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_MEDIC_KIT[data_playername]
+				r_headshotdata = Headshot_MEDIC_KIT[data_playername]
+				r_deathdata = Death_MEDIC_KIT[data_playername]
+				s_weapon = "MEDIC KIT"
+				s_table = "tbl_assault_gadgets"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_FIM_92_STINGER) do
-				r_killdata = kill_FIM_92_STINGER[data_playername]
-				s_weapon = "FIM-92 STINGER"
-				s_table = "tbl_engineer_gadgets"
-
-					updateweaponkillstats(player, data_playername)
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_GP_30_BUCK[data_playername]
+				r_headshotdata = Headshot_GP_30_BUCK[data_playername]
+				r_deathdata = Death_GP_30_BUCK[data_playername]
+				s_weapon = "GP-30 BUCK"
+				s_table = "tbl_assault_gadgets"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_M15_AT_MINE) do
-				r_killdata = kill_M15_AT_MINE[data_playername]
-				s_weapon = "M15 AT MINE"
-				s_table = "tbl_engineer_gadgets"
-
-					updateweaponkillstats(player, data_playername)
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_GP_30_DART[data_playername]
+				r_headshotdata = Headshot_GP_30_DART[data_playername]
+				r_deathdata = Death_GP_30_DART[data_playername]
+				s_weapon = "GP-30 DART"
+				s_table = "tbl_assault_gadgets"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_REPAIR_TOOL) do
-				r_killdata = kill_REPAIR_TOOL[data_playername]
-				s_weapon = "REPAIR TOOL"
-				s_table = "tbl_engineer_gadgets"
-
-					updateweaponkillstats(player, data_playername)
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_GP_30_HE[data_playername]
+				r_headshotdata = Headshot_GP_30_HE[data_playername]
+				r_deathdata = Death_GP_30_HE[data_playername]
+				s_weapon = "GP-30 HE"
+				s_table = "tbl_assault_gadgets"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_RPG_7V2) do
-				r_killdata = kill_RPG_7V2[data_playername]
-				s_weapon = "RPG-7V2"
-				s_table = "tbl_engineer_gadgets"
-
-					updateweaponkillstats(player, data_playername)
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_GP_30_LVG[data_playername]
+				r_headshotdata = Headshot_GP_30_LVG[data_playername]
+				r_deathdata = Death_GP_30_LVG[data_playername]
+				s_weapon = "GP-30 LVG"
+				s_table = "tbl_assault_gadgets"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_SA_18_IGLA) do
-				r_killdata = kill_SA_18_IGLA[data_playername]
-				s_weapon = "SA-18 IGLA"
-				s_table = "tbl_engineer_gadgets"
-
-					updateweaponkillstats(player, data_playername)
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_GP_30_SMOKE[data_playername]
+				r_headshotdata = Headshot_GP_30_SMOKE[data_playername]
+				r_deathdata = Death_GP_30_SMOKE[data_playername]
+				s_weapon = "GP-30 SMOKE"
+				s_table = "tbl_assault_gadgets"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_SMAW) do
-				r_killdata = kill_SMAW[data_playername]
-				s_weapon = "SMAW"
-				s_table = "tbl_engineer_gadgets"
-
-					updateweaponkillstats(player, data_playername)
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_M26_DART[data_playername]
+				r_headshotdata = Headshot_M26_DART[data_playername]
+				r_deathdata = Death_M26_DART[data_playername]
+				s_weapon = "M26 DART"
+				s_table = "tbl_assault_gadgets"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_M26_FRAG[data_playername]
+				r_headshotdata = Headshot_M26_FRAG[data_playername]
+				r_deathdata = Death_M26_FRAG[data_playername]
+				s_weapon = "M26 FRAG"
+				s_table = "tbl_assault_gadgets"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_M26_MASS[data_playername]
+				r_headshotdata = Headshot_M26_MASS[data_playername]
+				r_deathdata = Death_M26_MASS[data_playername]
+				s_weapon = "M26 MASS"
+				s_table = "tbl_assault_gadgets"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_M26_SLUG[data_playername]
+				r_headshotdata = Headshot_M26_SLUG[data_playername]
+				r_deathdata = Death_M26_SLUG[data_playername]
+				s_weapon = "M26 SLUG"
+				s_table = "tbl_assault_gadgets"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_M320_BUCK[data_playername]
+				r_headshotdata = Headshot_M320_BUCK[data_playername]
+				r_deathdata = Death_M320_BUCK[data_playername]
+				s_weapon = "M320 BUCK"
+				s_table = "tbl_assault_gadgets"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_M320_HE[data_playername]
+				r_headshotdata = Headshot_M320_HE[data_playername]
+				r_deathdata = Death_M320_HE[data_playername]
+				s_weapon = "M320 HE"
+				s_table = "tbl_assault_gadgets"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_M320_LVG[data_playername]
+				r_headshotdata = Headshot_M320_LVG[data_playername]
+				r_deathdata = Death_M320_LVG[data_playername]
+				s_weapon = "M320 LVG"
+				s_table = "tbl_assault_gadgets"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_M320_SMOKE[data_playername]
+				r_headshotdata = Headshot_M320_SMOKE[data_playername]
+				r_deathdata = Death_M320_SMOKE[data_playername]
+				s_weapon = "M320 SMOKE"
+				s_table = "tbl_assault_gadgets"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -970,172 +661,318 @@ This stuff should update all vehicle and weapon table data.
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_A_91) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_A_91[data_playername]
+				r_headshotdata = Headshot_A_91[data_playername]
+				r_deathdata = Death_A_91[data_playername]
 				s_weapon = "A-91"
 				s_table = "tbl_engineer_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_ACW_R) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_ACW_R[data_playername]
+				r_headshotdata = Headshot_ACW_R[data_playername]
+				r_deathdata = Death_ACW_R[data_playername]
 				s_weapon = "ACW-R"
 				s_table = "tbl_engineer_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_AKS_74u) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_AKS_74u[data_playername]
+				r_headshotdata = Headshot_AKS_74u[data_playername]
+				r_deathdata = Death_AKS_74u[data_playername]
 				s_weapon = "AKS-74u"
 				s_table = "tbl_engineer_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_G36C) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_G36C[data_playername]
+				r_headshotdata = Headshot_G36C[data_playername]
+				r_deathdata = Death_G36C[data_playername]
 				s_weapon = "G36C"
 				s_table = "tbl_engineer_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_G53) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_G53[data_playername]
+				r_headshotdata = Headshot_G53[data_playername]
+				r_deathdata = Death_G53[data_playername]
 				s_weapon = "G53"
 				s_table = "tbl_engineer_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_M4) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_M4[data_playername]
+				r_headshotdata = Headshot_M4[data_playername]
+				r_deathdata = Death_M4[data_playername]
 				s_weapon = "M4"
 				s_table = "tbl_engineer_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_M4A1) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_M4A1[data_playername]
+				r_headshotdata = Headshot_M4A1[data_playername]
+				r_deathdata = Death_M4A1[data_playername]
 				s_weapon = "M4A1"
 				s_table = "tbl_engineer_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_MTAR_21) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_MTAR_21[data_playername]
+				r_headshotdata = Headshot_MTAR_21[data_playername]
+				r_deathdata = Death_MTAR_21[data_playername]
 				s_weapon = "MTAR-21"
 				s_table = "tbl_engineer_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_QBZ_95B) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_QBZ_95B[data_playername]
+				r_headshotdata = Headshot_QBZ_95B[data_playername]
+				r_deathdata = Death_QBZ_95B[data_playername]
 				s_weapon = "QBZ-95B"
 				s_table = "tbl_engineer_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_SCAR_H) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_SCAR_H[data_playername]
+				r_headshotdata = Headshot_SCAR_H[data_playername]
+				r_deathdata = Death_SCAR_H[data_playername]
 				s_weapon = "SCAR-H"
 				s_table = "tbl_engineer_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+
+
+
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_SG553) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_SG553[data_playername]
+				r_headshotdata = Headshot_SG553[data_playername]
+				r_deathdata = Death_SG553[data_playername]
 				s_weapon = "SG553"
 				s_table = "tbl_engineer_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
-			--	Support gadgets stuff
-			--	tbl_support_gadgets
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			--	Engineer gadgets stuff
+			--	tbl_engineer_gadgets
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_M224_MORTAR) do
-				r_killdata = kill_M224_MORTAR[data_playername]
-				s_weapon = "M224 MORTAR"
-				s_table = "tbl_support_gadgets"
-
-					updateweaponkillstats(player, data_playername)
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_EOD_BOT[data_playername]
+				r_headshotdata = Headshot_EOD_BOT[data_playername]
+				r_deathdata = Death_EOD_BOT[data_playername]
+				s_weapon = "EOD BOT"
+				s_table = "tbl_engineer_gadgets"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_AMMO_BOX) do
-				r_killdata = kill_AMMO_BOX[data_playername]
-				s_weapon = "AMMO BOX"
-				s_table = "tbl_support_gadgets"
-
-					updateweaponkillstats(player, data_playername)
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_REPAIR_TOOL[data_playername]
+				r_headshotdata = Headshot_REPAIR_TOOL[data_playername]
+				r_deathdata = Death_REPAIR_TOOL[data_playername]
+				s_weapon = "REPAIR TOOL"
+				s_table = "tbl_engineer_gadgets"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_C4_EXPLOSIVES) do
-				r_killdata = kill_C4_EXPLOSIVES[data_playername]
-				s_weapon = "C4 EXPLOSIVES"
-				s_table = "tbl_support_gadgets"
-
-					updateweaponkillstats(player, data_playername)
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_FGM_148_JAVELIN[data_playername]
+				r_headshotdata = Headshot_FGM_148_JAVELIN[data_playername]
+				r_deathdata = Death_FGM_148_JAVELIN[data_playername]
+				s_weapon = "FGM-148 JAVELIN"
+				s_table = "tbl_engineer_gadgets"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_M18_CLAYMORE) do
-				r_killdata = kill_M18_CLAYMORE[data_playername]
-				s_weapon = "M18 CLAYMORE"
-				s_table = "tbl_support_gadgets"
-
-					updateweaponkillstats(player, data_playername)
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_FIM_92_STINGER[data_playername]
+				r_headshotdata = Headshot_FIM_92_STINGER[data_playername]
+				r_deathdata = Death_FIM_92_STINGER[data_playername]
+				s_weapon = "FIM-92 STINGER"
+				s_table = "tbl_engineer_gadgets"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_SA_18_IGLA[data_playername]
+				r_headshotdata = Headshot_SA_18_IGLA[data_playername]
+				r_deathdata = Death_SA_18_IGLA[data_playername]
+				s_weapon = "SA-18 IGLA"
+				s_table = "tbl_engineer_gadgets"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_M15_AT_MINE[data_playername]
+				r_headshotdata = Headshot_M15_AT_MINE[data_playername]
+				r_deathdata = Death_M15_AT_MINE[data_playername]
+				s_weapon = "M15 AT MINE"
+				s_table = "tbl_engineer_gadgets"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_RPG_7V2[data_playername]
+				r_headshotdata = Headshot_RPG_7V2[data_playername]
+				r_deathdata = Death_RPG_7V2[data_playername]
+				s_weapon = "RPG-7V2"
+				s_table = "tbl_engineer_gadgets"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_SMAW[data_playername]
+				r_headshotdata = Headshot_SMAW[data_playername]
+				r_deathdata = Death_SMAW[data_playername]
+				s_weapon = "SMAW"
+				s_table = "tbl_engineer_gadgets"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1145,172 +982,248 @@ This stuff should update all vehicle and weapon table data.
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_L86A2) do
-				r_killdata = kill_L86A2[data_playername]
-				s_weapon = "L86A2"
-				s_table = "tbl_support_weapons"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_LSAT) do
-				r_killdata = kill_LSAT[data_playername]
-				s_weapon = "LSAT"
-				s_table = "tbl_support_weapons"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_M240B) do
-				r_killdata = kill_M240B[data_playername]
-				s_weapon = "M240B"
-				s_table = "tbl_support_weapons"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_M249) do
-				r_killdata = kill_M249[data_playername]
-				s_weapon = "M249"
-				s_table = "tbl_support_weapons"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_M27_IAR) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_M27_IAR[data_playername]
+				r_headshotdata = Headshot_M27_IAR[data_playername]
+				r_deathdata = Death_M27_IAR[data_playername]
 				s_weapon = "M27 IAR"
 				s_table = "tbl_support_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_M60E4) do
-				r_killdata = kill_M60E4[data_playername]
-				s_weapon = "M60E4"
-				s_table = "tbl_support_weapons"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_MG36) do
-				r_killdata = kill_MG36[data_playername]
-				s_weapon = "MG36"
-				s_table = "tbl_support_weapons"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_PKP_PECHENEG) do
-				r_killdata = kill_PKP_PECHENEG[data_playername]
-				s_weapon = "PKP PECHENEG"
-				s_table = "tbl_support_weapons"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_QBB_95) do
-				r_killdata = kill_QBB_95[data_playername]
-				s_weapon = "QBB-95"
-				s_table = "tbl_support_weapons"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_RPK_74M) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_RPK_74M[data_playername]
+				r_headshotdata = Headshot_RPK_74M[data_playername]
+				r_deathdata = Death_RPK_74M[data_playername]
 				s_weapon = "RPK-74M"
 				s_table = "tbl_support_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_TYPE_88_LMG) do
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_L86A2[data_playername]
+				r_headshotdata = Headshot_L86A2[data_playername]
+				r_deathdata = Death_L86A2[data_playername]
+				s_weapon = "L86A2"
+				s_table = "tbl_support_weapons"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_LSAT[data_playername]
+				r_headshotdata = Headshot_LSAT[data_playername]
+				r_deathdata = Death_LSAT[data_playername]
+				s_weapon = "LSAT"
+				s_table = "tbl_support_weapons"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_M240B[data_playername]
+				r_headshotdata = Headshot_M240B[data_playername]
+				r_deathdata = Death_M240B[data_playername]
+				s_weapon = "M240B"
+				s_table = "tbl_support_weapons"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_M249[data_playername]
+				r_headshotdata = Headshot_M249[data_playername]
+				r_deathdata = Death_M249[data_playername]
+				s_weapon = "M249"
+				s_table = "tbl_support_weapons"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_M60E4[data_playername]
+				r_headshotdata = Headshot_M60E4[data_playername]
+				r_deathdata = Death_M60E4[data_playername]
+				s_weapon = "M60E4"
+				s_table = "tbl_support_weapons"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_MG36[data_playername]
+				r_headshotdata = Headshot_MG36[data_playername]
+				r_deathdata = Death_MG36[data_playername]
+				s_weapon = "MG36"
+				s_table = "tbl_support_weapons"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_PKP_PECHENEG[data_playername]
+				r_headshotdata = Headshot_PKP_PECHENEG[data_playername]
+				r_deathdata = Death_PKP_PECHENEG[data_playername]
+				s_weapon = "PKP PECHENEG"
+				s_table = "tbl_support_weapons"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_QBB_95[data_playername]
+				r_headshotdata = Headshot_QBB_95[data_playername]
+				r_deathdata = Death_QBB_95[data_playername]
+				s_weapon = "QBB-95"
+				s_table = "tbl_support_weapons"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_TYPE_88_LMG[data_playername]
+				r_headshotdata = Headshot_TYPE_88_LMG[data_playername]
+				r_deathdata = Death_TYPE_88_LMG[data_playername]
 				s_weapon = "TYPE 88 LMG"
 				s_table = "tbl_support_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
-			--	Recon gadgets stuff
-			--	tbl_recon_gadgets
+			--	Support gadgets stuff
+			--	tbl_support_gadgets
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_MAV) do
-				r_killdata = kill_MAV[data_playername]
-				s_weapon = "MAV"
-				s_table = "tbl_recon_gadgets"
-
-					updateweaponkillstats(player, data_playername)
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_AMMO_BOX[data_playername]
+				r_headshotdata = Headshot_AMMO_BOX[data_playername]
+				r_deathdata = Death_AMMO_BOX[data_playername]
+				s_weapon = "AMMO BOX"
+				s_table = "tbl_support_gadgets"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_RADIO_BEACON) do
-				r_killdata = kill_RADIO_BEACON[data_playername]
-				s_weapon = "RADIO BEACON"
-				s_table = "tbl_recon_gadgets"
-
-					updateweaponkillstats(player, data_playername)
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_C4_EXPLOSIVES[data_playername]
+				r_headshotdata = Headshot_C4_EXPLOSIVES[data_playername]
+				r_deathdata = Death_C4_EXPLOSIVES[data_playername]
+				s_weapon = "C4 EXPLOSIVES"
+				s_table = "tbl_support_gadgets"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_SOFLAM) do
-				r_killdata = kill_SOFLAM[data_playername]
-				s_weapon = "SOFLAM"
-				s_table = "tbl_recon_gadgets"
-
-					updateweaponkillstats(player, data_playername)
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_M18_CLAYMORE[data_playername]
+				r_headshotdata = Headshot_M18_CLAYMORE[data_playername]
+				r_deathdata = Death_M18_CLAYMORE[data_playername]
+				s_weapon = "M18 CLAYMORE"
+				s_table = "tbl_support_gadgets"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_T_UGS) do
-				r_killdata = kill_T_UGS[data_playername]
-				s_weapon = "T-UGS"
-				s_table = "tbl_recon_gadgets"
-
-					updateweaponkillstats(player, data_playername)
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_M224_MORTAR[data_playername]
+				r_headshotdata = Headshot_M224_MORTAR[data_playername]
+				r_deathdata = Death_M224_MORTAR[data_playername]
+				s_weapon = "M224 MORTAR"
+				s_table = "tbl_support_gadgets"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1320,133 +1233,712 @@ This stuff should update all vehicle and weapon table data.
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_JNG_90) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_JNG_90[data_playername]
+				r_headshotdata = Headshot_JNG_90[data_playername]
+				r_deathdata = Death_JNG_90[data_playername]
 				s_weapon = "JNG-90"
 				s_table = "tbl_recon_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_L96) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_L96[data_playername]
+				r_headshotdata = Headshot_L96[data_playername]
+				r_deathdata = Death_L96[data_playername]
 				s_weapon = "L96"
 				s_table = "tbl_recon_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_M39_EMR) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_M39_EMR[data_playername]
+				r_headshotdata = Headshot_M39_EMR[data_playername]
+				r_deathdata = Death_M39_EMR[data_playername]
 				s_weapon = "M39 EMR"
 				s_table = "tbl_recon_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_M40A5) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_M40A5[data_playername]
+				r_headshotdata = Headshot_M40A5[data_playername]
+				r_deathdata = Death_M40A5[data_playername]
 				s_weapon = "M40A5"
 				s_table = "tbl_recon_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_M417) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_M417[data_playername]
+				r_headshotdata = Headshot_M417[data_playername]
+				r_deathdata = Death_M417[data_playername]
 				s_weapon = "M417"
 				s_table = "tbl_recon_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_M98B) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_M98B[data_playername]
+				r_headshotdata = Headshot_M98B[data_playername]
+				r_deathdata = Death_M98B[data_playername]
 				s_weapon = "M98B"
 				s_table = "tbl_recon_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_MK11_MOD_0) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_MK11_MOD_0[data_playername]
+				r_headshotdata = Headshot_MK11_MOD_0[data_playername]
+				r_deathdata = Death_MK11_MOD_0[data_playername]
 				s_weapon = "MK11 MOD 0"
 				s_table = "tbl_recon_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_QBU_88) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_QBU_88[data_playername]
+				r_headshotdata = Headshot_QBU_88[data_playername]
+				r_deathdata = Death_QBU_88[data_playername]
 				s_weapon = "QBU-88"
 				s_table = "tbl_recon_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_SKS) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_SKS[data_playername]
+				r_headshotdata = Headshot_SKS[data_playername]
+				r_deathdata = Death_SKS[data_playername]
 				s_weapon = "SKS"
 				s_table = "tbl_recon_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_SV98) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_SV98[data_playername]
+				r_headshotdata = Headshot_SV98[data_playername]
+				r_deathdata = Death_SV98[data_playername]
 				s_weapon = "SV98"
 				s_table = "tbl_recon_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_SVD) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_SVD[data_playername]
+				r_headshotdata = Headshot_SVD[data_playername]
+				r_deathdata = Death_SVD[data_playername]
 				s_weapon = "SVD"
 				s_table = "tbl_recon_weapons"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			--	Recon gadgets stuff
+			--	tbl_recon_gadgets
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-if SharedUtils:GetCurrentGameMode() == "ConquestLarge0" or SharedUtils:GetCurrentGameMode() == "ConquestSmall0"
-or SharedUtils:GetCurrentGameMode() == "RushLarge0" or SharedUtils:GetCurrentGameMode() == "ConquestAssaultSmall0"
-or SharedUtils:GetCurrentGameMode() == "ConquestAssaultLarge0" or SharedUtils:GetCurrentGameMode() == "ConquestAssaultSmall1"
-or SharedUtils:GetCurrentGameMode() == "TankSuperiority0" or SharedUtils:GetCurrentGameMode() == "AirSuperiority0"
-or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurrentGameMode() == "HeliSuperiority0" then
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_MAV[data_playername]
+				r_headshotdata = Headshot_MAV[data_playername]
+				r_deathdata = Death_MAV[data_playername]
+				s_weapon = "MAV"
+				s_table = "tbl_recon_gadgets"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
 
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_RADIO_BEACON[data_playername]
+				r_headshotdata = Headshot_RADIO_BEACON[data_playername]
+				r_deathdata = Death_RADIO_BEACON[data_playername]
+				s_weapon = "RADIO BEACON"
+				s_table = "tbl_recon_gadgets"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_SOFLAM[data_playername]
+				r_headshotdata = Headshot_SOFLAM[data_playername]
+				r_deathdata = Death_SOFLAM[data_playername]
+				s_weapon = "SOFLAM"
+				s_table = "tbl_recon_gadgets"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_T_UGS[data_playername]
+				r_headshotdata = Headshot_T_UGS[data_playername]
+				r_deathdata = Death_T_UGS[data_playername]
+				s_weapon = "T-UGS"
+				s_table = "tbl_recon_gadgets"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			--	Common weapon stuff
+			--	tbl_primary_weapons
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_AS_VAL[data_playername]
+				r_headshotdata = Headshot_AS_VAL[data_playername]
+				r_deathdata = Death_AS_VAL[data_playername]
+				s_weapon = "AS VAL"
+				s_table = "tbl_primary_weapons"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_M5K[data_playername]
+				r_headshotdata = Headshot_M5K[data_playername]
+				r_deathdata = Death_M5K[data_playername]
+				s_weapon = "M5K"
+				s_table = "tbl_primary_weapons"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_MP7[data_playername]
+				r_headshotdata = Headshot_MP7[data_playername]
+				r_deathdata = Death_MP7[data_playername]
+				s_weapon = "MP7"
+				s_table = "tbl_primary_weapons"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_P90[data_playername]
+				r_headshotdata = Headshot_P90[data_playername]
+				r_deathdata = Death_P90[data_playername]
+				s_weapon = "P90"
+				s_table = "tbl_primary_weapons"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_PDW_R[data_playername]
+				r_headshotdata = Headshot_PDW_R[data_playername]
+				r_deathdata = Death_PDW_R[data_playername]
+				s_weapon = "PDW-R"
+				s_table = "tbl_primary_weapons"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_PP_19[data_playername]
+				r_headshotdata = Headshot_PP_19[data_playername]
+				r_deathdata = Death_PP_19[data_playername]
+				s_weapon = "PP-19"
+				s_table = "tbl_primary_weapons"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_PP_2000[data_playername]
+				r_headshotdata = Headshot_PP_2000[data_playername]
+				r_deathdata = Death_PP_2000[data_playername]
+				s_weapon = "PP-2000"
+				s_table = "tbl_primary_weapons"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_UMP_45[data_playername]
+				r_headshotdata = Headshot_UMP_45[data_playername]
+				r_deathdata = Death_UMP_45[data_playername]
+				s_weapon = "UMP-45"
+				s_table = "tbl_primary_weapons"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			--	auxiliary weapon stuff
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_KNIFE[data_playername]
+				r_headshotdata = Headshot_KNIFE[data_playername]
+				r_deathdata = Death_KNIFE[data_playername]
+				s_weapon = "KNIFE"
+				s_table = "tbl_auxiliary_gadgets"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_M67_GRENADE[data_playername]
+				r_headshotdata = Headshot_M67_GRENADE[data_playername]
+				r_deathdata = Death_M67_GRENADE[data_playername]
+				s_weapon = "M67 GRENADE"
+				s_table = "tbl_auxiliary_gadgets"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_XBOW[data_playername]
+				r_headshotdata = Headshot_XBOW[data_playername]
+				r_deathdata = Death_XBOW[data_playername]
+				s_weapon = "XBOW"
+				s_table = "tbl_auxiliary_gadgets"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			--	Handguns stuff
+			--	tbl_handguns_weapons
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_44_MAGNUM[data_playername]
+				r_headshotdata = Headshot_44_MAGNUM[data_playername]
+				r_deathdata = Death_44_MAGNUM[data_playername]
+				s_weapon = ".44 MAGNUM"
+				s_table = "tbl_handguns_weapons"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_93R[data_playername]
+				r_headshotdata = Headshot_93R[data_playername]
+				r_deathdata = Death_93R[data_playername]
+				s_weapon = "93R"
+				s_table = "tbl_handguns_weapons"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_G17C[data_playername]
+				r_headshotdata = Headshot_G17C[data_playername]
+				r_deathdata = Death_G17C[data_playername]
+				s_weapon = "G17C"
+				s_table = "tbl_handguns_weapons"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_G18[data_playername]
+				r_headshotdata = Headshot_G18[data_playername]
+				r_deathdata = Death_G18[data_playername]
+				s_weapon = "G18"
+				s_table = "tbl_handguns_weapons"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_M1911[data_playername]
+				r_headshotdata = Headshot_M1911[data_playername]
+				r_deathdata = Death_M1911[data_playername]
+				s_weapon = "M1911"
+				s_table = "tbl_handguns_weapons"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_M9[data_playername]
+				r_headshotdata = Headshot_M9[data_playername]
+				r_deathdata = Death_M9[data_playername]
+				s_weapon = "M9"
+				s_table = "tbl_handguns_weapons"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_MP412_REX[data_playername]
+				r_headshotdata = Headshot_MP412_REX[data_playername]
+				r_deathdata = Death_MP412_REX[data_playername]
+				s_weapon = "MP412 REX"
+				s_table = "tbl_handguns_weapons"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_MP443[data_playername]
+				r_headshotdata = Headshot_MP443[data_playername]
+				r_deathdata = Death_MP443[data_playername]
+				s_weapon = "MP443"
+				s_table = "tbl_handguns_weapons"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			--	Shotgun stuff
+			--	tbl_shotguns_weapons
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_870MCS[data_playername]
+				r_killdata = Headshot_870MCS[data_playername]
+				r_killdata = Death_870MCS[data_playername]
+				s_weapon = "870 MCS"
+				s_table = "tbl_shotguns_weapons"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_DAO_12[data_playername]
+				r_killdata = Headshot_DAO_12[data_playername]
+				r_killdata = Death_DAO_12[data_playername]
+				s_weapon = "DAO-12"
+				s_table = "tbl_shotguns_weapons"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_M1014[data_playername]
+				r_killdata = Headshot_M1014[data_playername]
+				r_killdata = Death_M1014[data_playername]
+				s_weapon = "M1014"
+				s_table = "tbl_shotguns_weapons"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_MK3A1[data_playername]
+				r_killdata = Headshot_MK3A1[data_playername]
+				r_killdata = Death_MK3A1[data_playername]
+				s_weapon = "MK3A1"
+				s_table = "tbl_shotguns_weapons"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_SAIGA_12K[data_playername]
+				r_killdata = Headshot_SAIGA_12K[data_playername]
+				r_killdata = Death_SAIGA_12K[data_playername]
+				s_weapon = "SAIGA 12K"
+				s_table = "tbl_shotguns_weapons"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_SPAS_12[data_playername]
+				r_killdata = Headshot_SPAS_12[data_playername]
+				r_killdata = Death_SPAS_12[data_playername]
+				s_weapon = "SPAS-12"
+				s_table = "tbl_shotguns_weapons"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_USAS_12[data_playername]
+				r_killdata = Headshot_USAS_12[data_playername]
+				r_killdata = Death_USAS_12[data_playername]
+				s_weapon = "USAS-12"
+				s_table = "tbl_shotguns_weapons"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1457,156 +1949,239 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_A10_THUNDERBOLT) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_A10_THUNDERBOLT[data_playername]
+				r_headshotdata = Headshot_A10_THUNDERBOLT[data_playername]
+				r_deathdata = Death_A10_THUNDERBOLT[data_playername]
 				s_weapon = "A-10 THUNDERBOLT"
 				s_table = "tbl_air_vehicles"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_AH_1Z_VIPER) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_AH_1Z_VIPER[data_playername]
+				r_headshotdata = Headshot_AH_1Z_VIPER[data_playername]
+				r_deathdata = Death_AH_1Z_VIPER[data_playername]
 				s_weapon = "AH-1Z VIPER"
 				s_table = "tbl_air_vehicles"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_AH_6J_LITTLE_BIRD) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_AH_6J_LITTLE_BIRD[data_playername]
+				r_headshotdata = Headshot_AH_6J_LITTLE_BIRD[data_playername]
+				r_deathdata = Death_AH_6J_LITTLE_BIRD[data_playername]
 				s_weapon = "AH-6J LITTLE BIRD"
 				s_table = "tbl_air_vehicles"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_F_35) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_F_35[data_playername]
+				r_headshotdata = Headshot_F_35[data_playername]
+				r_deathdata = Death_F_35[data_playername]
 				s_weapon = "F-35"
 				s_table = "tbl_air_vehicles"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_FA_18E_SUPER_HORNET) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_FA_18E_SUPER_HORNET[data_playername]
+				r_headshotdata = Headshot_FA_18E_SUPER_HORNET[data_playername]
+				r_deathdata = Death_FA_18E_SUPER_HORNET[data_playername]
 				s_weapon = "F/A-18E SUPER HORNET"
 				s_table = "tbl_air_vehicles"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_GUNSHIP) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_GUNSHIP[data_playername]
+				r_headshotdata = Headshot_GUNSHIP[data_playername]
+				r_deathdata = Death_GUNSHIP[data_playername]
 				s_weapon = "GUNSHIP"
 				s_table = "tbl_air_vehicles"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_KA_60_KASATKA) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_KA_60_KASATKA[data_playername]
+				r_headshotdata = Headshot_KA_60_KASATKA[data_playername]
+				r_deathdata = Death_KA_60_KASATKA[data_playername]
 				s_weapon = "KA-60 KASATKA"
 				s_table = "tbl_air_vehicles"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_MI_28_HAVOC) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_MI_28_HAVOC[data_playername]
+				r_headshotdata = Headshot_MI_28_HAVOC[data_playername]
+				r_deathdata = Death_MI_28_HAVOC[data_playername]
 				s_weapon = "MI-28 HAVOC"
 				s_table = "tbl_air_vehicles"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_SU_25TM_FROGFOOT) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_SU_25TM_FROGFOOT[data_playername]
+				r_headshotdata = Headshot_SU_25TM_FROGFOOT[data_playername]
+				r_deathdata = Death_SU_25TM_FROGFOOT[data_playername]
 				s_weapon = "SU-25TM FROGFOOT"
 				s_table = "tbl_air_vehicles"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_SU_35BM_FLANKER_E) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_SU_35BM_FLANKER_E[data_playername]
+				r_headshotdata = Headshot_SU_35BM_FLANKER_E[data_playername]
+				r_deathdata = Death_SU_35BM_FLANKER_E[data_playername]
 				s_weapon = "SU-35BM FLANKER-E"
 				s_table = "tbl_air_vehicles"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_SU_37) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_SU_37[data_playername]
+				r_headshotdata = Headshot_SU_37[data_playername]
+				r_deathdata = Death_SU_37[data_playername]
 				s_weapon = "SU-37"
 				s_table = "tbl_air_vehicles"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_TV_MISSILE) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_TV_MISSILE[data_playername]
+				r_headshotdata = Headshot_TV_MISSILE[data_playername]
+				r_deathdata = Death_TV_MISSILE[data_playername]
 				s_weapon = "TV MISSILE"
 				s_table = "tbl_air_vehicles"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_UH_1Y_VENOM) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_UH_1Y_VENOM[data_playername]
+				r_headshotdata = Headshot_UH_1Y_VENOM[data_playername]
+				r_deathdata = Death_UH_1Y_VENOM[data_playername]
 				s_weapon = "UH-1Y VENOM"
 				s_table = "tbl_air_vehicles"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_Z_11W) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_Z_11W[data_playername]
+				r_headshotdata = Headshot_Z_11W[data_playername]
+				r_deathdata = Death_Z_11W[data_playername]
 				s_weapon = "Z-11W"
 				s_table = "tbl_air_vehicles"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1616,387 +2191,596 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_9K22_TUNGUSKA_M) do
-				r_killdata = kill_9K22_TUNGUSKA_M[data_playername]
-				s_weapon = "9K22 TUNGUSKA-M"
-				s_table = "tbl_land_vehicles"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_9M133_KORNET_LAUNCHER) do
-				r_killdata = kill_9M133_KORNET_LAUNCHER[data_playername]
-				s_weapon = "9M133 KORNET LAUNCHER"
-				s_table = "tbl_land_vehicles"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_AAV_7A1_AMTRAC) do
-				r_killdata = kill_AAV_7A1_AMTRAC[data_playername]
-				s_weapon = "AAV-7A1 AMTRAC"
-				s_table = "tbl_land_vehicles"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_BARSUK) do
-				r_killdata = kill_BARSUK[data_playername]
-				s_weapon = "BARSUK"
-				s_table = "tbl_land_vehicles"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_BM_23) do
-				r_killdata = kill_BM_23[data_playername]
-				s_weapon = "BM-23"
-				s_table = "tbl_land_vehicles"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_BMP_2M) do
-				r_killdata = kill_BMP_2M[data_playername]
-				s_weapon = "BMP-2M"
-				s_table = "tbl_land_vehicles"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_BTR_90) do
-				r_killdata = kill_BTR_90[data_playername]
-				s_weapon = "BTR-90"
-				s_table = "tbl_land_vehicles"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_CENTURION_C_RAM) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_CENTURION_C_RAM[data_playername]
+				r_headshotdata = Headshot_CENTURION_C_RAM[data_playername]
+				r_deathdata = Death_CENTURION_C_RAM[data_playername]
 				s_weapon = "CENTURION C-RAM"
 				s_table = "tbl_land_vehicles"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_CIVILIAN_CAR) do
-				r_killdata = kill_CIVILIAN_CAR[data_playername]
-				s_weapon = "CIVILIAN CAR"
-				s_table = "tbl_land_vehicles"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_DELIVERY_VAN) do
-				r_killdata = kill_DELIVERY_VAN[data_playername]
-				s_weapon = "DELIVERY VAN"
-				s_table = "tbl_land_vehicles"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_DIRTBIKE) do
-				r_killdata = kill_DIRTBIKE[data_playername]
-				s_weapon = "DIRTBIKE"
-				s_table = "tbl_land_vehicles"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_DPV) do
-				r_killdata = kill_DPV[data_playername]
-				s_weapon = "DPV"
-				s_table = "tbl_land_vehicles"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_GAZ_3937_VODNIK) do
-				r_killdata = kill_GAZ_3937_VODNIK[data_playername]
-				s_weapon = "GAZ-3937 VODNIK"
-				s_table = "tbl_land_vehicles"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_GROWLER_ITV) do
-				r_killdata = kill_GROWLER_ITV[data_playername]
-				s_weapon = "GROWLER ITV"
-				s_table = "tbl_land_vehicles"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_HMMWV_ASRAD) do
-				r_killdata = kill_HMMWV_ASRAD[data_playername]
-				s_weapon = "HMMWV ASRAD"
-				s_table = "tbl_land_vehicles"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_LAV_25) do
-				r_killdata = kill_LAV_25[data_playername]
-				s_weapon = "LAV-25"
-				s_table = "tbl_land_vehicles"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_LAV_AD) do
-				r_killdata = kill_LAV_AD[data_playername]
-				s_weapon = "LAV-AD"
-				s_table = "tbl_land_vehicles"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_M1_ABRAMS) do
-				r_killdata = kill_M1_ABRAMS[data_playername]
-				s_weapon = "M1 ABRAMS"
-				s_table = "tbl_land_vehicles"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_M1114_HMMWV) do
-				r_killdata = kill_M1114_HMMWV[data_playername]
-				s_weapon = "M1114 HMMWV"
-				s_table = "tbl_land_vehicles"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_M1128) do
-				r_killdata = kill_M1128[data_playername]
-				s_weapon = "M1128"
-				s_table = "tbl_land_vehicles"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_M142) do
-				r_killdata = kill_M142[data_playername]
-				s_weapon = "M142"
-				s_table = "tbl_land_vehicles"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_M220_TOW_LAUNCHER) do
-				r_killdata = kill_M220_TOW_LAUNCHER[data_playername]
-				s_weapon = "M220 TOW LAUNCHER"
-				s_table = "tbl_land_vehicles"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_PANTSIR_S1) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_PANTSIR_S1[data_playername]
+				r_headshotdata = Headshot_PANTSIR_S1[data_playername]
+				r_deathdata = Death_PANTSIR_S1[data_playername]
 				s_weapon = "PANTSIR-S1"
 				s_table = "tbl_land_vehicles"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_PHOENIX) do
-				r_killdata = kill_PHOENIX[data_playername]
-				s_weapon = "PHOENIX"
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_M220_TOW_LAUNCHER[data_playername]
+				r_headshotdata = Headshot_M220_TOW_LAUNCHER[data_playername]
+				r_deathdata = Death_M220_TOW_LAUNCHER[data_playername]
+				s_weapon = "M220 TOW LAUNCHER"
 				s_table = "tbl_land_vehicles"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_POLICE_VAN) do
-				r_killdata = kill_POLICE_VAN[data_playername]
-				s_weapon = "POLICE VAN"
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_9M133_KORNET_LAUNCHER[data_playername]
+				r_headshotdata = Headshot_9M133_KORNET_LAUNCHER[data_playername]
+				r_deathdata = Death_9M133_KORNET_LAUNCHER[data_playername]
+				s_weapon = "9M133 KORNET LAUNCHER"
 				s_table = "tbl_land_vehicles"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_QUAD_BIKE) do
-				r_killdata = kill_POLICE_VAN[data_playername]
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_QUAD_BIKE[data_playername]
+				r_headshotdata = Headshot_QUAD_BIKE[data_playername]
+				r_deathdata = Death_QUAD_BIKE[data_playername]
 				s_weapon = "QUAD BIKE"
 				s_table = "tbl_land_vehicles"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_RHIB_BOAT) do
-				r_killdata = kill_RHIB_BOAT[data_playername]
-				s_weapon = "RHIB BOAT"
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_DIRTBIKE[data_playername]
+				r_headshotdata = Headshot_DIRTBIKE[data_playername]
+				r_deathdata = Death_DIRTBIKE[data_playername]
+				s_weapon = "DIRTBIKE"
 				s_table = "tbl_land_vehicles"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_RHINO) do
-				r_killdata = kill_RHINO[data_playername]
-				s_weapon = "RHINO"
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_M1_ABRAMS[data_playername]
+				r_headshotdata = Headshot_M1_ABRAMS[data_playername]
+				r_deathdata = Death_M1_ABRAMS[data_playername]
+				s_weapon = "M1 ABRAMS"
 				s_table = "tbl_land_vehicles"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_SKID_LOADER) do
-				r_killdata = kill_SKID_LOADER[data_playername]
-				s_weapon = "SKID LOADER"
-				s_table = "tbl_land_vehicles"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_SPRUT_SD) do
-				r_killdata = kill_SPRUT_SD[data_playername]
-				s_weapon = "SPRUT-SD"
-				s_table = "tbl_land_vehicles"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_SUV) do
-				r_killdata = kill_SUV[data_playername]
-				s_weapon = "SUV"
-				s_table = "tbl_land_vehicles"
-
-					updateweaponkillstats(player, data_playername)
-			end
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-			-- --------------------------------------------------
-
-			for data_playername, count_kills in pairs(kill_T_90A) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_T_90A[data_playername]
+				r_headshotdata = Headshot_T_90A[data_playername]
+				r_deathdata = Death_T_90A[data_playername]
 				s_weapon = "T-90A"
 				s_table = "tbl_land_vehicles"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_TECHNICAL_TRUCK) do
-				r_killdata = kill_TECHNICAL_TRUCK[data_playername]
-				s_weapon = "TECHNICAL TRUCK"
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_DPV[data_playername]
+				r_headshotdata = Headshot_DPV[data_playername]
+				r_deathdata = Death_DPV[data_playername]
+				s_weapon = "DPV"
 				s_table = "tbl_land_vehicles"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_VDV_Buggy) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_VDV_Buggy[data_playername]
+				r_headshotdata = Headshot_VDV_Buggy[data_playername]
+				r_deathdata = Death_VDV_Buggy[data_playername]
 				s_weapon = "VDV Buggy"
 				s_table = "tbl_land_vehicles"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_VODNIK_AA) do
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_9K22_TUNGUSKA_M[data_playername]
+				r_headshotdata = Headshot_9K22_TUNGUSKA_M[data_playername]
+				r_deathdata = Death_9K22_TUNGUSKA_M[data_playername]
+				s_weapon = "9K22 TUNGUSKA-M"
+				s_table = "tbl_land_vehicles"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_LAV_25[data_playername]
+				r_headshotdata = Headshot_LAV_25[data_playername]
+				r_deathdata = Death_LAV_25[data_playername]
+				s_weapon = "LAV-25"
+				s_table = "tbl_land_vehicles"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_VODNIK_AA[data_playername]
+				r_headshotdata = Headshot_VODNIK_AA[data_playername]
+				r_deathdata = Death_VODNIK_AA[data_playername]
 				s_weapon = "VODNIK AA"
 				s_table = "tbl_land_vehicles"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_AAV_7A1_AMTRAC[data_playername]
+				r_headshotdata = Headshot_AAV_7A1_AMTRAC[data_playername]
+				r_deathdata = Death_AAV_7A1_AMTRAC[data_playername]
+				s_weapon = "AAV-7A1 AMTRAC"
+				s_table = "tbl_land_vehicles"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_BARSUK[data_playername]
+				r_headshotdata = Headshot_BARSUK[data_playername]
+				r_deathdata = Death_BARSUK[data_playername]
+				s_weapon = "BARSUK"
+				s_table = "tbl_land_vehicles"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_BM_23[data_playername]
+				r_headshotdata = Headshot_BM_23[data_playername]
+				r_deathdata = Death_BM_23[data_playername]
+				s_weapon = "BM-23"
+				s_table = "tbl_land_vehicles"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_BMP_2M[data_playername]
+				r_headshotdata = Headshot_BMP_2M[data_playername]
+				r_deathdata = Death_BMP_2M[data_playername]
+				s_weapon = "BMP-2M"
+				s_table = "tbl_land_vehicles"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_BTR_90[data_playername]
+				r_headshotdata = Headshot_BTR_90[data_playername]
+				r_deathdata = Death_BTR_90[data_playername]
+				s_weapon = "BTR-90"
+				s_table = "tbl_land_vehicles"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_GAZ_3937_VODNIK[data_playername]
+				r_headshotdata = Headshot_GAZ_3937_VODNIK[data_playername]
+				r_deathdata = Death_GAZ_3937_VODNIK[data_playername]
+				s_weapon = "GAZ-3937 VODNIK"
+				s_table = "tbl_land_vehicles"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_GROWLER_ITV[data_playername]
+				r_headshotdata = Headshot_GROWLER_ITV[data_playername]
+				r_deathdata = Death_GROWLER_ITV[data_playername]
+				s_weapon = "GROWLER ITV"
+				s_table = "tbl_land_vehicles"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_HMMWV_ASRAD[data_playername]
+				r_headshotdata = Headshot_HMMWV_ASRAD[data_playername]
+				r_deathdata = Death_HMMWV_ASRAD[data_playername]
+				s_weapon = "HMMWV ASRAD"
+				s_table = "tbl_land_vehicles"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_LAV_AD[data_playername]
+				r_headshotdata = Headshot_LAV_AD[data_playername]
+				r_deathdata = Death_LAV_AD[data_playername]
+				s_weapon = "LAV-AD"
+				s_table = "tbl_land_vehicles"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_M1114_HMMWV[data_playername]
+				r_headshotdata = Headshot_M1114_HMMWV[data_playername]
+				r_deathdata = Death_M1114_HMMWV[data_playername]
+				s_weapon = "M1114 HMMWV"
+				s_table = "tbl_land_vehicles"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_M1128[data_playername]
+				r_headshotdata = Headshot_M1128[data_playername]
+				r_deathdata = Death_M1128[data_playername]
+				s_weapon = "M1128"
+				s_table = "tbl_land_vehicles"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_M142[data_playername]
+				r_headshotdata = Headshot_M142[data_playername]
+				r_deathdata = Death_M142[data_playername]
+				s_weapon = "M142"
+				s_table = "tbl_land_vehicles"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_PHOENIX[data_playername]
+				r_headshotdata = Headshot_PHOENIX[data_playername]
+				r_deathdata = Death_PHOENIX[data_playername]
+				s_weapon = "PHOENIX"
+				s_table = "tbl_land_vehicles"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_RHIB_BOAT[data_playername]
+				r_headshotdata = Headshot_RHIB_BOAT[data_playername]
+				r_deathdata = Death_RHIB_BOAT[data_playername]
+				s_weapon = "RHIB BOAT"
+				s_table = "tbl_land_vehicles"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_RHINO[data_playername]
+				r_headshotdata = Headshot_RHINO[data_playername]
+				r_deathdata = Death_RHINO[data_playername]
+				s_weapon = "RHINO"
+				s_table = "tbl_land_vehicles"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_SPRUT_SD[data_playername]
+				r_headshotdata = Headshot_SPRUT_SD[data_playername]
+				r_deathdata = Death_SPRUT_SD[data_playername]
+				s_weapon = "SPRUT-SD"
+				s_table = "tbl_land_vehicles"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_SUV[data_playername]
+				r_headshotdata = Headshot_SUV[data_playername]
+				r_deathdata = Death_SUV[data_playername]
+				s_weapon = "SUV"
+				s_table = "tbl_land_vehicles"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_SKID_LOADER[data_playername]
+				r_headshotdata = Headshot_SKID_LOADER[data_playername]
+				r_deathdata = Death_SKID_LOADER[data_playername]
+				s_weapon = "SKID LOADER"
+				s_table = "tbl_land_vehicles"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_CIVILIAN_CAR[data_playername]
+				r_headshotdata = Headshot_CIVILIAN_CAR[data_playername]
+				r_deathdata = Death_CIVILIAN_CAR[data_playername]
+				s_weapon = "CIVILIAN CAR"
+				s_table = "tbl_land_vehicles"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_DELIVERY_VAN[data_playername]
+				r_headshotdata = Headshot_DELIVERY_VAN[data_playername]
+				r_deathdata = Death_DELIVERY_VAN[data_playername]
+				s_weapon = "DELIVERY VAN"
+				s_table = "tbl_land_vehicles"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_POLICE_VAN[data_playername]
+				r_headshotdata = Headshot_POLICE_VAN[data_playername]
+				r_deathdata = Death_POLICE_VAN[data_playername]
+				s_weapon = "POLICE VAN"
+				s_table = "tbl_land_vehicles"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+		for data_playername, pname in pairs(getnameall) do
+				r_killdata = kill_TECHNICAL_TRUCK[data_playername]
+				r_headshotdata = Headshot_TECHNICAL_TRUCK[data_playername]
+				r_deathdata = Death_TECHNICAL_TRUCK[data_playername]
+				s_weapon = "TECHNICAL TRUCK"
+				s_table = "tbl_land_vehicles"
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
+			end
+
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -2006,24 +2790,37 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
-			for data_playername, count_kills in pairs(kill_roadkills) do
+		for data_playername, pname in pairs(getnameall) do
 				r_killdata = kill_roadkills[data_playername]
+				r_headshotdata = Headshot_roadkills[data_playername]
+				r_deathdata = Death_roadkills[data_playername]
 				s_weapon = "Roadkills"
 				s_table = "tbl_roadkills"
-
-					updateweaponkillstats(player, data_playername)
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
+				updateweaponstats(player, data_playername)
 			end
+
+			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 
 
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+			-- --------------------------------------------------
+
+--[[
 	else 
-	if Config.consolespam_section5 then
+	if Config.consolespam_section9 then
 			print ("")
-			print ("*** Skipping !,No data, not a Vehicle map ***")
+			print ("*** Skipping !,No headshot data, not a Vehicle map ***")
 	end
 	end
+]]
 
 -- --------------------------------------------------
 -- --------------------------------------------------
@@ -2033,6 +2830,9 @@ or SharedUtils:GetCurrentGameMode() == "CaptureTheFlag0" or SharedUtils:GetCurre
 section 06
 This stuff should update all Mcom action like Arm,disarm, and if you destroyed it.
 ]]
+
+	print ("*** Start section 06 ***")
+	print ("")
 
 	if SharedUtils:GetCurrentGameMode() == "RushLarge0" or SharedUtils:GetCurrentGameMode() == "SquadRush0" then
 
@@ -2068,35 +2868,26 @@ This stuff should update all Mcom action like Arm,disarm, and if you destroyed i
 				end
 				end
 end
+
 -- --------------------------------------------------
 -- --------------------------------------------------
 -- --------------------------------------------------
 
 --[[
 section 07
-This stuff should update all shots fired, and body hits
-]]
-
-		for data_playername, pname in pairs(getnameall) do
-
-		if playershot[data_playername] == nil then playershot[data_playername] = 0; end
-		if playerhit[data_playername] == nil then playerhit[data_playername] = 0; end
-
-	phits=playerhit[data_playername]
-	pshots=playershot[data_playername]
-
-	playershothitstuff1(player, data_playername)
-
-end
-
--- ------------
--- ------------
--- ------------
---[[
+This stuff should update all shot/hits on serverstats table
 Here set serverstats on shots fired and hits
 ]]
+	print ("*** Start section 07 ***")
+	print ("")
+
 	sacc=Round((server_acc_hit > 0 and server_acc_shot > 0 ) and server_acc_hit/server_acc_shot*100 or 0,1)
 	playershothitstuff2(player, data_playername)
+
+-- --------------------------------------------------
+-- --------------------------------------------------
+-- --------------------------------------------------
+
 
 -- --------------------------------------------------
 -- --------------------------------------------------
@@ -2121,12 +2912,19 @@ end)
 -- --------------------------------------------------
 -- --------------------------------------------------
 
-function playershothitstuff1(player, data_playername)
+function playerstatscombo(player, data_playername)
+	if getnameall[player.name] and pScore >= 0 or pKills >= 0 or pDeaths >= 0 or pSuicide >= 0 or pHeadshots >= 0 or pTeamKilled >= 0 or pDogtags >= 0 or pRevives >= 0 or pKillstreaks >= 0 or pWins >= 0 or pLosses >= 0 or pshots >= 0 or phits >= 0 then
 
-	if not SQL:Query('UPDATE tbl_playerstats SET Shot=Shot+?, Hits=Hits+? WHERE Soldiername = ? ', pshots, phits, data_playername) then
+
+	if Config.consolespam_section4 then
+	print ("Player round stats for "..data_playername.." Score:"..pScore.." Kills:"..pKills.." Deaths:"..pDeaths.." Suicide:"..pSuicide.." Headshot:"..pHeadshots.." Teamkill:"..pTeamKilled.." Dogtag:"..pDogtags.." Revives:"..pRevives.." Killstreak:"..pKillstreaks.." Round win:"..pWins.." Round losses:"..pLosses.." Shots fired:"..pshots.." Shots hit:"..phits)
+	end
+
+	if not SQL:Query('UPDATE tbl_playerstats SET Score=Score+?, Kills=Kills+?, Deaths=Deaths+?, Suicide=Suicide+?, Headshots=Headshots+?, TeamKilled=TeamKilled+?, Dogtags=Dogtags+?, Revives=Revives+?,	Killstreaks=Killstreaks+?, Wins=Wins+?, Losses=Losses+?, Shot=Shot+?, Hits=Hits+? WHERE Soldiername = ? ', pScore, pKills, pDeaths, pSuicide, pHeadshots, pTeamKilled, pDogtags, pRevives, pKillstreaks, pWins, pLosses, pshots, phits, data_playername) then
 				print('Failed to execute Update tbl_serverstats ACC query: ' .. SQL:Error())
 				return
 		end
+	end
 end 
 
 -- --------------------------------------------------
@@ -2154,33 +2952,6 @@ function playershothitstuff3(player, data_playername)
 
 
 end 
-
--- --------------------------------------------------
--- --------------------------------------------------
--- --------------------------------------------------
-
-function playerstatsstuff(player, data_playername)
-
-			if not SQL:Query('UPDATE '..s_table..' SET '..s_sqltype..' = '..s_sqltype..' + ? WHERE Soldiername = ?', r_data,data_playername) then
-				print(" - Failed to update data in "..s_table..": " .. SQL:Error())
-				return
-			end
-		end
-
--- --------------------------------------------------
--- --------------------------------------------------
--- --------------------------------------------------
-
-function updateweaponkillstats(player, data_playername)
-	if getnameall[player.name] and r_killdata >= 1 then
-
--- Here also correct the kill we added when creating the table entry by removing 1 kill on the end.
-			if not SQL:Query('UPDATE ' .. s_table .. ' SET Kills=Kills+?-1 WHERE Soldiername = ? and Weaponname = ?', r_killdata, data_playername, s_weapon) then
-				print(" - Failed to update data in "..s_table..": " .. SQL:Error())
-				return
-			end
-		end
-	end
 
 -- --------------------------------------------------
 -- --------------------------------------------------
@@ -2214,7 +2985,7 @@ end
 
 function updateserverstats(player, data_playername)
 	
-			if not SQL:Query('UPDATE tbl_serverstats SET SumScore=SumScore+?, SumKills=SumKills+?, SumDeaths=SumDeaths+?, SumSuicide=SumSuicide+?, SumHeadshots=SumHeadshots+?, SumTeamKilled=SumTeamKilled+?, SumDogtags=SumDogtags+?, SumRevives=SumRevives+?, SumKillstreak=SumKillstreak+?, SumRounds=SumRounds+?, SumRoadkills=SumRoadkills+?, SumPlaytime=SumPlaytime+?', serverscore, eor_kills, eor_deaths, eor_suicides, eor_headshots, eor_teamskills, eor_dogtags, eor_revives, eor_killstreak, 1, eor_roadkills, s_roundTime) then
+			if not SQL:Query('UPDATE tbl_serverstats SET SumScore=SumScore+?, SumKills=SumKills+?, SumDeaths=SumDeaths+?, SumSuicide=SumSuicide+?, SumHeadshots=SumHeadshots+?, SumTeamKilled=SumTeamKilled+?, SumDogtags=SumDogtags+?, SumRevives=SumRevives+?, SumKillstreak=SumKillstreak+?, SumRounds=SumRounds+?, SumRoadkills=SumRoadkills+?, SumPlaytime=SumPlaytime+?', eor_serverscore, eor_kills, eor_deaths, eor_suicides, eor_headshots, eor_teamskills, eor_dogtags, eor_revives, eor_killstreak, 1, eor_roadkills, s_roundTime) then
 				print('Failed to execute Update tbl_serverstats query: ' .. SQL:Error())
 				return
     end
@@ -2226,11 +2997,28 @@ end
 function updateservermapstats(player, data_playername)
 	
 			s_Query ='INSERT INTO tbl_mapstats (RoundID,  TimeRoundStarted,  TimeRoundEnd,    MapName,    Gamemode,  Roundscore,   Roundtime,   winningTeam,  MaxPlayers,      Shot,           Hits) VALUES (?,?,?,?,?,?,?,?,?,?,?)'
-				if not SQL:Query(s_Query,  s_RoundID, s_startroundtime, s_endroundtime, s_LevelName, s_GameMode, serverscore, s_roundTime, n_winningTeam,     pc,     server_acc_shot, server_acc_hit) then
+				if not SQL:Query(s_Query,  s_RoundID, s_startroundtime, s_endroundtime, s_LevelName, s_GameMode, eor_serverscore, s_roundTime, n_winningTeam,     pc,     server_acc_shot, server_acc_hit) then
 				print('Failed to execute query: ' .. SQL:Error())
 				return
 			end
 end
+-- --------------------------------------------------
+-- --------------------------------------------------
+-- --------------------------------------------------
+
+function updateweaponstats(player, data_playername)
+	if getnameall[player.name] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >=1 then
+
+	print ("Post Update record for "..data_playername.." - SQL kills:"..s_sqltype_kills.." - SQL Headshots:"..s_sqltype_headshot.." - SQL Deaths:"..s_sqltype_deaths.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
+
+	if not SQL:Query('UPDATE '..s_table..' SET '..s_sqltype_kills..' = '..s_sqltype_kills..'+?, '..s_sqltype_headshot..' = '..s_sqltype_headshot..'+?, '..s_sqltype_deaths..' = '..s_sqltype_deaths..'+?  WHERE Soldiername = ? and Weaponname = ?', r_killdata, r_headshotdata, r_deathdata, data_playername, s_weapon) then
+				print(" - Failed to update data in "..s_table..": " .. SQL:Error())
+				return
+			end
+    end
+
+end -- end of fucktion stuff
+
 -- --------------------------------------------------
 -- --------------------------------------------------
 -- --------------------------------------------------

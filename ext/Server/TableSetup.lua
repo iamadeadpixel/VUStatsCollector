@@ -56,7 +56,11 @@ Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 	playerrevivs = {}
 
 	data_weaponkills = {}
+
 	kill_roadkills = {}
+	Death_roadkills = {}
+	Headshot_roadkills = {}
+
 	eor_deaths = 0
 	eor_dogtags = 0
 	eor_headshots = 0
@@ -67,7 +71,19 @@ Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 	eor_roadkills = 0
 	eor_killstreak = 0
 
-	setplayervariable = {}
+	hs_tempdata = {}
+
+	setplayervariable0 = {}
+	setplayervariable1 = {}
+	setplayervariable2 = {}
+	setplayervariable3 = {}
+	setplayervariable4 = {}
+	setplayervariable5 = {}
+	setplayervariable6 = {}
+	setplayervariable7 = {}
+	setplayervariable8 = {}
+	setplayervariable9 = {}
+
 	roundoverstate = {}
 	haltprocess = false
 	PUE00_playerrounddata = false

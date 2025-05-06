@@ -62,18 +62,50 @@ Events:Subscribe('Player:Killed',function(p_Player, p_Inflictor, p_Position, p_W
 			if args[7] == "SUICIDE" or args[7] == "IS NO MORE" or args[7] == "TEAMKILL" then
 				return
 			else
-		kill_roadkills[s_Inflictor.name] = kill_roadkills[s_Inflictor.name] + 1
-		data_weaponkills = kill_roadkills[s_Inflictor.name]
+	kill_roadkills[s_Inflictor.name] = kill_roadkills[s_Inflictor.name] + 1
 
+	Death_roadkills[p_Player.name] = Death_roadkills[p_Player.name] + 1  -- Victim
+	if p_IsHeadShot then 
+	Headshot_roadkills[p_Player.name] = Headshot_roadkills[p_Player.name] + 1  -- Victim
+	hs_tempdata[p_Player.name] = 1
+	end
+	Headshot_data = Headshot_roadkills[p_Player.name]
+	Dead_data = Death_roadkills[p_Player.name]
+	victim_name = p_Player.name
+	killer_name = s_Inflictor.name
+
+	if Config.consolespam_roadkill_msg then
+	data_roadkill_msg(player, data_playername)
+	end
+
+-- Read and set kill status
+	data_weaponkills = kill_roadkills[s_Inflictor.name]
 	data_weapon_name = "Roadkills"
 	data_table_name = "tbl_roadkills"
-	data_playername = s_Inflictor.name
 	data_catagory = "Roadkill data:"
+	data_playername = killer_name
+	data_roadkill(data_playername)
+
+-- Read and set death status
+	data_playername = victim_name
 	data_roadkill(data_playername)
 
 end
 end
 end)
+
+-- ------------------------------------------------------
+
+function data_roadkill_msg(player, data_playername)
+
+	if hs_tempdata[victim_name] == 1 then
+	print ("player "..victim_name.." got Roadkilled , thanks to "..killer_name.."`s "..args[7].." "..Headshot_data.." times and died "..Dead_data.." times by the "..args[7].." and died "..playerdeaths[victim_name].." times in total")
+	else
+	print ("player "..victim_name.." got roadkilled , thanks to "..killer_name.."`s "..args[7].."  and died "..Dead_data.." times by the "..args[7].." and died "..playerdeaths[victim_name].." times in total")
+	end
+
+	hs_tempdata[victim_name] = 0
+end -- End of function call
 
 -- ------------------------------------------------------
 
@@ -83,15 +115,13 @@ function data_roadkill(data_playername)
 	data_playername = tostring (data_playername)
 	data_weaponkills = tostring (data_weaponkills)
 
-	if Config.consolespam_roadkill then
+	if Config.consolespam_roadkill1 then
 	print ("")
 	print (data_catagory.." Weapon name:"..data_weapon_name)
 	print (data_catagory.." Mod DB Table name:"..data_table_name)
 	print (data_catagory.." Player name:"..data_playername)
 	print (data_catagory.." Weapon kills:"..data_weaponkills)
-
 	print ("")
-
 	print ("Accessing "..data_table_name)
 	end
 
@@ -102,37 +132,35 @@ function data_roadkill(data_playername)
 	return
 	end
 
-	if Config.consolespam_roadkill then
+	if Config.consolespam_roadkill2 then
 	print ("Done reading "..data_table_name)
 	print (Results)
 	print ("")
 	end
 
 if type(next(Results)) == "nil" then
-	if Config.consolespam_roadkill then
+	if Config.consolespam_roadkill3 then
 print("No data found for "..data_playername.." and "..data_weapon_name.." - Injecting now")
 	end
 
---add new entry 
-
-		           s_Query = 'INSERT INTO ' ..data_table_name..'     (Weaponname,     Soldiername,    Kills, Shot, Hits) VALUES (?,?,?,?,?)'
-			                        if not SQL:Query(s_Query, data_weapon_name,   data_playername,  1,    0,    0) then
+		           s_Query = 'INSERT INTO ' ..data_table_name..'     (Weaponname,     Soldiername,    Kills, Headshot, Deaths, Shot, Hits) VALUES (?,?,?,?,?,?,?)'
+			                        if not SQL:Query(s_Query, data_weapon_name,   data_playername,  0,      0,       0,     0,    0) then
 			print(" - Failed to insert assault weapon data in "..data_table_name..": " .. SQL:Error())
 			return
 	end
 
-	if Config.consolespam_roadkill then
+	if Config.consolespam_roadkill4 then
 	print("")
 	print (data_table_name.." injection done")
 	end
 
 else
- --do some thing with results
-	if Config.consolespam_roadkill then
+
+	if Config.consolespam_airvehicles5 then
 print('found data: '..data_playername..' and '..data_weapon_name..' - Kills:'..data_weaponkills)
 	end
-end
 
+end
 end -- End of function call
 
 -- ------------------------------------------------------
