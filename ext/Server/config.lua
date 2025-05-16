@@ -26,8 +26,8 @@ if true, the console wil spam header info on mapload..
 This is used in any lua file
 ]]
 -- ----
-	consolespam_functioncalls = true,
-	consolespam_functioncallskills = true,
+	consolespam_functioncalls = false,
+	consolespam_functioncallskills = false,
 --[[
 if true, function.lua will be called.
 This is used in PUE00_playerrounddata.lua

@@ -5,10 +5,40 @@ Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 		print("*** Table setup stuff loaded ***");
 	end
 
--- Table stuff for scoringsystem
+-- Table stuff for scoring system
 	s_InstanceIds = {}
 	playershot = {}
 	playerhit = {}
+
+	pScore = 0
+	pKills = 0
+	pDeaths = 0
+	pSuicide = 0
+	pHeadshots = 0
+	pTeamKilled = 0
+	pDogtags = 0
+	pRevives = 0
+	pKillstreaks = 0
+	pshots = 0
+	phits = 0
+
+	eor_deaths = 0
+	eor_dogtags = 0
+	eor_headshots = 0
+	eor_kills = 0
+	eor_revives = 0
+	eor_suicides = 0
+	eor_teamskills = 0
+	eor_roadkills = 0
+	eor_killstreak = 0
+
+	r_data_Armed = 0
+	r_data_Disarmed = 0
+	r_data_Destroyed = 0
+
+	pWins = 0
+	pLosses = 0
+
 	server_acc_shot = 0
 	server_acc_hit = 0
 
@@ -23,6 +53,8 @@ Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 	s_Wins = 0
 	s_Lost = 0
 
+	pshots = 0
+	phits = 0 
 	killstreak = {}
 	killstreak_counter = {}
 	killstreak_highest = {}
@@ -34,19 +66,21 @@ Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 	playerscore2 = {}
 	playerscore3 = {}
 	playerscore4 = {}
---	teamscoreUS = 0
---	teamscoreRU = 0
 	teamscore1 = 0
 	teamscore2 = 0
 	teamscore3 = 0
 	teamscore4 = 0
---	scoreUS = 0
---	scoreRU = 0
 
 	team1score = 0
 	team2score = 0
 	team3score = 0
 	team4score = 0
+
+	r_killdata = 0
+	r_headshotdata = 0
+	r_deathdata = 0
+
+
 
 	Mcom_Armed = {}
 	Mcom_Disarmed = {}
@@ -68,16 +102,6 @@ Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 	Death_roadkills = {}
 	Headshot_roadkills = {}
 
-	eor_deaths = 0
-	eor_dogtags = 0
-	eor_headshots = 0
-	eor_kills = 0
-	eor_revives = 0
-	eor_suicides = 0
-	eor_teamskills = 0
-	eor_roadkills = 0
-	eor_killstreak = 0
-
 	setplayervariable0 = {}
 	setplayervariable1 = {}
 	setplayervariable2 = {}
@@ -88,6 +112,7 @@ Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 	setplayervariable7 = {}
 	setplayervariable8 = {}
 	setplayervariable9 = {}
+
 
 
 	hs_tempdata = {}
