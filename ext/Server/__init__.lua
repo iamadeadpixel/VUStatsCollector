@@ -29,6 +29,8 @@ function StatsCollector:OnEngineInit()
 	self.m_TableSetup = require 'TableSetup'
 	self.m_TableSetup_weapons = require 'TableSetup_weapons'
 	self.m_TableSetup_vehicles = require 'TableSetup_vehicles'
+--	self.m_Variables_short = require 'Variables_short'
+
 
 --[[
 Not sure if this is used.................

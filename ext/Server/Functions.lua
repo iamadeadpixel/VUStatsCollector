@@ -73,10 +73,22 @@ end
 
 function updateweaponstats(player, data_playername)
 
+	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
+
+	if Config.consolespam_functioncalls_msg then
+	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
+	end
+	end
+
+	if Config.consolespam_functioncalls_sql then
+				s_sqltype_kills = "Kills"
+				s_sqltype_headshot = "Headshot"
+				s_sqltype_deaths = "Deaths"
 	if not SQL:Query('UPDATE '..s_table..' SET '..s_sqltype_kills..' = '..s_sqltype_kills..'+?, '..s_sqltype_headshot..' = '..s_sqltype_headshot..'+?, '..s_sqltype_deaths..' = '..s_sqltype_deaths..'+?  WHERE Soldiername = ? and Weaponname = ?', r_killdata, r_headshotdata, r_deathdata, data_playername, s_weapon) then
 				print(" - Failed to update data in "..s_table..": " .. SQL:Error())
 				return
 			end
+	end
 
 end -- end of fucktion stuff (this is not a typo, hehe)
 

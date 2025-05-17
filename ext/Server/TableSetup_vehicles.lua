@@ -4,6 +4,7 @@ Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 		print("*** TableSetup vehicles loaded ***");
 	end
 
+
 		-- Air Vehicles
 		kill_A10_THUNDERBOLT = {}
 		kill_AH_1Z_VIPER = {}

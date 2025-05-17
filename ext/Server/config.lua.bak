@@ -26,19 +26,11 @@ if true, the console wil spam header info on mapload..
 This is used in any lua file
 ]]
 -- ----
---[[
-Under normal operations: this should be true, ex for the _msg statement, that is optional.
-]]
 	consolespam_functioncalls = true,
-	consolespam_functioncalls_msg = true,
-	consolespam_functioncalls_sql = true,
+	consolespam_functioncallskills = true,
 --[[
 if true, function.lua will be called.
 This is used in PUE00_playerrounddata.lua
-Remark: if consolespam_functioncalls is false, it ends all further output
-Remark: if consolespam_functioncalls_msg is true, the console spams all kill message
-Remark: if consolespam_functioncalls_sql is false, no SQL data is written, it still spams the kill message (if _msg is true)
-        This is for the updateweaponstats(player, data_playername) call only
 ]]
 -- ----
 	consolespam_spawn_msg = false,

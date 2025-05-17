@@ -4,6 +4,7 @@ Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 		print("*** TableSetup weapons loaded ***");
 	end
 
+
 		-- Auxiliary - global
 		kill_M67_GRENADE = {}
 		Death_M67_GRENADE = {}

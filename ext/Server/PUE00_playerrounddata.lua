@@ -38,7 +38,10 @@ Events:Subscribe('Player:Update', function(player, deltaTime)
 	end
 	breakpoint = true
 
+	if Config.consolespam_functioncalls_msg then
 	print ("Lets escape from this, and do some real,cough,cough, magic.")
+	end
+
 	masterevent1(player, data_playername)
 
 			PUE00_playerrounddata = false -- ensure it prints one time only
@@ -55,38 +58,50 @@ end)
 -- --------------------------------------------------
 
 function masterevent1(player, data_playername)
-	print ("")
-	print ("Start function 1 - Check for Vehicle spawn")
 
 	local s_vehicleSpawnRCON = RCON:SendCommand('vars.vehicleSpawnAllowed')
 	local s_vehicleSpawn = tostring(s_vehicleSpawnRCON[2])
 
+	if Config.consolespam_functioncalls_msg then
+	print ("")
+	print ("Start function 1 - Check for Vehicle spawn")
+
 	if s_vehicleSpawn == "true" then
+
 	print ("Some vehicle cookies are true")
 		elseif s_vehicleSpawn == "false" then
 	print ("These vehicle cookies are false")
-		end
+	end
+	end
 
 -- --------------------------------------------------
 -- --------------------------------------------------
 -- --------------------------------------------------
+
+	if Config.consolespam_functioncalls_msg then
 	print ("")
 	print ("Start function 2 - Spam players")
 	print ("")
+	end
 
 		for data_playername, pname in pairs(getnameall) do
+
+	if Config.consolespam_functioncalls_msg then
 		print ("processing data for "..data_playername)
+	end
 		end
 
 -- --------------------------------------------------
 -- --------------------------------------------------
 -- --------------------------------------------------
 
+	if Config.consolespam_functioncalls_msg then
 	print ("")
 	print ("Start function 3")
 	print ("*** Start tbl_playerdata - Update round played for player ***")
+	end
 
-			for playerround, rounddata in pairs(getnamehuman) do
+		for playerround, rounddata in pairs(getnamehuman) do
 
 	if Config.consolespam_functioncalls then -- If false in config.lua, data is not written using function call
 	updateplayerround(player, data_playername)
@@ -97,10 +112,12 @@ end
 -- --------------------------------------------------
 -- --------------------------------------------------
 
+	if Config.consolespam_functioncalls_msg then
 	print ("")
 	print ("Start function 4")
 	print ("*** Start tbl_serverstats - Base serverstats ***")
 	print ("")
+	end
 
 	sacc=Round((server_acc_hit > 0 and server_acc_shot > 0 ) and server_acc_hit/server_acc_shot*100 or 0,1)
 
@@ -159,10 +176,11 @@ end
 				eor_killstreak = eor_killstreak + tabledata
 			end
 
+	if Config.consolespam_functioncalls_msg then
  print ("PRE Serverstats score stuff - Serverscore:"..eor_serverscore.." - Team 1 score:"..teamscore1.." - Team 2 score:"..teamscore2.." - Team 3 score:"..teamscore3.." - Team 4 score:"..teamscore4)
  print ("PRE Total kills:"..eor_kills.." - Total deaths:"..eor_deaths.." - Total suicides:"..eor_suicides.." - Total headshots:"..eor_headshots.." - Total teamkills:"..eor_teamskills)
  print ("PRE Total dogtags take:"..eor_dogtags.." - Total revives:"..eor_revives.." - Total killstreaks:"..eor_killstreak.." - Total roadkills:"..eor_roadkills.." - Total shots fired:"..server_acc_shot.." - Total hits received:"..server_acc_hit)
-
+	end
 
 	if Config.consolespam_functioncalls then
 	updateserverstats(player, data_playername)
@@ -172,9 +190,11 @@ end
 -- --------------------------------------------------
 -- --------------------------------------------------
 
+	if Config.consolespam_functioncalls_msg then
 	print ("")
 	print ("Start function 5")
 	print ("*** Start tbl_mapstats - Inserting the current played round with stats ***")
+	end
 
 	local RoundID_results = SQL:Query('SELECT RoundID FROM tbl_mapstats')
 			if not RoundID_results then
@@ -192,10 +212,12 @@ end
 		s_RoundID = temp_RoundID + 1
 			pc = PlayerManager:GetPlayerCount()
 
+	if Config.consolespam_functioncalls_msg then
 	print ("")
 	print ("PRE Round stats - Total rounds played:"..s_RoundID.." - Start time:"..s_startroundtime.." - End time"..s_endroundtime.." - Total playtime:"..s_roundTime)
 	print ("PRE Map name:"..s_LevelName.." - Game mode:"..s_GameMode.." - Total point scored:"..eor_serverscore)
 	print ("PRE Winning team:"..n_winningTeam.." - Total players this round:"..pc.." - Total shots fired:"..server_acc_shot.." - Total hits received:"..server_acc_hit)
+	end
 
 	if Config.consolespam_functioncalls then
 	updateservermapstats(player, data_playername)
@@ -205,9 +227,11 @@ end
 -- --------------------------------------------------
 -- --------------------------------------------------
 
+	if Config.consolespam_functioncalls_msg then
 	print ("")
 	print ("Start function 6")
 	print ("*** Start tbl_mcom - processes Armed - Disarmed - Destroyed for rush maps ***")
+	end
 
 	if SharedUtils:GetCurrentGameMode() == "RushLarge0" or SharedUtils:GetCurrentGameMode() == "SquadRush0" then
 
@@ -221,7 +245,11 @@ end
 				r_data_Destroyed = Mcom_Destroyed[data_playername]
 
 	if r_data_Armed >= 1 or r_data_Disarmed >= 1 or r_data_Destroyed >= 1 then
+
+	if Config.consolespam_functioncalls_msg then
 			print("Pre Mcom Player data for "..data_playername.." Armed:"..r_data_Armed.." - Disarmed:"..r_data_Disarmed.." - Destroyed:"..r_data_Destroyed) 
+	end
+
 	end
 
 	if Config.consolespam_functioncalls then
@@ -230,18 +258,23 @@ end
 	end
 
 	else 
+
+	if Config.consolespam_functioncalls_msg then
 			print("")
 			print ("*** Skipping !,No data, not a Rush/Squad Rush map ***")
+	end
 end
 
 -- --------------------------------------------------
 -- --------------------------------------------------
 -- --------------------------------------------------
 
+	if Config.consolespam_functioncalls_msg then
 	print ("")
 	print ("Start function 7")
 	print ("*** Start tbl_playerstats - Player basedata ***")
 	print ("")
+	end
 
 	for data_playername, pname in pairs(getnameall) do
 	if playerscore[data_playername] == nil then playerscore[data_playername] = 0 ; end
@@ -276,7 +309,9 @@ end
 	pLosses=1
 	end
 
+	if Config.consolespam_functioncalls_msg then
 	print ("PRE Player round stats for "..data_playername.." Score:"..pScore.." Kills:"..pKills.." Deaths:"..pDeaths.." Suicide:"..pSuicide.." Headshot:"..pHeadshots.." Teamkill:"..pTeamKilled.." Dogtag:"..pDogtags.." Revives:"..pRevives.." Killstreak:"..pKillstreaks.." Round win:"..pWins.." Round losses:"..pLosses.." Shots fired:"..pshots.." Shots hit:"..phits)
+	end
 
 	if Config.consolespam_functioncalls then
 	playerstatscombo(player, data_playername)
@@ -288,11 +323,12 @@ end
 -- --------------------------------------------------
 -- --------------------------------------------------
 
+	if Config.consolespam_functioncalls_msg then
 	print ("")
 	print ("Start function 8")
 	print ("*** Start tbl_assault_weapons - Dump all assault weapon data ***")
 	print ("")
-
+	end
 			-- --------------------------------------------------
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -312,18 +348,11 @@ end
 
 				s_weapon = "AEK-971"
 				s_table = "tbl_assault_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
 	end
-end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -339,18 +368,11 @@ end
 
 				s_weapon = "AK-74M"
 				s_table = "tbl_assault_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -366,18 +388,11 @@ end
 
 				s_weapon = "AN-94"
 				s_table = "tbl_assault_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -393,18 +408,11 @@ end
 
 				s_weapon = "AUG A3"
 				s_table = "tbl_assault_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -420,18 +428,11 @@ end
 
 				s_weapon = "F2000"
 				s_table = "tbl_assault_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -447,18 +448,11 @@ end
 
 				s_weapon = "FAMAS"
 				s_table = "tbl_assault_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -474,18 +468,11 @@ end
 
 				s_weapon = "G3A3"
 				s_table = "tbl_assault_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -501,18 +488,11 @@ end
 
 				s_weapon = "KH2002"
 				s_table = "tbl_assault_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -528,18 +508,11 @@ end
 
 				s_weapon = "L85A2"
 				s_table = "tbl_assault_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -555,18 +528,11 @@ end
 
 				s_weapon = "M16A3"
 				s_table = "tbl_assault_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -582,18 +548,11 @@ end
 
 				s_weapon = "M16A4"
 				s_table = "tbl_assault_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -609,18 +568,11 @@ end
 
 				s_weapon = "M416"
 				s_table = "tbl_assault_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -636,27 +588,22 @@ end
 
 				s_weapon = "SCAR-L"
 				s_table = "tbl_assault_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 -- --------------------------------------------------
 -- --------------------------------------------------
 -- --------------------------------------------------
 
+	if Config.consolespam_functioncalls_msg then
 	print ("")
 	print ("Start function 9")
 	print ("*** Start tbl_assault_gadgets - Dump all assault gadget data ***")
 	print ("")
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -677,18 +624,11 @@ end
 
 				s_weapon = "DEFIBRILLATOR"
 				s_table = "tbl_assault_gadgets"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -704,18 +644,11 @@ end
 
 				s_weapon = "MEDIC KIT"
 				s_table = "tbl_assault_gadgets"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -731,18 +664,11 @@ end
 
 				s_weapon = "GP-30 BUCK"
 				s_table = "tbl_assault_gadgets"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -758,18 +684,11 @@ end
 
 				s_weapon = "GP-30 DART"
 				s_table = "tbl_assault_gadgets"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -785,18 +704,11 @@ end
 
 				s_weapon = "GP-30 HE"
 				s_table = "tbl_assault_gadgets"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -812,18 +724,11 @@ end
 
 				s_weapon = "GP-30 LVG"
 				s_table = "tbl_assault_gadgets"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -839,18 +744,11 @@ end
 
 				s_weapon = "GP-30 SMOKE"
 				s_table = "tbl_assault_gadgets"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -866,18 +764,11 @@ end
 
 				s_weapon = "M26 DART"
 				s_table = "tbl_assault_gadgets"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -893,18 +784,11 @@ end
 
 				s_weapon = "M26 FRAG"
 				s_table = "tbl_assault_gadgets"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -920,18 +804,11 @@ end
 
 				s_weapon = "M26 MASS"
 				s_table = "tbl_assault_gadgets"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -947,18 +824,11 @@ end
 
 				s_weapon = "M26 SLUG"
 				s_table = "tbl_assault_gadgets"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -974,18 +844,11 @@ end
 
 				s_weapon = "M320 BUCK"
 				s_table = "tbl_assault_gadgets"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1001,18 +864,11 @@ end
 
 				s_weapon = "M320 HE"
 				s_table = "tbl_assault_gadgets"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1028,18 +884,11 @@ end
 
 				s_weapon = "M320 LVG"
 				s_table = "tbl_assault_gadgets"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1055,27 +904,22 @@ end
 
 				s_weapon = "M320 SMOKE"
 				s_table = "tbl_assault_gadgets"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 -- --------------------------------------------------
 -- --------------------------------------------------
 -- --------------------------------------------------
 
+	if Config.consolespam_functioncalls_msg then
 	print ("")
 	print ("Start function 10")
 	print ("*** Start tbl_engineer_weapons - Dump all engineer weapons data ***")
 	print ("")
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1096,18 +940,11 @@ end
 
 				s_weapon = "A-91"
 				s_table = "tbl_engineer_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1123,18 +960,11 @@ end
 
 				s_weapon = "ACW-R"
 				s_table = "tbl_engineer_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1150,18 +980,11 @@ end
 
 				s_weapon = "AKS-74u"
 				s_table = "tbl_engineer_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1177,18 +1000,11 @@ end
 
 				s_weapon = "G36C"
 				s_table = "tbl_engineer_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1204,18 +1020,11 @@ end
 
 				s_weapon = "G53"
 				s_table = "tbl_engineer_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1231,18 +1040,11 @@ end
 
 				s_weapon = "M4"
 				s_table = "tbl_engineer_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1258,18 +1060,11 @@ end
 
 				s_weapon = "M4A1"
 				s_table = "tbl_engineer_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1285,18 +1080,11 @@ end
 
 				s_weapon = "MTAR-21"
 				s_table = "tbl_engineer_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1312,18 +1100,11 @@ end
 
 				s_weapon = "QBZ-95B"
 				s_table = "tbl_engineer_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1339,18 +1120,11 @@ end
 
 				s_weapon = "SCAR-H"
 				s_table = "tbl_engineer_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1366,27 +1140,22 @@ end
 
 				s_weapon = "SG553"
 				s_table = "tbl_engineer_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 -- --------------------------------------------------
 -- --------------------------------------------------
 -- --------------------------------------------------
 
+	if Config.consolespam_functioncalls_msg then
 	print ("")
 	print ("Start function 11")
 	print ("*** Start tbl_engineer_gadgets - Dump all engineer gadgets data ***")
 	print ("")
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1407,18 +1176,11 @@ end
 
 				s_weapon = "EOD BOT"
 				s_table = "tbl_engineer_gadgets"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1434,18 +1196,11 @@ end
 
 				s_weapon = "REPAIR TOOL"
 				s_table = "tbl_engineer_gadgets"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1461,18 +1216,11 @@ end
 
 				s_weapon = "FGM-148 JAVELIN"
 				s_table = "tbl_engineer_gadgets"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1488,18 +1236,11 @@ end
 
 				s_weapon = "FIM-92 STINGER"
 				s_table = "tbl_engineer_gadgets"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1515,18 +1256,11 @@ end
 
 				s_weapon = "SA-18 IGLA"
 				s_table = "tbl_engineer_gadgets"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1542,18 +1276,11 @@ end
 
 				s_weapon = "M15 AT MINE"
 				s_table = "tbl_engineer_gadgets"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1569,18 +1296,11 @@ end
 
 				s_weapon = "RPG-7V2"
 				s_table = "tbl_engineer_gadgets"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1596,27 +1316,22 @@ end
 
 				s_weapon = "SMAW"
 				s_table = "tbl_engineer_gadgets"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 -- --------------------------------------------------
 -- --------------------------------------------------
 -- --------------------------------------------------
 
+	if Config.consolespam_functioncalls_msg then
 	print ("")
 	print ("Start function 12")
 	print ("*** Start tbl_support_weapons - Dump all support weapons data ***")
 	print ("")
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1637,18 +1352,11 @@ end
 
 				s_weapon = "M27 IAR"
 				s_table = "tbl_support_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1664,18 +1372,11 @@ end
 
 				s_weapon = "RPK-74M"
 				s_table = "tbl_support_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1691,18 +1392,11 @@ end
 
 				s_weapon = "L86A2"
 				s_table = "tbl_support_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1718,18 +1412,11 @@ end
 
 				s_weapon = "LSAT"
 				s_table = "tbl_support_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1745,18 +1432,11 @@ end
 
 				s_weapon = "M240B"
 				s_table = "tbl_support_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1772,18 +1452,11 @@ end
 
 				s_weapon = "M249"
 				s_table = "tbl_support_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1799,18 +1472,11 @@ end
 
 				s_weapon = "M60E4"
 				s_table = "tbl_support_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1826,18 +1492,11 @@ end
 
 				s_weapon = "MG36"
 				s_table = "tbl_support_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1853,18 +1512,11 @@ end
 
 				s_weapon = "PKP PECHENEG"
 				s_table = "tbl_support_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1880,18 +1532,11 @@ end
 
 				s_weapon = "QBB-95"
 				s_table = "tbl_support_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1907,27 +1552,22 @@ end
 
 				s_weapon = "TYPE 88 LMG"
 				s_table = "tbl_support_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 -- --------------------------------------------------
 -- --------------------------------------------------
 -- --------------------------------------------------
 
+	if Config.consolespam_functioncalls_msg then
 	print ("")
 	print ("Start function 13")
 	print ("*** Start tbl_support_gadgets - Dump all support gadgets data ***")
 	print ("")
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1948,18 +1588,11 @@ end
 
 				s_weapon = "AMMO BOX"
 				s_table = "tbl_support_gadgets"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -1975,18 +1608,11 @@ end
 
 				s_weapon = "C4 EXPLOSIVES"
 				s_table = "tbl_support_gadgets"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -2002,18 +1628,11 @@ end
 
 				s_weapon = "M18 CLAYMORE"
 				s_table = "tbl_support_gadgets"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -2029,27 +1648,22 @@ end
 
 				s_weapon = "M224 MORTAR"
 				s_table = "tbl_support_gadgets"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 -- --------------------------------------------------
 -- --------------------------------------------------
 -- --------------------------------------------------
 
+	if Config.consolespam_functioncalls_msg then
 	print ("")
 	print ("Start function 14")
 	print ("*** Start tbl_recon_weapons - Dump all recon weapons data ***")
 	print ("")
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -2070,18 +1684,11 @@ end
 
 				s_weapon = "JNG-90"
 				s_table = "tbl_recon_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -2097,18 +1704,11 @@ end
 
 				s_weapon = "L96"
 				s_table = "tbl_recon_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -2124,18 +1724,11 @@ end
 
 				s_weapon = "M39 EMR"
 				s_table = "tbl_recon_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -2151,18 +1744,11 @@ end
 
 				s_weapon = "M40A5"
 				s_table = "tbl_recon_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -2178,18 +1764,11 @@ end
 
 				s_weapon = "M417"
 				s_table = "tbl_recon_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -2206,18 +1785,11 @@ end
 
 				s_weapon = "M98B"
 				s_table = "tbl_recon_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -2234,18 +1806,11 @@ end
 
 				s_weapon = "MK11 MOD 0"
 				s_table = "tbl_recon_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -2262,18 +1827,11 @@ end
 
 				s_weapon = "QBU-88"
 				s_table = "tbl_recon_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -2290,18 +1848,11 @@ end
 
 				s_weapon = "SKS"
 				s_table = "tbl_recon_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -2318,18 +1869,11 @@ end
 
 				s_weapon = "SV98"
 				s_table = "tbl_recon_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -2346,28 +1890,23 @@ end
 
 				s_weapon = "SVD"
 				s_table = "tbl_recon_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 
 -- --------------------------------------------------
 -- --------------------------------------------------
 -- --------------------------------------------------
 
+	if Config.consolespam_functioncalls_msg then
 	print ("")
 	print ("Start function 15")
 	print ("*** Start tbl_recon_gadgets - Dump all recon gadgets data ***")
 	print ("")
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -2388,18 +1927,11 @@ end
 
 				s_weapon = "MAV"
 				s_table = "tbl_recon_gadgets"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -2416,18 +1948,11 @@ end
 
 				s_weapon = "RADIO BEACON"
 				s_table = "tbl_recon_gadgets"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -2444,18 +1969,11 @@ end
 
 				s_weapon = "SOFLAM"
 				s_table = "tbl_recon_gadgets"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -2472,27 +1990,22 @@ end
 
 				s_weapon = "T-UGS"
 				s_table = "tbl_recon_gadgets"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 -- --------------------------------------------------
 -- --------------------------------------------------
 -- --------------------------------------------------
 
+	if Config.consolespam_functioncalls_msg then
 	print ("")
 	print ("Start function 16")
 	print ("*** Start tbl_primary_weapons - Dump all Primary weapons data ***")
 	print ("")
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -2513,18 +2026,11 @@ end
 
 				s_weapon = "AS VAL"
 				s_table = "tbl_primary_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -2541,18 +2047,11 @@ end
 
 				s_weapon = "M5K"
 				s_table = "tbl_primary_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -2569,18 +2068,11 @@ end
 
 				s_weapon = "MP7"
 				s_table = "tbl_primary_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -2597,18 +2089,11 @@ end
 
 				s_weapon = "P90"
 				s_table = "tbl_primary_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -2625,18 +2110,11 @@ end
 
 				s_weapon = "PDW-R"
 				s_table = "tbl_primary_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -2653,18 +2131,11 @@ end
 
 				s_weapon = "PP-19"
 				s_table = "tbl_primary_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -2681,18 +2152,11 @@ end
 
 				s_weapon = "PP-2000"
 				s_table = "tbl_primary_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -2709,27 +2173,22 @@ end
 
 				s_weapon = "UMP-45"
 				s_table = "tbl_primary_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 -- --------------------------------------------------
 -- --------------------------------------------------
 -- --------------------------------------------------
 
+	if Config.consolespam_functioncalls_msg then
 	print ("")
 	print ("Start function 17")
 	print ("*** Start tbl_auxiliary_gadgets - Dump all auxiliary weapons data ***")
 	print ("")
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -2750,18 +2209,11 @@ end
 
 				s_weapon = "KNIFE"
 				s_table = "tbl_auxiliary_gadgets"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -2778,18 +2230,11 @@ end
 
 				s_weapon = "M67 GRENADE"
 				s_table = "tbl_auxiliary_gadgets"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -2806,27 +2251,22 @@ end
 
 				s_weapon = "XBOW"
 				s_table = "tbl_auxiliary_gadgets"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 -- --------------------------------------------------
 -- --------------------------------------------------
 -- --------------------------------------------------
 
+	if Config.consolespam_functioncalls_msg then
 	print ("")
 	print ("Start function 18")
 	print ("*** Start tbl_handguns_weapons - Dump all Handguns weapons data ***")
 	print ("")
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -2847,18 +2287,11 @@ end
 
 				s_weapon = ".44 MAGNUM"
 				s_table = "tbl_handguns_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -2875,18 +2308,11 @@ end
 
 				s_weapon = "93R"
 				s_table = "tbl_handguns_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -2903,18 +2329,11 @@ end
 
 				s_weapon = "G17C"
 				s_table = "tbl_handguns_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -2931,18 +2350,11 @@ end
 
 				s_weapon = "G18"
 				s_table = "tbl_handguns_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -2959,18 +2371,11 @@ end
 
 				s_weapon = "M1911"
 				s_table = "tbl_handguns_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -2987,18 +2392,11 @@ end
 
 				s_weapon = "M9"
 				s_table = "tbl_handguns_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -3015,18 +2413,11 @@ end
 
 				s_weapon = "MP412 REX"
 				s_table = "tbl_handguns_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -3043,27 +2434,22 @@ end
 
 				s_weapon = "MP443"
 				s_table = "tbl_handguns_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 -- --------------------------------------------------
 -- --------------------------------------------------
 -- --------------------------------------------------
 
+	if Config.consolespam_functioncalls_msg then
 	print ("")
 	print ("Start function 19")
 	print ("*** Start tbl_shotguns_weapons - Dump all Shotgun weapons data ***")
 	print ("")
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -3084,18 +2470,11 @@ end
 
 				s_weapon = "870 MCS"
 				s_table = "tbl_shotguns_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -3112,18 +2491,11 @@ end
 
 				s_weapon = "DAO-12"
 				s_table = "tbl_shotguns_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -3140,18 +2512,11 @@ end
 
 				s_weapon = "M1014"
 				s_table = "tbl_shotguns_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -3168,18 +2533,11 @@ end
 
 				s_weapon = "MK3A1"
 				s_table = "tbl_shotguns_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -3196,18 +2554,11 @@ end
 
 				s_weapon = "SAIGA 12K"
 				s_table = "tbl_shotguns_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -3224,18 +2575,11 @@ end
 
 				s_weapon = "SPAS-12"
 				s_table = "tbl_shotguns_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -3252,27 +2596,22 @@ end
 
 				s_weapon = "USAS-12"
 				s_table = "tbl_shotguns_weapons"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 -- --------------------------------------------------
 -- --------------------------------------------------
 -- --------------------------------------------------
 
+	if Config.consolespam_functioncalls_msg then
 	print ("")
 	print ("Start function 20")
 	print ("*** Start Land and Air Vehicle stuff  ***")
 	print ("")
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -3300,27 +2639,22 @@ or SharedUtils:GetCurrentGameMode() == "SquadDeathMatch0" then
 
 				s_weapon = "Roadkills"
 				s_table = "tbl_roadkills"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 -- --------------------------------------------------
 -- --------------------------------------------------
 -- --------------------------------------------------
 
+	if Config.consolespam_functioncalls_msg then
 	print ("")
 	print ("Start function 21")
 	print ("*** Start tbl_air_vehicles - Dump all air vehicle kill data ***")
 	print ("")
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -3341,18 +2675,11 @@ end
 
 				s_weapon = "A-10 THUNDERBOLT"
 				s_table = "tbl_air_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -3369,18 +2696,11 @@ end
 
 				s_weapon = "AH-1Z VIPER"
 				s_table = "tbl_air_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -3397,18 +2717,11 @@ end
 
 				s_weapon = "AH-6J LITTLE BIRD"
 				s_table = "tbl_air_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -3425,18 +2738,11 @@ end
 
 				s_weapon = "F-35"
 				s_table = "tbl_air_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -3453,18 +2759,11 @@ end
 
 				s_weapon = "F/A-18E SUPER HORNET"
 				s_table = "tbl_air_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -3481,18 +2780,11 @@ end
 
 				s_weapon = "GUNSHIP"
 				s_table = "tbl_air_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -3509,18 +2801,11 @@ end
 
 				s_weapon = "KA-60 KASATKA"
 				s_table = "tbl_air_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -3537,18 +2822,11 @@ end
 
 				s_weapon = "MI-28 HAVOC"
 				s_table = "tbl_air_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -3565,18 +2843,11 @@ end
 
 				s_weapon = "SU-25TM FROGFOOT"
 				s_table = "tbl_air_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -3593,18 +2864,11 @@ end
 
 				s_weapon = "SU-35BM FLANKER-E"
 				s_table = "tbl_air_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -3621,18 +2885,11 @@ end
 
 				s_weapon = "SU-37"
 				s_table = "tbl_air_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -3649,18 +2906,11 @@ end
 
 				s_weapon = "TV MISSILE"
 				s_table = "tbl_air_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -3677,18 +2927,11 @@ end
 
 				s_weapon = "UH-1Y VENOM"
 				s_table = "tbl_air_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -3705,27 +2948,22 @@ end
 
 				s_weapon = "Z-11W"
 				s_table = "tbl_air_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 -- --------------------------------------------------
 -- --------------------------------------------------
 -- --------------------------------------------------
 
+	if Config.consolespam_functioncalls_msg then
 	print ("")
 	print ("Start function 22")
 	print ("*** Start tbl_land_vehicles - Dump all land  vehicle kill data (1) ***")
 	print ("")
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -3746,18 +2984,11 @@ end
 
 				s_weapon = "CENTURION C-RAM"
 				s_table = "tbl_land_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -3774,18 +3005,11 @@ end
 
 				s_weapon = "PANTSIR-S1"
 				s_table = "tbl_land_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -3802,18 +3026,11 @@ end
 
 				s_weapon = "M220 TOW LAUNCHER"
 				s_table = "tbl_land_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -3830,27 +3047,22 @@ end
 
 				s_weapon = "9M133 KORNET LAUNCHER"
 				s_table = "tbl_land_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 -- --------------------------------------------------
 -- --------------------------------------------------
 -- --------------------------------------------------
 
+	if Config.consolespam_functioncalls_msg then
 	print ("")
 	print ("Start function 23")
 	print ("*** Start tbl_land_vehicles - Dump all land  vehicle kill data (2)***")
 	print ("")
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -3871,18 +3083,11 @@ end
 
 				s_weapon = "QUAD BIKE"
 				s_table = "tbl_land_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -3899,18 +3104,11 @@ end
 
 				s_weapon = "DIRTBIKE"
 				s_table = "tbl_land_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -3927,18 +3125,11 @@ end
 
 				s_weapon = "M1 ABRAMS"
 				s_table = "tbl_land_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -3955,18 +3146,11 @@ end
 
 				s_weapon = "T-90A"
 				s_table = "tbl_land_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -3983,18 +3167,11 @@ end
 
 				s_weapon = "DPV"
 				s_table = "tbl_land_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -4011,18 +3188,11 @@ end
 
 				s_weapon = "VDV Buggy"
 				s_table = "tbl_land_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -4039,18 +3209,11 @@ end
 
 				s_weapon = "9K22 TUNGUSKA-M"
 				s_table = "tbl_land_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -4067,18 +3230,11 @@ end
 
 				s_weapon = "LAV-25"
 				s_table = "tbl_land_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -4095,18 +3251,11 @@ end
 
 				s_weapon = "VODNIK AA"
 				s_table = "tbl_land_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -4123,18 +3272,11 @@ end
 
 				s_weapon = "AAV-7A1 AMTRAC"
 				s_table = "tbl_land_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -4151,18 +3293,11 @@ end
 
 				s_weapon = "BARSUK"
 				s_table = "tbl_land_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -4179,18 +3314,11 @@ end
 
 				s_weapon = "BM-23"
 				s_table = "tbl_land_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -4207,18 +3335,11 @@ end
 
 				s_weapon = "BMP-2M"
 				s_table = "tbl_land_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -4235,18 +3356,11 @@ end
 
 				s_weapon = "BTR-90"
 				s_table = "tbl_land_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -4263,18 +3377,11 @@ end
 
 				s_weapon = "GAZ-3937 VODNIK"
 				s_table = "tbl_land_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -4291,18 +3398,11 @@ end
 
 				s_weapon = "GROWLER ITV"
 				s_table = "tbl_land_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -4319,18 +3419,11 @@ end
 
 				s_weapon = "HMMWV ASRAD"
 				s_table = "tbl_land_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -4347,18 +3440,11 @@ end
 
 				s_weapon = "LAV-AD"
 				s_table = "tbl_land_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -4375,18 +3461,11 @@ end
 
 				s_weapon = "M1114 HMMWV"
 				s_table = "tbl_land_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -4403,18 +3482,11 @@ end
 
 				s_weapon = "M1128"
 				s_table = "tbl_land_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -4431,18 +3503,11 @@ end
 
 				s_weapon = "M142"
 				s_table = "tbl_land_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -4459,18 +3524,11 @@ end
 
 				s_weapon = "PHOENIX"
 				s_table = "tbl_land_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -4487,18 +3545,11 @@ end
 
 				s_weapon = "RHIB BOAT"
 				s_table = "tbl_land_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -4515,18 +3566,11 @@ end
 
 				s_weapon = "RHINO"
 				s_table = "tbl_land_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -4543,18 +3587,11 @@ end
 
 				s_weapon = "SPRUT-SD"
 				s_table = "tbl_land_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -4571,18 +3608,11 @@ end
 
 				s_weapon = "SUV"
 				s_table = "tbl_land_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -4599,18 +3629,11 @@ end
 
 				s_weapon = "SKID LOADER"
 				s_table = "tbl_land_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -4627,18 +3650,11 @@ end
 
 				s_weapon = "CIVILIAN CAR"
 				s_table = "tbl_land_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -4655,18 +3671,11 @@ end
 
 				s_weapon = "DELIVERY VAN"
 				s_table = "tbl_land_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -4683,18 +3692,11 @@ end
 
 				s_weapon = "POLICE VAN"
 				s_table = "tbl_land_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 			-- --------------------------------------------------
 			-- --------------------------------------------------
@@ -4711,23 +3713,18 @@ end
 
 				s_weapon = "TECHNICAL TRUCK"
 				s_table = "tbl_land_vehicles"
-				s_sqltype_kills = "Kills"
-				s_sqltype_headshot = "Headshot"
-				s_sqltype_deaths = "Deaths"
 
-	if getnameall[data_playername] and r_killdata >= 1 or r_headshotdata >= 1 or r_deathdata >= 1 then
-	print ("PRE Update record for "..data_playername.." - Table name:"..s_table.." - Weapon:"..s_weapon.." - Kills:"..r_killdata.." - Headshots:"..r_headshotdata.." - Deaths:"..r_deathdata)
-
-	if Config.consolespam_functioncallskills then
+	if Config.consolespam_functioncalls then
 				updateweaponstats(player, data_playername)
 	end
-			end
-end
+	end
 
 
 	else 
+	if Config.consolespam_functioncalls_msg then
 			print ("")
 			print ("*** Skipping !, not a Vehicle map ***")
+	end
 	end
 
 -- --------------------------------------------------
