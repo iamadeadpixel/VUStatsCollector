@@ -24,6 +24,33 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 	getnamehuman[name] = name
 	CountPlayers = CountPlayers + 1
 
+		-- Fully working thanks to Bree_Arnold
+		-- Used to grab the players IP, and fetched the country name and code
+		---@param response HttpResponse
+	Net:GetHTTPAsync('https://api.cleantalk.org/?method_name=ip_info&ip='..s_playerIP, function (response) -- Using the Internal fetched IP by the player login
+				if response.status ~= 200 then return end
+
+				local s_Response = json.decode(response.body)
+	cc_CountryName = s_Response.data[s_playerIP].country_name -- Using the internal IP fetched by the json -- Using the Internal fetched IP by the player login
+	cn_CountryCode = s_Response.data[s_playerIP].country_code -- Using the internal IP fetched by the json -- Using the Internal fetched IP by the player login
+
+				s_CountryCode = tostring(cn_CountryCode)
+				s_CountryName = tostring(cc_CountryName)
+
+				s_MapData = "Player information"
+
+	if Config.consolespam_newplayerjoins_msg then
+				print("")
+				print(''..s_MapData..': - Client Info EXT:        Player name: '..s_player..' ')
+				print(''..s_MapData..': - Client Info EXT:        Player   IP: '..s_playerIP..' ')
+				print(''..s_MapData..': - Client Info EXT: Player global GUID: '..s_accountGuid..' ') -- Global Guid
+				print(''..s_MapData..': - Client Info EXT:        Player GUID: '..s_playerGuid..' ') -- Guid for each player you made.
+				print(''..s_MapData..': - Client Info EXT:  Players Join date: '..s_GetDateTime..' ')
+				print(''..s_MapData..': - Client Info EXT:    Players country: '..s_CountryName..' CountryCode: ' ..s_CountryCode.. ' ')
+				print("")
+	end
+
+
 	local guid_results = SQL:Query('SELECT Soldiername, PlayerLogins, VU_GUID, PlayTime FROM tbl_playerdata')
 	if not guid_results then
 		print('Failed to read Guid query: ' .. SQL:Error())
@@ -54,8 +81,10 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 			elseif temp_PlayerName ~= s_player then
 
 	if Config.consolespam_newplayerjoins_msg then
-				print("*** UpdateCheckInfo: Players name was changed from " .. temp_PlayerName .. " into " .. s_player)
-				print("*** UpdateCheckInfo: Updating Players name: " .. temp_PlayerName .. " -> " .. s_player);
+				print("*** Info: Players name was changed from " .. temp_PlayerName .. " into " .. s_player)
+				print("*** Info: Updating Players name: " .. temp_PlayerName .. " -> " .. s_player);
+				print("")
+
 	end
 
 	if not SQL:Query('UPDATE tbl_playerdata SET PlayerLogins=?, Soldiername = ?,  LastSeenOnServer= ? WHERE Soldiername = ?', s_PlayerLogins, s_player, s_GetDateTime, temp_PlayerName) then
@@ -98,7 +127,7 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 
 	if Config.consolespam_newplayerjoins_msg then
 				print(" ");
-				print('*** UpdateCheckInfo: ** Done Updating Player information on joining the server **')
+				print('*** Info: ** Done Updating Player information on joining the server **')
 				print(" ");
 	end
 
@@ -113,43 +142,7 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 	print("*** ServerInfo: NO GUID FOUND FOR PLAYER "..s_player.." IS NEW PLAYER ***")
 	end
 
-	-- Fully working thanks to Bree_Arnold and Doc-Ice-Elm
-	---@param response HttpResponse
-	Net:GetHTTPAsync('https://api.ipify.org/?format=json', function(response)
-		if response.status ~= 200 then return end
 
-		local s_Response_ip = json.decode(response.body)
-		local s_Server_IP = s_Response_ip.ip
-		s_ServerIP = tostring(s_Server_IP)
-
-	if Config.consolespam_newplayerjoins_msg then
-		print("*** ServerInfo: IP FOUND FOR PLAYER: "..s_player.." - :".. s_ServerIP)
-	end
-
-		-- Fully working thanks to Bree_Arnold
-		-- Used to grab the players IP
-		---@param response HttpResponse
-	Net:GetHTTPAsync('https://api.cleantalk.org/?method_name=ip_info&ip='..s_playerIP, function (response) -- Using the Internal fetched IP by the player login
-				if response.status ~= 200 then return end
-
-				local s_Response = json.decode(response.body)
-	cc_CountryName = s_Response.data[s_playerIP].country_name -- Using the internal IP fetched by the json -- Using the Internal fetched IP by the player login
-	cn_CountryCode = s_Response.data[s_playerIP].country_code -- Using the internal IP fetched by the json -- Using the Internal fetched IP by the player login
-
-				s_CountryCode = tostring(cn_CountryCode)
-				s_CountryName = tostring(cc_CountryName)
-
-				s_MapData = "New player Setup stuff"
-
-	if Config.consolespam_newplayerjoins_msg then
-				print('' ..s_MapData.. ': - Client Info EXT:        Player name: ' ..s_player.. ' ')
-				print('' ..s_MapData.. ': - Client Info EXT:        Player   IP: ' ..s_playerIP.. ' ')
-				print('' ..s_MapData.. ': - Client Info EXT: Player global GUID: ' ..s_accountGuid.. ' ') -- Global Guid
-				print('' ..s_MapData.. ': - Client Info EXT:        Player GUID: ' ..s_playerGuid.. ' ') -- Guid for each player you made.
-				print('' ..s_MapData.. ': - Client Info EXT:  Players Join date: ' ..s_GetDateTime.. ' ')
-				print('' ..s_MapData.. ': - Client Info EXT: Player External IP: ' ..s_ServerIP.. ' ')
-				print('' ..s_MapData.. ': - Client Info EXT:    Players country: ' ..s_CountryName.. ' CountryCode: ' ..s_CountryCode.. ' ')
-	end
 
 				-- Here we check the players Guid entry,  and insert the new player
 				local playerGuid_results = SQL:Query('SELECT VU_GUID FROM tbl_playerdata')
@@ -189,9 +182,9 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 				--
 
 	if Config.consolespam_newplayerjoins_msg then
-				print("** *** ** *** ServerInfo: SQL Data: Player IP address:" ..s_playerIP.. " - Join date:" ..s_FirstSeenDate)
-				print("** *** ** *** ServerInfo: SQL Data: PlayerGuid:" ..s_accountGuid)
-				print("** *** ** *** ServerInfo: SQL Data: CountryName:" ..s_CountryName.. " - CountryCode:" ..s_CountryCode.. " ** End injection **")
+				print("*** Info: SQL Data: Player IP address:" ..s_playerIP.. " - Join date:" ..s_FirstSeenDate)
+				print("*** Info: SQL Data: PlayerGuid:" ..s_accountGuid)
+				print("*** Info: SQL Data: CountryName:" ..s_CountryName.. " - CountryCode:" ..s_CountryCode.. " ** End injection **")
 	end
 				-- end of inserting new player data
 
@@ -226,7 +219,7 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 	end
 
 			end)
-	end)
+--	end)
 end)
 
 return PlayerJoins()

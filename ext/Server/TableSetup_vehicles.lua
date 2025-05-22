@@ -50,6 +50,37 @@ Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 		Headshot_TV_MISSILE = {}
 		Headshot_UH_1Y_VENOM = {}
 		Headshot_Z_11W = {}
+--
+		Bullet_shot_A10_THUNDERBOLT = {}
+		Bullet_shot_AH_1Z_VIPER = {}
+		Bullet_shot_AH_6J_LITTLE_BIRD = {}
+		Bullet_shot_F_35 = {}
+		Bullet_shot_FA_18E_SUPER_HORNET = {}
+		Bullet_shot_GUNSHIP = {}
+		Bullet_shot_KA_60_KASATKA = {}
+		Bullet_shot_MI_28_HAVOC = {}
+		Bullet_shot_SU_25TM_FROGFOOT = {}
+		Bullet_shot_SU_35BM_FLANKER_E = {}
+		Bullet_shot_SU_37 = {}
+		Bullet_shot_TV_MISSILE = {}
+		Bullet_shot_UH_1Y_VENOM = {}
+		Bullet_shot_Z_11W = {}
+--
+		Bullet_hit_A10_THUNDERBOLT = {}
+		Bullet_hit_AH_1Z_VIPER = {}
+		Bullet_hit_AH_6J_LITTLE_BIRD = {}
+		Bullet_hit_F_35 = {}
+		Bullet_hit_FA_18E_SUPER_HORNET = {}
+		Bullet_hit_GUNSHIP = {}
+		Bullet_hit_KA_60_KASATKA = {}
+		Bullet_hit_MI_28_HAVOC = {}
+		Bullet_hit_SU_25TM_FROGFOOT = {}
+		Bullet_hit_SU_35BM_FLANKER_E = {}
+		Bullet_hit_SU_37 = {}
+		Bullet_hit_TV_MISSILE = {}
+		Bullet_hit_UH_1Y_VENOM = {}
+		Bullet_hit_Z_11W = {}
+
 
 		-- Land Vehicles
 		kill_9K22_TUNGUSKA_M = {}
@@ -162,6 +193,81 @@ Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 		Headshot_TECHNICAL_TRUCK = {}
 		Headshot_VDV_Buggy = {}
 		Headshot_VODNIK_AA = {}
+--
+		Bullet_shot_9K22_TUNGUSKA_M = {}
+		Bullet_shot_9M133_KORNET_LAUNCHER = {}
+		Bullet_shot_AAV_7A1_AMTRAC = {}
+		Bullet_shot_BARSUK = {}
+		Bullet_shot_BM_23 = {}
+		Bullet_shot_BMP_2M = {}
+		Bullet_shot_BTR_90 = {}
+		Bullet_shot_CENTURION_C_RAM = {}
+		Bullet_shot_CIVILIAN_CAR = {}
+		Bullet_shot_DELIVERY_VAN = {}
+		Bullet_shot_DIRTBIKE = {}
+		Bullet_shot_DPV = {}
+		Bullet_shot_GAZ_3937_VODNIK = {}
+		Bullet_shot_GROWLER_ITV = {}
+		Bullet_shot_HMMWV_ASRAD = {}
+		Bullet_shot_LAV_25 = {}
+		Bullet_shot_LAV_AD = {}
+		Bullet_shot_M1_ABRAMS = {}
+		Bullet_shot_M1114_HMMWV = {}
+		Bullet_shot_M1128 = {}
+		Bullet_shot_M142 = {}
+		Bullet_shot_M220_TOW_LAUNCHER = {}
+		Bullet_shot_M224_MORTAR = {}
+		Bullet_shot_PANTSIR_S1 = {}
+		Bullet_shot_PHOENIX = {}
+		Bullet_shot_POLICE_VAN = {}
+		Bullet_shot_QUAD_BIKE = {}
+		Bullet_shot_RHIB_BOAT = {}
+		Bullet_shot_RHINO = {}
+		Bullet_shot_SKID_LOADER = {}
+		Bullet_shot_SPRUT_SD = {}
+		Bullet_shot_SUV = {}
+		Bullet_shot_T_90A = {}
+		Bullet_shot_TECHNICAL_TRUCK = {}
+		Bullet_shot_VDV_Buggy = {}
+		Bullet_shot_VODNIK_AA = {}
+--
+		Bullet_hit_9K22_TUNGUSKA_M = {}
+		Bullet_hit_9M133_KORNET_LAUNCHER = {}
+		Bullet_hit_AAV_7A1_AMTRAC = {}
+		Bullet_hit_BARSUK = {}
+		Bullet_hit_BM_23 = {}
+		Bullet_hit_BMP_2M = {}
+		Bullet_hit_BTR_90 = {}
+		Bullet_hit_CENTURION_C_RAM = {}
+		Bullet_hit_CIVILIAN_CAR = {}
+		Bullet_hit_DELIVERY_VAN = {}
+		Bullet_hit_DIRTBIKE = {}
+		Bullet_hit_DPV = {}
+		Bullet_hit_GAZ_3937_VODNIK = {}
+		Bullet_hit_GROWLER_ITV = {}
+		Bullet_hit_HMMWV_ASRAD = {}
+		Bullet_hit_LAV_25 = {}
+		Bullet_hit_LAV_AD = {}
+		Bullet_hit_M1_ABRAMS = {}
+		Bullet_hit_M1114_HMMWV = {}
+		Bullet_hit_M1128 = {}
+		Bullet_hit_M142 = {}
+		Bullet_hit_M220_TOW_LAUNCHER = {}
+		Bullet_hit_M224_MORTAR = {}
+		Bullet_hit_PANTSIR_S1 = {}
+		Bullet_hit_PHOENIX = {}
+		Bullet_hit_POLICE_VAN = {}
+		Bullet_hit_QUAD_BIKE = {}
+		Bullet_hit_RHIB_BOAT = {}
+		Bullet_hit_RHINO = {}
+		Bullet_hit_SKID_LOADER = {}
+		Bullet_hit_SPRUT_SD = {}
+		Bullet_hit_SUV = {}
+		Bullet_hit_T_90A = {}
+		Bullet_hit_TECHNICAL_TRUCK = {}
+		Bullet_hit_VDV_Buggy = {}
+		Bullet_hit_VODNIK_AA = {}
+
 
 	end
 end)

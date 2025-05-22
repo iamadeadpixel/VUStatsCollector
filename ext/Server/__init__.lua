@@ -29,7 +29,6 @@ function StatsCollector:OnEngineInit()
 	self.m_TableSetup = require 'TableSetup'
 	self.m_TableSetup_weapons = require 'TableSetup_weapons'
 	self.m_TableSetup_vehicles = require 'TableSetup_vehicles'
---	self.m_Variables_short = require 'Variables_short'
 
 
 --[[
@@ -51,7 +50,6 @@ Se we disable it for now
 	self.m_spawn = require 'spawn'
 	self.m_Revives = require('Revives')
 	self.m_Functions = require('Functions')
---	self.m_Capturepoints = require('Capturepoints')
 
 
 
@@ -99,6 +97,10 @@ function StatsCollector:GetIsHotReload()
 		return true
 	end
 end
+
+-- -----------------------------
+
+
 
 -- -----------------------------
 

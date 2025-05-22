@@ -70,6 +70,7 @@ This is used in PlayerJoins.lua
 --[[
 if true, the console wil spam all shots and hits messages
 This is used in /Shared/__init__.lua
+This is used in Pewpew.lua
  ]]
 -- ----
 	consolespam_base = false,

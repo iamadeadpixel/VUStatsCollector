@@ -9,6 +9,8 @@ Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 		kill_M67_GRENADE = {}
 		Death_M67_GRENADE = {}
 		Headshot_M67_GRENADE = {}
+		Bullet_shot_M67_GRENADE = {}
+		Bullet_hit_M67_GRENADE = {}
 
 		-- Common - global
 		kill_AS_VAL = {}
@@ -40,6 +42,26 @@ Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 		Headshot_PP_2000 = {}
 		Headshot_UMP_45 = {}
 		Headshot_XBOW = {}
+--
+		Bullet_shot_AS_VAL = {}
+		Bullet_shot_M5K = {}
+		Bullet_shot_MP7 = {}
+		Bullet_shot_P90 = {}
+		Bullet_shot_PDW_R = {}
+		Bullet_shot_PP_19 = {}
+		Bullet_shot_PP_2000 = {}
+		Bullet_shot_UMP_45 = {}
+		Bullet_shot_XBOW = {}
+--
+		Bullet_hit_AS_VAL = {}
+		Bullet_hit_M5K = {}
+		Bullet_hit_MP7 = {}
+		Bullet_hit_P90 = {}
+		Bullet_hit_PDW_R = {}
+		Bullet_hit_PP_19 = {}
+		Bullet_hit_PP_2000 = {}
+		Bullet_hit_UMP_45 = {}
+		Bullet_hit_XBOW = {}
 
 		-- Auxiliary - Handguns
 		kill_44_MAGNUM = {}
@@ -68,6 +90,24 @@ Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 		Headshot_M9 = {}
 		Headshot_MP443 = {}
 		Headshot_MP412_REX = {}
+--
+		Bullet_shot_44_MAGNUM = {}
+		Bullet_shot_93R = {}
+		Bullet_shot_G17C = {}
+		Bullet_shot_G18 = {}
+		Bullet_shot_M1911 = {}
+		Bullet_shot_M9 = {}
+		Bullet_shot_MP443 = {}
+		Bullet_shot_MP412_REX = {}
+--
+		Bullet_hit_44_MAGNUM = {}
+		Bullet_hit_93R = {}
+		Bullet_hit_G17C = {}
+		Bullet_hit_G18 = {}
+		Bullet_hit_M1911 = {}
+		Bullet_hit_M9 = {}
+		Bullet_hit_MP443 = {}
+		Bullet_hit_MP412_REX = {}
 
 		-- Shotguns
 		kill_870MCS = {}
@@ -93,11 +133,29 @@ Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 		Headshot_SAIGA_12K = {}
 		Headshot_SPAS_12 = {}
 		Headshot_USAS_12 = {}
+--
+		Bullet_shot_870MCS = {}
+		Bullet_shot_DAO_12 = {}
+		Bullet_shot_M1014 = {}
+		Bullet_shot_MK3A1 = {}
+		Bullet_shot_SAIGA_12K = {}
+		Bullet_shot_SPAS_12 = {}
+		Bullet_shot_USAS_12 = {}
+--
+		Bullet_hit_870MCS = {}
+		Bullet_hit_DAO_12 = {}
+		Bullet_hit_M1014 = {}
+		Bullet_hit_MK3A1 = {}
+		Bullet_hit_SAIGA_12K = {}
+		Bullet_hit_SPAS_12 = {}
+		Bullet_hit_USAS_12 = {}
 
 		-- melee - Knifes
 		kill_KNIFE = {}
 		Death_KNIFE = {}
 		Headshot_KNIFE = {}
+		Bullet_shot_KNIFE = {}
+		Bullet_hit_KNIFE = {}
 
 		-- Assault class Gadgets
 		kill_DEFIBRILLATOR = {}
@@ -147,6 +205,38 @@ Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 		Headshot_M320_LVG = {}
 		Headshot_M320_SMOKE = {}
 		Headshot_MEDIC_KIT = {}
+--
+		Bullet_shot_DEFIBRILLATOR = {}
+		Bullet_shot_GP_30_BUCK = {}
+		Bullet_shot_GP_30_DART = {}
+		Bullet_shot_GP_30_HE = {}
+		Bullet_shot_GP_30_LVG = {}
+		Bullet_shot_GP_30_SMOKE = {}
+		Bullet_shot_M26_DART = {}
+		Bullet_shot_M26_FRAG = {}
+		Bullet_shot_M26_MASS = {}
+		Bullet_shot_M26_SLUG = {}
+		Bullet_shot_M320_BUCK = {}
+		Bullet_shot_M320_HE = {}
+		Bullet_shot_M320_LVG = {}
+		Bullet_shot_M320_SMOKE = {}
+		Bullet_shot_MEDIC_KIT = {}
+--
+		Bullet_hit_DEFIBRILLATOR = {}
+		Bullet_hit_GP_30_BUCK = {}
+		Bullet_hit_GP_30_DART = {}
+		Bullet_hit_GP_30_HE = {}
+		Bullet_hit_GP_30_LVG = {}
+		Bullet_hit_GP_30_SMOKE = {}
+		Bullet_hit_M26_DART = {}
+		Bullet_hit_M26_FRAG = {}
+		Bullet_hit_M26_MASS = {}
+		Bullet_hit_M26_SLUG = {}
+		Bullet_hit_M320_BUCK = {}
+		Bullet_hit_M320_HE = {}
+		Bullet_hit_M320_LVG = {}
+		Bullet_hit_M320_SMOKE = {}
+		Bullet_hit_MEDIC_KIT = {}
 
 		-- Assault class Weapons
 		kill_AEK_971 = {}
@@ -190,6 +280,34 @@ Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 		Headshot_M16A4 = {}
 		Headshot_M416 = {}
 		Headshot_SCAR_L = {}
+--
+		Bullet_shot_AEK_971 = {}
+		Bullet_shot_AK_74M = {}
+		Bullet_shot_AN_94 = {}
+		Bullet_shot_AUG_A3 = {}
+		Bullet_shot_F2000 = {}
+		Bullet_shot_FAMAS = {}
+		Bullet_shot_G3A3 = {}
+		Bullet_shot_KH2002 = {}
+		Bullet_shot_L85A2 = {}
+		Bullet_shot_M16A3 = {}
+		Bullet_shot_M16A4 = {}
+		Bullet_shot_M416 = {}
+		Bullet_shot_SCAR_L = {}
+--
+		Bullet_hit_AEK_971 = {}
+		Bullet_hit_AK_74M = {}
+		Bullet_hit_AN_94 = {}
+		Bullet_hit_AUG_A3 = {}
+		Bullet_hit_F2000 = {}
+		Bullet_hit_FAMAS = {}
+		Bullet_hit_G3A3 = {}
+		Bullet_hit_KH2002 = {}
+		Bullet_hit_L85A2 = {}
+		Bullet_hit_M16A3 = {}
+		Bullet_hit_M16A4 = {}
+		Bullet_hit_M416 = {}
+		Bullet_hit_SCAR_L = {}
 
 		-- Demolition Gadgets
 		kill_EOD_BOT = {}
@@ -218,6 +336,24 @@ Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 		Headshot_RPG_7V2 = {}
 		Headshot_SA_18_IGLA = {}
 		Headshot_SMAW = {}
+--
+		Bullet_shot_EOD_BOT = {}
+		Bullet_shot_FGM_148_JAVELIN = {}
+		Bullet_shot_FIM_92_STINGER = {}
+		Bullet_shot_M15_AT_MINE = {}
+		Bullet_shot_REPAIR_TOOL = {}
+		Bullet_shot_RPG_7V2 = {}
+		Bullet_shot_SA_18_IGLA = {}
+		Bullet_shot_SMAW = {}
+--
+		Bullet_hit_EOD_BOT = {}
+		Bullet_hit_FGM_148_JAVELIN = {}
+		Bullet_hit_FIM_92_STINGER = {}
+		Bullet_hit_M15_AT_MINE = {}
+		Bullet_hit_REPAIR_TOOL = {}
+		Bullet_hit_RPG_7V2 = {}
+		Bullet_hit_SA_18_IGLA = {}
+		Bullet_hit_SMAW = {}
 
 		-- Demolition Weapons
 		kill_A_91 = {}
@@ -255,6 +391,30 @@ Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 		Headshot_QBZ_95B = {}
 		Headshot_SCAR_H = {}
 		Headshot_SG553 = {}
+--
+		Bullet_shot_A_91 = {}
+		Bullet_shot_ACW_R = {}
+		Bullet_shot_AKS_74u = {}
+		Bullet_shot_G36C = {}
+		Bullet_shot_G53 = {}
+		Bullet_shot_M4 = {}
+		Bullet_shot_M4A1 = {}
+		Bullet_shot_MTAR_21 = {}
+		Bullet_shot_QBZ_95B = {}
+		Bullet_shot_SCAR_H = {}
+		Bullet_shot_SG553 = {}
+--
+		Bullet_hit_A_91 = {}
+		Bullet_hit_ACW_R = {}
+		Bullet_hit_AKS_74u = {}
+		Bullet_hit_G36C = {}
+		Bullet_hit_G53 = {}
+		Bullet_hit_M4 = {}
+		Bullet_hit_M4A1 = {}
+		Bullet_hit_MTAR_21 = {}
+		Bullet_hit_QBZ_95B = {}
+		Bullet_hit_SCAR_H = {}
+		Bullet_hit_SG553 = {}
 
 		-- Support Gadgets
 		kill_AMMO_BOX = {}
@@ -268,6 +428,14 @@ Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 		Headshot_AMMO_BOX = {}
 		Headshot_C4_EXPLOSIVES = {}
 		Headshot_M18_CLAYMORE = {}
+--
+		Bullet_shot_AMMO_BOX = {}
+		Bullet_shot_C4_EXPLOSIVES = {}
+		Bullet_shot_M18_CLAYMORE = {}
+--
+		Bullet_hit_AMMO_BOX = {}
+		Bullet_hit_C4_EXPLOSIVES = {}
+		Bullet_hit_M18_CLAYMORE = {}
 
 		-- Support Weapons
 		kill_L86A2 = {}
@@ -305,6 +473,31 @@ Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 		Headshot_QBB_95 = {}
 		Headshot_RPK_74M = {}
 		Headshot_TYPE_88_LMG = {}
+--
+		Bullet_shot_L86A2 = {}
+		Bullet_shot_LSAT = {}
+		Bullet_shot_M240B = {}
+		Bullet_shot_M249 = {}
+		Bullet_shot_M27_IAR = {}
+		Bullet_shot_M60E4 = {}
+		Bullet_shot_MG36 = {}
+		Bullet_shot_PKP_PECHENEG = {}
+		Bullet_shot_QBB_95 = {}
+		Bullet_shot_RPK_74M = {}
+		Bullet_shot_TYPE_88_LMG = {}
+--
+		Bullet_hit_L86A2 = {}
+		Bullet_hit_LSAT = {}
+		Bullet_hit_M240B = {}
+		Bullet_hit_M249 = {}
+		Bullet_hit_M27_IAR = {}
+		Bullet_hit_M60E4 = {}
+		Bullet_hit_MG36 = {}
+		Bullet_hit_PKP_PECHENEG = {}
+		Bullet_hit_QBB_95 = {}
+		Bullet_hit_RPK_74M = {}
+		Bullet_hit_TYPE_88_LMG = {}
+
 
 		-- Recon Gadgets
 		kill_MAV = {}
@@ -321,6 +514,16 @@ Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 		Headshot_RADIO_BEACON = {}
 		Headshot_SOFLAM = {}
 		Headshot_T_UGS = {}
+--
+		Bullet_shot_MAV = {}
+		Bullet_shot_RADIO_BEACON = {}
+		Bullet_shot_SOFLAM = {}
+		Bullet_shot_T_UGS = {}
+--
+		Bullet_hit_MAV = {}
+		Bullet_hit_RADIO_BEACON = {}
+		Bullet_hit_SOFLAM = {}
+		Bullet_hit_T_UGS = {}
 
 
 		-- Recon Weapons
@@ -359,6 +562,30 @@ Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 		Headshot_SKS = {}
 		Headshot_SV98 = {}
 		Headshot_SVD = {}
+--
+		Bullet_shot_JNG_90 = {}
+		Bullet_shot_L96 = {}
+		Bullet_shot_M39_EMR = {}
+		Bullet_shot_M40A5 = {}
+		Bullet_shot_M417 = {}
+		Bullet_shot_M98B = {}
+		Bullet_shot_MK11_MOD_0 = {}
+		Bullet_shot_QBU_88 = {}
+		Bullet_shot_SKS = {}
+		Bullet_shot_SV98 = {}
+		Bullet_shot_SVD = {}
+--
+		Bullet_hit_JNG_90 = {}
+		Bullet_hit_L96 = {}
+		Bullet_hit_M39_EMR = {}
+		Bullet_hit_M40A5 = {}
+		Bullet_hit_M417 = {}
+		Bullet_hit_M98B = {}
+		Bullet_hit_MK11_MOD_0 = {}
+		Bullet_hit_QBU_88 = {}
+		Bullet_hit_SKS = {}
+		Bullet_hit_SV98 = {}
+		Bullet_hit_SVD = {}
 
 	end
 end)
