@@ -340,7 +340,7 @@ print("No data found for "..data_playername.." and "..data_weapon_name.." - Inje
 
 else
 
-	if Config.consolespam_airvehicles5 then
+	if Config.consolespam_engineer_gadgets5 then
 print('found data: '..data_playername..' and '..data_weapon_name..' - Kills:'..data_weaponkills)
 	end
 

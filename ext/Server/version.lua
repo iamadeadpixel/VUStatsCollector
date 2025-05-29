@@ -1,2 +1,2 @@
-localModVersion = "12.0.0";
-ModVersion = "Stats collector Version R27";
+localModVersion = "10.0.3";
+ModVersion = "Stats collector Version R23";
