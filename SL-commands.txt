@@ -79,3 +79,9 @@
 # M-Com commands
 .top mcom - Show your Mcom stats
 .top mcom all - Show the top 5 Mcom goons..
+
+.top dogtag or .top dogtag all
+.top headshot or .top headshot
+.top revive or .top revive
+.top teamkill or .top teamkill
+

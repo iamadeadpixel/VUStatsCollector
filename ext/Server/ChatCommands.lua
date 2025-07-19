@@ -9,21 +9,6 @@ Events:Subscribe('Level:LoadingInfo', function(screenInfo)
 	end
 end)
 
-
---[[
-Dogtags_Killer
-Dogtags_Victim
-
-Headshots_Killer
-Headshots_Victim
-
-Revives_Give
-Revives_Take
-
-TeamKilled_Killer
-TeamKilled_Victim
-]]
-
 Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 	if message == ".session" then
 		if playerdeaths[player.name] == nil then playerdeaths[player.name] = 0; end
@@ -37,7 +22,6 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 		if Revives_Give[player.name] == nil then Revives_Give[player.name] = 0; end
 		if TeamKilled_Killer[player.name] == nil then TeamKilled_Killer[player.name] = 0; end
 
-		-- i am lazy, so, quick solution.
 		chat_Deaths = playerdeaths[player.name]
 		chat_Kills = playerkills[player.name]
 		chat_Score = playerscore[player.name]
@@ -63,13 +47,6 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 		ChatManager:SendMessage("Suicides:" .. chat_Suicide .. " - Headshots:" .. chat_Headshots .. " - Teamkilled:" .. chat_TeamKilled,player)
 		ChatManager:SendMessage("Knife kills:" .. chat_Dogtags .. " - Revives:" .. chat_Revives .. " - Roadkills:" .. chat_roadkills, player)
 
---[[
--- experimental, lets see if this works.
-message="Players score results:" ..player.name .. " - Score:" .. chat_Score .. " - Kills:" .. chat_Kills .. " - Deaths:" .. chat_Deaths
-print (message)
-NetEvents:SendTo('showstats', player,message)
-]]
-
 	end
 end)
 
@@ -92,10 +69,6 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 			chat_Kills = l_Row["Kills"]
 			chat_Deaths = l_Row["Deaths"]
 			chat_Suicide = l_Row["Suicide"]
-			chat_Headshots = l_Row["Headshots"]
-			chat_TeamKilled = l_Row["TeamKilled"]
-			chat_Dogtags = l_Row["Dogtags"]
-			chat_Revives = l_Row["Revives"]
 			chat_Wins = l_Row["Wins"]
 			chat_Losses = l_Row["Losses"]
 		
@@ -104,17 +77,15 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 
 			if chat_Soldiername == player.name then
 	if Config.consolespam_chat then
-				print("** Player total results for "..chat_Soldiername)
-				print("** Player results: Score:" ..chat_Score .." - Kills:" .. chat_Kills .. " - Deaths:" .. chat_Deaths .. " - Suicides:" .. chat_Suicide)
-				print("** Player results: Headshots:" ..chat_Headshots .." - Teamkilled:" ..chat_TeamKilled .. " - Knife kills:" .. chat_Dogtags .. " - Revives:" .. chat_Revives)
-				print("** Player results: Matches won:"..chat_Wins.." - Matches lost:"..chat_Losses)
-				print("** Player KDR results: :"..KDR.." K/D ratio")
+		print("** Player total results for "..chat_Soldiername)
+		print("** Player results: Score:" ..chat_Score .." - Kills:" .. chat_Kills .. " - Deaths:" .. chat_Deaths .. " - Suicides:" .. chat_Suicide)
+		print("** Player results: Matches won:"..chat_Wins.." - Matches lost:"..chat_Losses)
+		print("** Player KDR results: :"..KDR.." K/D ratio")
 	end
 
-				ChatManager:SendMessage("Score:" .. chat_Score .." - Kills:" .. chat_Kills .. " - Deaths:" .. chat_Deaths .. " - Suicides:" .. chat_Suicide, player)
-				ChatManager:SendMessage("Headshots:" ..chat_Headshots .." - Teamkilled:" ..chat_TeamKilled .. " - Knife kills:" .. chat_Dogtags .. " - Revives:" .. chat_Revives,player)
-				ChatManager:SendMessage("Matches won:"..chat_Wins.." - Matches lost:"..chat_Losses,player)
-				ChatManager:SendMessage("KDR Ratio:"..KDR.." K/D ratio",player)
+		ChatManager:SendMessage("Score:" .. chat_Score .." - Kills:" .. chat_Kills .. " - Deaths:" .. chat_Deaths .. " - Suicides:" .. chat_Suicide, player)
+		ChatManager:SendMessage("Matches won:"..chat_Wins.." - Matches lost:"..chat_Losses,player)
+		ChatManager:SendMessage("KDR Ratio:"..KDR.." K/D ratio",player)
 			end
 		end
 	end
@@ -125,7 +96,7 @@ end)
 Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 	if message == ".playerdata" then
 		ChatManager:SendMessage("Fetching all player data for " .. player.name, player)
-		print("** Fetching all data for " .. player.name .. " **");
+		print("** Fetching all data for "..player.name.." **");
 
 		-- Reading player session data
 		CHATresults = SQL:Query('SELECT Soldiername, PlayerLogins, VU_GUID, IP, CountryName, FirstSeenOnServer, Rounds, PlayTime FROM tbl_playerdata WHERE Soldiername = ?', player.name)
@@ -214,6 +185,7 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 		end
 	end
 end)
+
 -- ------------------
 -- ------------------
 -- ------------------
@@ -254,6 +226,7 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 		end
 	end
 end)
+
 -- ------------------
 -- ------------------
 -- ------------------
@@ -465,6 +438,7 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 		end
 	end
 end)
+
 -- ------------------
 -- ------------------
 -- ------------------
@@ -620,6 +594,7 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 		ChatManager:SendMessage(chat_MapName .." - " ..chat_Gamemode .." - Score:" .. chat_Roundscore .. " - Roundtime:" .. chat_Roundtime .. " - Winning team:" .. chat_winningTeam,player)
 	end
 end)
+
 -- ------------------
 -- ------------------
 -- ------------------
@@ -631,7 +606,7 @@ end)
 Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 	if message == ".top roadkill" or message == ".top roadkills" then
 		s_table = "tbl_roadkills"
-		s_top_message1 = "** player top 3 kills with roadkills **"
+		s_top_message1 = "** Roadkill stats for "..player.name.." **"
 		s_topSelect = "player"
 		s_topvehicletype = "Roadkill:"
 		-- --------
@@ -654,24 +629,24 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 	end
 
 	if s_topSelect == "all" then
-		CHATresults = SQL:Query('SELECT Weaponname, Soldiername, Kills FROM ' ..s_table.. ' ORDER BY Kills DESC, Weaponname ASC, Soldiername ASC LIMIT 3 ')
+		CHATresults = SQL:Query('SELECT Weaponname, Soldiername, Kills,Deaths FROM '..s_table..' ORDER BY Kills DESC, Weaponname ASC, Soldiername ASC LIMIT 3 ')
 		if not CHATresults then
 			print('Failed to got data query: ' .. SQL:Error()); return
 		end
 
 	if Config.consolespam_chat then
 		print("ALL selected")
-		end
+	end
 
 	elseif s_topSelect == "player" then
-		CHATresults = SQL:Query('SELECT Weaponname, Soldiername, Kills FROM ' .. s_table ..'  WHERE Soldiername = ? ORDER BY Kills DESC LIMIT 3 ', player.name)
+		CHATresults = SQL:Query('SELECT Weaponname, Soldiername, Kills,Deaths FROM '..s_table..'  WHERE Soldiername = ?', player.name)
 		if not CHATresults then
 			print('Failed to got data query: ' .. SQL:Error()); return
 		end
 
 	if Config.consolespam_chat then
 		print("Player selected")
-		end
+	end
 
 	end
 
@@ -679,20 +654,22 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 		chat_Weaponname = l_Row["Weaponname"]
 		chat_Soldiername = l_Row["Soldiername"]
 		chat_Kills = l_Row["Kills"]
+		chat_Deaths = l_Row["Deaths"]
 
 
 		if s_topSelect == "all" then
 	if Config.consolespam_chat then
-			print(chat_Soldiername .. ":" .. s_topvehicletype .. ":" .. chat_Weaponname .. " - Kills:" .. chat_Kills)
-			end
+			print(chat_Soldiername.." - "..chat_Weaponname.." - Roadkills:"..chat_Kills.." - Death by roadkill:"..chat_Deaths)
+	end
 
-			ChatManager:SendMessage(chat_Soldiername .. ":" .. chat_Weaponname .. " - Kills:" .. chat_Kills, player)
+	ChatManager:SendMessage(chat_Soldiername.." - "..chat_Weaponname.." - Roadkills:"..chat_Kills.." - Death by roadkill:"..chat_Deaths, player)
+--
 		elseif s_topSelect == "player" then
 	if Config.consolespam_chat then
-			print(s_topvehicletype .. ":" .. chat_Weaponname .. " - Kills:" .. chat_Kills)
-			end
+			   print(chat_Soldiername.." - "..s_topvehicletype..":"..chat_Weaponname.." - Roadkills:"..chat_Kills.." - Death by roadkill:"..chat_Deaths)
+	end
+				ChatManager:SendMessage(chat_Soldiername.." - "..chat_Weaponname.." - Roadkills:"..chat_Kills.." - Death by roadkill:"..chat_Deaths, player)
 
-			ChatManager:SendMessage(chat_Weaponname .. " - Kills:" .. chat_Kills, player)
 		end
 	end
 end)
@@ -728,7 +705,7 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 	end
 
 	if s_topSelect == "all" then
-		CHATresults = SQL:Query('SELECT Soldiername, Armed, Disarmed, Destroyed FROM ' ..s_table.. ' ORDER BY Armed DESC, Disarmed ASC, Destroyed ASC, Soldiername ASC LIMIT 5 ')
+		CHATresults = SQL:Query('SELECT Soldiername, Armed, Disarmed, Destroyed FROM '..s_table..' ORDER BY Armed DESC, Disarmed ASC, Destroyed ASC, Soldiername ASC LIMIT 5 ')
 		if not CHATresults then
 			print('Failed to got data query: ' .. SQL:Error()); return
 		end
@@ -738,7 +715,7 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 	end
 
 	elseif s_topSelect == "player" then
-		CHATresults = SQL:Query('SELECT Soldiername, Armed, Disarmed, Destroyed FROM ' .. s_table ..'  WHERE Soldiername = ? ORDER BY Armed DESC LIMIT 1 ', player.name)
+		CHATresults = SQL:Query('SELECT Soldiername, Armed, Disarmed, Destroyed FROM '..s_table..'  WHERE Soldiername = ? ORDER BY Armed DESC LIMIT 1 ', player.name)
 		if not CHATresults then
 			print('Failed to got data query: ' .. SQL:Error()); return
 		end
@@ -791,6 +768,7 @@ Events:Subscribe('Player:Chat', function(player, recipientMask, message)
 					  print("Mod:"..ModVersion)
 	end
 end)
+
 -- ------------------
 -- ------------------
 -- ------------------
@@ -801,7 +779,336 @@ end)
 -- ------------------
 -- ------------------
 -- ------------------
+
+Events:Subscribe('Player:Chat', function(player, recipientMask, message)
+	if message == ".top dogtag" or message == ".top dogtags" then
+		s_table = "tbl_dogtags"
+		s_top_message1 = "** dogtag stats for "..player.name.." **"
+		s_topSelect = "player"
+		s_topvehicletype = "dogtag:"
+		-- --------
+		-- --------
+	elseif message == ".top dogtag all" or message == ".top dogtags all" then
+		s_table = "tbl_dogtags"
+		s_top_message1 = "** top 3 killers with knifes **"
+		s_topSelect = "all"
+		s_topvehicletype = "dogtag:"
+
+		-- --------
+		-- --------
+	else
+		return
+	end
+
+	ChatManager:SendMessage(s_top_message1, player)
+	if Config.consolespam_chat then
+	print(s_top_message1);
+	end
+
+	if s_topSelect == "all" then
+		CHATresults = SQL:Query('SELECT Soldiername, Dogtags_Killer,Dogtags_Victim FROM '..s_table..' ORDER BY Dogtags_Killer DESC, Soldiername ASC LIMIT 3 ')
+		if not CHATresults then
+			print('Failed to got data query: ' .. SQL:Error()); return
+		end
+
+	if Config.consolespam_chat then
+		print("ALL selected")
+	end
+
+	elseif s_topSelect == "player" then
+		CHATresults = SQL:Query('SELECT Soldiername, Dogtags_Killer,Dogtags_Victim FROM '..s_table..'  WHERE Soldiername = ?', player.name)
+		if not CHATresults then
+			print('Failed to got data query: ' .. SQL:Error()); return
+		end
+
+	if Config.consolespam_chat then
+		print("Player selected")
+	end
+
+	end
+
+	for _, l_Row in pairs(CHATresults) do
+		chat_Soldiername = l_Row["Soldiername"]
+		chat_Dogtags_Killer = l_Row["Dogtags_Killer"]
+		chat_Dogtags_Victim = l_Row["Dogtags_Victim"]
+
+
+		if s_topSelect == "all" then
+	if Config.consolespam_chat then
+			  print(chat_Soldiername.." - dogtags taken:"..chat_Dogtags_Killer.." - Killed by knife:"..chat_Dogtags_Victim)
+	end
+
+	ChatManager:SendMessage(chat_Soldiername.." - dogtags taken:"..chat_Dogtags_Killer.." - Killed by knife:"..chat_Dogtags_Victim, player)
+--
+		elseif s_topSelect == "player" then
+	if Config.consolespam_chat then
+				  print(chat_Soldiername.." - dogtags taken:"..chat_Dogtags_Killer.." - Killed by knife:"..chat_Dogtags_Victim)
+	end
+		ChatManager:SendMessage(chat_Soldiername.." - dogtags taken:"..chat_Dogtags_Killer.." - Killed by knife:"..chat_Dogtags_Victim, player)
+
+		end
+	end
+end)
+
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+
+Events:Subscribe('Player:Chat', function(player, recipientMask, message)
+	if message == ".top revive" or message == ".top revives" then
+		s_table = "tbl_revives"
+		s_top_message1 = "** revive stats for "..player.name.." **"
+		s_topSelect = "player"
+		s_topvehicletype = "revive:"
+		-- --------
+		-- --------
+	elseif message == ".top revive all" or message == ".top revives all" then
+		s_table = "tbl_revives"
+		s_top_message1 = "** top 3 revivers **"
+		s_topSelect = "all"
+		s_topvehicletype = "revive:"
+
+		-- --------
+		-- --------
+	else
+		return
+	end
+
+	ChatManager:SendMessage(s_top_message1, player)
+	if Config.consolespam_chat then
+	print(s_top_message1);
+	end
+
+	if s_topSelect == "all" then
+		CHATresults = SQL:Query('SELECT Soldiername, Revives_Give,Revives_Take FROM '..s_table..' ORDER BY Revives_Give DESC, Soldiername ASC LIMIT 3 ')
+		if not CHATresults then
+			print('Failed to got data query: ' .. SQL:Error()); return
+		end
+
+	if Config.consolespam_chat then
+		print("ALL selected")
+	end
+
+	elseif s_topSelect == "player" then
+		CHATresults = SQL:Query('SELECT Soldiername, Revives_Give,Revives_Take FROM '..s_table..'  WHERE Soldiername = ?', player.name)
+		if not CHATresults then
+			print('Failed to got data query: ' .. SQL:Error()); return
+		end
+
+	if Config.consolespam_chat then
+		print("Player selected")
+	end
+
+	end
+
+	for _, l_Row in pairs(CHATresults) do
+		chat_Soldiername = l_Row["Soldiername"]
+		chat_Revives_Give = l_Row["Revives_Give"]
+		chat_Revives_Take = l_Row["Revives_Take"]
+
+
+		if s_topSelect == "all" then
+	if Config.consolespam_chat then
+			  print(chat_Soldiername.." - Revived others:"..chat_Revives_Give.." - Got revived:"..chat_Revives_Take)
+	end
+
+	ChatManager:SendMessage(chat_Soldiername.." - Revived others:"..chat_Revives_Give.." - Got revived:"..chat_Revives_Take, player)
+--
+		elseif s_topSelect == "player" then
+	if Config.consolespam_chat then
+				  print(chat_Soldiername.." - Revived others:"..chat_Revives_Give.." - Got revived:"..chat_Revives_Take)
+	end
+		ChatManager:SendMessage(chat_Soldiername.." - Revived others:"..chat_Revives_Give.." - Got revived:"..chat_Revives_Take, player)
+
+		end
+	end
+end)
+
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+
+Events:Subscribe('Player:Chat', function(player, recipientMask, message)
+	if message == ".top teamkill" or message == ".top teamkills" then
+		s_table = "tbl_teamkilled"
+		s_top_message1 = "** teamkill stats for "..player.name.." **"
+		s_topSelect = "player"
+		s_topvehicletype = "teamkill:"
+		-- --------
+		-- --------
+	elseif message == ".top teamkill all" or message == ".top teamkills all" then
+		s_table = "tbl_teamkilled"
+		s_top_message1 = "** top 3 teamkillers **"
+		s_topSelect = "all"
+		s_topvehicletype = "teamkill:"
+
+		-- --------
+		-- --------
+	else
+		return
+	end
+
+	ChatManager:SendMessage(s_top_message1, player)
+	if Config.consolespam_chat then
+	print(s_top_message1);
+	end
+
+	if s_topSelect == "all" then
+		CHATresults = SQL:Query('SELECT Soldiername, TeamKilled_Killer,TeamKilled_Victim FROM '..s_table..' ORDER BY TeamKilled_Killer DESC, Soldiername ASC LIMIT 3 ')
+		if not CHATresults then
+			print('Failed to got data query: ' .. SQL:Error()); return
+		end
+
+	if Config.consolespam_chat then
+		print("ALL selected")
+	end
+
+	elseif s_topSelect == "player" then
+		CHATresults = SQL:Query('SELECT Soldiername, TeamKilled_Killer,TeamKilled_Victim FROM '..s_table..'  WHERE Soldiername = ?', player.name)
+		if not CHATresults then
+			print('Failed to got data query: ' .. SQL:Error()); return
+		end
+
+	if Config.consolespam_chat then
+		print("Player selected")
+	end
+
+	end
+
+	for _, l_Row in pairs(CHATresults) do
+		chat_Soldiername = l_Row["Soldiername"]
+		chat_TeamKilled_Killer = l_Row["TeamKilled_Killer"]
+		chat_TeamKilled_Victim = l_Row["TeamKilled_Victim"]
+
+
+		if s_topSelect == "all" then
+	if Config.consolespam_chat then
+			  print(chat_Soldiername.." - teamkilled others:"..chat_TeamKilled_Killer.." - Got teamkilled:"..chat_TeamKilled_Victim)
+	end
+
+	ChatManager:SendMessage(chat_Soldiername.." - teamkilled others:"..chat_TeamKilled_Killer.." - Got teamkilled:"..chat_TeamKilled_Victim, player)
+--
+		elseif s_topSelect == "player" then
+	if Config.consolespam_chat then
+				  print(chat_Soldiername.." - teamkilled others:"..chat_TeamKilled_Killer.." - Got teamkilled:"..chat_TeamKilled_Victim)
+	end
+		ChatManager:SendMessage(chat_Soldiername.." - teamkilled others:"..chat_TeamKilled_Killer.." - Got teamkilled:"..chat_TeamKilled_Victim, player)
+
+		end
+	end
+end)
+
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+-- ------------------
+
+Events:Subscribe('Player:Chat', function(player, recipientMask, message)
+	if message == ".top headshot" or message == ".top headshots" then
+		s_table = "tbl_headshots"
+		s_top_message1 = "** Headshot stats for "..player.name.." **"
+		s_topSelect = "player"
+		s_topvehicletype = "Headshot:"
+		-- --------
+		-- --------
+	elseif message == ".top headshot all" or message == ".top headshots all" then
+		s_table = "tbl_headshots"
+		s_top_message1 = "** top 3 Headshots **"
+		s_topSelect = "all"
+		s_topvehicletype = "Headshot:"
+
+		-- --------
+		-- --------
+	else
+		return
+	end
+
+	ChatManager:SendMessage(s_top_message1, player)
+	if Config.consolespam_chat then
+	print(s_top_message1);
+	end
+
+	if s_topSelect == "all" then
+		CHATresults = SQL:Query('SELECT Soldiername, Headshots_Killer,Headshots_Victim FROM '..s_table..' ORDER BY Headshots_Killer DESC, Soldiername ASC LIMIT 3 ')
+		if not CHATresults then
+			print('Failed to got data query: ' .. SQL:Error()); return
+		end
+
+	if Config.consolespam_chat then
+		print("ALL selected")
+	end
+
+	elseif s_topSelect == "player" then
+		CHATresults = SQL:Query('SELECT Soldiername, Headshots_Killer,Headshots_Victim FROM '..s_table..'  WHERE Soldiername = ?', player.name)
+		if not CHATresults then
+			print('Failed to got data query: ' .. SQL:Error()); return
+		end
+
+	if Config.consolespam_chat then
+		print("Player selected")
+	end
+
+	end
+
+	for _, l_Row in pairs(CHATresults) do
+		chat_Soldiername = l_Row["Soldiername"]
+		chat_Headshots_Killer = l_Row["Headshots_Killer"]
+		chat_Headshots_Victim = l_Row["Headshots_Victim"]
+
+
+		if s_topSelect == "all" then
+	if Config.consolespam_chat then
+			  print(chat_Soldiername.." - Made a 3th eye:"..chat_Headshots_Killer.." - Got 3th eyed:"..chat_Headshots_Victim)
+	end
+
+	ChatManager:SendMessage(chat_Soldiername.." - Made a 3th eye:"..chat_Headshots_Killer.." - Got 3th eyed:"..chat_Headshots_Victim, player)
+--
+		elseif s_topSelect == "player" then
+	if Config.consolespam_chat then
+				  print(chat_Soldiername.." - Made a 3th eye:"..chat_Headshots_Killer.." - Got 3th eyed:"..chat_Headshots_Victim)
+	end
+		ChatManager:SendMessage(chat_Soldiername.." - Made a 3th eye:"..chat_Headshots_Killer.." - Got 3th eyed:"..chat_Headshots_Victim, player)
+
+		end
+	end
+end)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 return ChatCommands()
+
