@@ -179,8 +179,8 @@ Events:Subscribe('Player:Joining', function(name, playerGuid, ipAddress, account
 				end
 
 
-		s_Query ='INSERT INTO tbl_playerstats     (Soldiername, Score, Kills, Deaths, Suicide, Killstreaks, Wins, Losses, Shot, Hits) VALUES (?,?,?,?,?,?,?,?,?,?)'
-		if not SQL:Query(s_Query,		    s_player,	  0,	 0,	0,	 0,	    0,	      0,    0,	    0,   0) then
+		s_Query ='INSERT INTO tbl_playerstats     (Soldiername, Score, Kills, Deaths, Suicide, Killstreaks, Wins, Losses) VALUES (?,?,?,?,?,?,?,?)'
+		if not SQL:Query(s_Query,		    s_player,	  0,	 0,	0,	 0,	    0,	      0,    0) then
 					print('Failed to execute query: ' .. SQL:Error())
 					return
 				end

@@ -12,7 +12,7 @@ end)
 
 function updateserverstats(player, data_playername)
 	
-			if not SQL:Query('UPDATE tbl_serverstats SET SumScore=SumScore+?, SumKills=SumKills+?, SumDeaths=SumDeaths+?, SumSuicide=SumSuicide+?, SumHeadshots=SumHeadshots+?, SumTeamKilled=SumTeamKilled+?, SumDogtags=SumDogtags+?, SumRevives=SumRevives+?, SumKillstreak=SumKillstreak+?, SumRounds=SumRounds+?, SumRoadkills=SumRoadkills+?, SumPlaytime=SumPlaytime+?, SumShot=SumShot+?, SumHits=SumHits+? ', eor_serverscore, eor_kills, eor_deaths, eor_suicides, eor_headshots, eor_teamskills, eor_dogtags, eor_revives, eor_killstreak, 1, eor_roadkills, s_roundTime, server_acc_shot, server_acc_hit) then
+			if not SQL:Query('UPDATE tbl_serverstats SET SumScore=SumScore+?, SumKills=SumKills+?, SumDeaths=SumDeaths+?, SumSuicide=SumSuicide+?, SumHeadshots=SumHeadshots+?, SumTeamKilled=SumTeamKilled+?, SumDogtags=SumDogtags+?, SumRevives=SumRevives+?, SumKillstreak=SumKillstreak+?, SumRounds=SumRounds+?, SumRoadkills=SumRoadkills+?, SumPlaytime=SumPlaytime+? ', eor_serverscore, eor_kills, eor_deaths, eor_suicides, eor_headshots, eor_teamskills, eor_dogtags, eor_revives, eor_killstreak, 1, eor_roadkills, s_roundTime) then
 				print('Failed to execute Update tbl_serverstats query: ' .. SQL:Error())
 				return
     end
@@ -24,8 +24,8 @@ end
 
 function updateservermapstats(player, data_playername)
 
-	s_Query ='INSERT INTO tbl_mapstats (RoundID,  TimeRoundStarted,  TimeRoundEnd,    MapName,    Gamemode,  Roundscore,   Roundtime,   winningTeam,  MaxPlayers,      Shot,           Hits) VALUES (?,?,?,?,?,?,?,?,?,?,?)'
-		if not SQL:Query(s_Query,  s_RoundID, s_startroundtime, s_endroundtime, s_LevelName, s_GameMode, eor_serverscore, s_roundTime, n_winningTeam,     pc,     server_acc_shot, server_acc_hit) then
+	s_Query ='INSERT INTO tbl_mapstats (RoundID,  TimeRoundStarted,  TimeRoundEnd,    MapName,    Gamemode,  Roundscore,   Roundtime,   winningTeam,  MaxPlayers) VALUES (?,?,?,?,?,?,?,?,?)'
+		if not SQL:Query(s_Query,  s_RoundID, s_startroundtime, s_endroundtime, s_LevelName, s_GameMode, eor_serverscore, s_roundTime, n_winningTeam,     pc) then
 				print('Failed to execute query: ' .. SQL:Error())
 				return
 			end
@@ -104,7 +104,7 @@ end
 
 function playerstatscombo(player, data_playername)
 
-	if not SQL:Query('UPDATE tbl_playerstats SET Score=Score+?, Kills=Kills+?, Deaths=Deaths+?, Suicide=Suicide+?, Killstreaks=Killstreaks+?, Wins=Wins+?, Losses=Losses+?, Shot=Shot+?, Hits=Hits+? WHERE Soldiername = ? ', pScore, pKills, pDeaths, pSuicide, pKillstreaks, pWins, pLosses, pshots, phits, data_playername) then
+	if not SQL:Query('UPDATE tbl_playerstats SET Score=Score+?, Kills=Kills+?, Deaths=Deaths+?, Suicide=Suicide+?, Killstreaks=Killstreaks+?, Wins=Wins+?, Losses=Losses+? WHERE Soldiername = ? ', pScore, pKills, pDeaths, pSuicide, pKillstreaks, pWins, pLosses, data_playername) then
 				print('Failed to execute Update tbl_serverstats ACC query: ' .. SQL:Error())
 				return
 		end

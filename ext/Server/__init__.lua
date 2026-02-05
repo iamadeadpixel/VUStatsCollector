@@ -1,11 +1,9 @@
 ---@class StatsCollector
 StatsCollector = class 'StatsCollector'
-
  
 function StatsCollector:__init()
 	Events:Subscribe('Extension:Loaded', self, self.OnExtensionLoaded)
 end
-
 
 function StatsCollector:OnExtensionLoaded()
 	print("Initializing StatsCollector")
@@ -29,15 +27,6 @@ function StatsCollector:OnEngineInit()
 	self.m_TableSetup = require 'TableSetup'
 	self.m_TableSetup_weapons = require 'TableSetup_weapons'
 	self.m_TableSetup_vehicles = require 'TableSetup_vehicles'
---	self.m_Variables_short = require 'Variables_short'
-
-
---[[
-Not sure if this is used.................
-Se we disable it for now
-
-	self.m_SqlTableSetup = require 'SqlTableSetup'
-]]
 	self.m_Weapons_Tables = require 'Weapons_Tables'
 	self.m_Vehicles_Tables = require 'Vehicles_Tables'
 
@@ -50,14 +39,6 @@ Se we disable it for now
 	self.m_ChatCommands = require('ChatCommands') -- pull stats on command,ugly setup, but works
 	self.m_spawn = require 'spawn'
 	self.m_Functions = require('Functions')
-
---[[
-Todo
-not in use
---	self.m_Capturepoints = require('Capturepoints')
---	self.m_Pewpew = require('Pewpew')
-]]
-
 
 
 --[[
@@ -107,11 +88,5 @@ function StatsCollector:GetIsHotReload()
 		return true
 	end
 end
-
--- -----------------------------
-
-
-
--- -----------------------------
 
 StatsCollector()

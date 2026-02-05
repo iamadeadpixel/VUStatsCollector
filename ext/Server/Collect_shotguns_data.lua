@@ -301,8 +301,8 @@ if type(next(Results)) == "nil" then
 print("No data found for "..data_playername.." and "..data_weapon_name.." - Injecting now")
 	end
 
-		           s_Query = 'INSERT INTO ' ..data_table_name..'     (Weaponname,     Soldiername,    Kills, Headshot, Deaths, Shot, Hits) VALUES (?,?,?,?,?,?,?)'
-			                        if not SQL:Query(s_Query, data_weapon_name,   data_playername,  0,      0,       0,     0,    0) then
+		           s_Query = 'INSERT INTO ' ..data_table_name..'     (Weaponname,     Soldiername,    Kills, Headshot, Deaths) VALUES (?,?,?,?,?)'
+			                        if not SQL:Query(s_Query, data_weapon_name,   data_playername,  0,      0,       0) then
 			print(" - Failed to insert assault weapon data in "..data_table_name..": " .. SQL:Error())
 			return
 	end

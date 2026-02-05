@@ -66,8 +66,8 @@ function addbot2database(player, data_playername)
 	print("*** Bot Info: Adding new BOT to database:" ..getnamebot[data_playername])
 	end
 
-	s_Query ='INSERT INTO tbl_playerstats     (Soldiername,         Score, Kills, Deaths, Suicide, Killstreaks, Wins, Losses, Shot, Hits) VALUES (?,?,?,?,?,?,?,?,?,?)'
-	if not SQL:Query(s_Query,	    getnamebot[data_playername],  0,	 0,	0,	 0,	   0,	      0,     0,	   0,    0) then
+	s_Query ='INSERT INTO tbl_playerstats     (Soldiername,         Score, Kills, Deaths, Suicide, Killstreaks, Wins, Losses) VALUES (?,?,?,?,?,?,?,?)'
+	if not SQL:Query(s_Query,	    getnamebot[data_playername],  0,	 0,	0,	 0,	   0,	      0,     0) then
 
 			print('*** BotGuid.lua - Failed to execute BOT query: ' .. SQL:Error())
 			return end

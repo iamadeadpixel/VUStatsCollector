@@ -119,7 +119,6 @@ end
 	print ("")
 	end
 
-	sacc=Round((server_acc_hit > 0 and server_acc_shot > 0 ) and server_acc_hit/server_acc_shot*100 or 0,1)
 
 			for playername1, score1 in pairs(playerscore1) do
 				teamscore1 = teamscore1 + score1
@@ -182,7 +181,7 @@ end
 	if Config.consolespam_functioncalls_msg then
  print ("PRE Serverstats score stuff - Serverscore:"..eor_serverscore.." - Team 1 score:"..teamscore1.." - Team 2 score:"..teamscore2.." - Team 3 score:"..teamscore3.." - Team 4 score:"..teamscore4)
  print ("PRE Total kills:"..eor_kills.." - Total deaths:"..eor_deaths.." - Total suicides:"..eor_suicides.." - Total headshots:"..eor_headshots.." - Total teamkills:"..eor_teamskills)
- print ("PRE Total dogtags take:"..eor_dogtags.." - Total revives:"..eor_revives.." - Total killstreaks:"..eor_killstreak.." - Total roadkills:"..eor_roadkills.." - Total shots fired:"..server_acc_shot.." - Total hits received:"..server_acc_hit)
+ print ("PRE Total dogtags take:"..eor_dogtags.." - Total revives:"..eor_revives.." - Total killstreaks:"..eor_killstreak.." - Total roadkills:"..eor_roadkills)
 	end
 
 	if Config.consolespam_functioncalls then
@@ -219,7 +218,7 @@ end
 	print ("")
 	print ("PRE Round stats - Total rounds played:"..s_RoundID.." - Start time:"..s_startroundtime.." - End time"..s_endroundtime.." - Total playtime:"..s_roundTime)
 	print ("PRE Map name:"..s_LevelName.." - Game mode:"..s_GameMode.." - Total point scored:"..eor_serverscore)
-	print ("PRE Winning team:"..n_winningTeam.." - Total players this round:"..pc.." - Total shots fired:"..server_acc_shot.." - Total hits received:"..server_acc_hit)
+	print ("PRE Winning team:"..n_winningTeam.." - Total players this round:"..pc)
 	end
 
 	if Config.consolespam_functioncalls then
@@ -285,16 +284,12 @@ end
 	if playerdeaths[data_playername] == nil then playerdeaths[data_playername] = 0 ; end
 	if playersuicides[data_playername] == nil then playersuicides[data_playername] = 0 ; end
 	if killstreak_counter[data_playername] == nil then killstreak_counter[data_playername] = 0 ; end
-	if playershot[data_playername] == nil then playershot[data_playername] = 0 ; end
-	if playerhit[data_playername] == nil then playerhit[data_playername] = 0 ; end
 
 	pScore=playerscore[data_playername]
 	pKills=playerkills[data_playername]
 	pDeaths=playerdeaths[data_playername]
 	pSuicide=playersuicides[data_playername]
 	pKillstreaks=killstreak_counter[data_playername]
-	pshots=playershot[data_playername]
-	phits=playerhit[data_playername]
 
 	if playerteamID[data_playername] == s_winningTeam then
 	pWins=1
@@ -305,7 +300,7 @@ end
 	end
 
 	if Config.consolespam_functioncalls_msg then
-	print ("PRE Player round stats for "..data_playername.." Score:"..pScore.." Kills:"..pKills.." Deaths:"..pDeaths.." Suicide:"..pSuicide.." Killstreak:"..pKillstreaks.." Round win:"..pWins.." Round losses:"..pLosses.." Shots fired:"..pshots.." Shots hit:"..phits)
+	print ("PRE Player round stats for "..data_playername.." Score:"..pScore.." Kills:"..pKills.." Deaths:"..pDeaths.." Suicide:"..pSuicide.." Killstreak:"..pKillstreaks.." Round win:"..pWins.." Round losses:"..pLosses)
 	end
 
 	if Config.consolespam_functioncalls then

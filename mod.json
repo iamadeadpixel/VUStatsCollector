@@ -1,8 +1,8 @@
 {
-	"Name": "StatsCollector",
+	"Name": "StatsCollector R28",
 	"Description": "Collects all stats possible.",
 	"Version": "15.0.0",
-	"Reason": "more and more tweaks",
+	"Reason": "Rollback due isues",
 	"Authors": ["Iamadeadpixel, and many more"],
 	"URL": "none",
 	"Tags": ["statscollector"], 

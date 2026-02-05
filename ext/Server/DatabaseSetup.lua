@@ -53,9 +53,7 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 	`Suicide` INTEGER,
 	`Killstreaks` INTEGER,
 	`Wins` INTEGER,
-	`Losses` INTEGER,
-	`Shot` INTEGER,
-	`Hits` INTEGER
+	`Losses` INTEGER
 	);
 		]]
 
@@ -86,9 +84,7 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 	`SumKillstreak` INTEGER,
 	`SumRounds` INTEGER,
 	`SumRoadkills` INTEGER,
-	`SumPlaytime` INTEGER,
-	`SumShot` INTEGER,
-	`SumHits` INTEGER
+	`SumPlaytime` INTEGER
 	);
 		]]
 
@@ -96,9 +92,13 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 			print('Failed to execute query for tbl_serverstats Table: ' .. SQL:Error())
 			return
 		end
-
-		s_Query ='INSERT INTO tbl_serverstats  (SumPlayers, SumScore, SumKills, SumDeaths, SumSuicide, SumHeadshots, SumTeamKilled, SumDogtags, SumRounds, SumRoadkills, SumRevives, SumKillstreak, SumPlaytime, SumShot,SumHits) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
-		if not SQL:Query(s_Query, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0) then
+-- ---------------------------------------------
+-- ---------------------------------------------
+-- ---------------------------------------------
+-- ---------------------------------------------
+-- ---------------------------------------------
+		s_Query ='INSERT INTO tbl_serverstats  (SumPlayers, SumScore, SumKills, SumDeaths, SumSuicide, SumHeadshots, SumTeamKilled, SumDogtags, SumRounds, SumRoadkills, SumRevives, SumKillstreak, SumPlaytime) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)'
+		if not SQL:Query(s_Query, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0) then
 			print('Failed to execute query: ' .. SQL:Error())
 			return
 		end
@@ -122,9 +122,7 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 	`Roundscore` INTEGER,
 	`Roundtime` INTEGER,
 	`winningTeam` INTEGER,
-	`MaxPlayers` INTEGER,
-	`Shot` INTEGER,
-	`Hits` INTEGER
+	`MaxPlayers` INTEGER
 	);
 		]]
 
@@ -147,9 +145,7 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 	`Soldiername` TEXT,
 	`Kills` INTEGER,
 	`Headshot` INTEGER,
-	`Deaths` INTEGER,
-	`Shot` INTEGER,
-	`Hits` INTEGER
+	`Deaths` INTEGER
 	);
 		]]
 
@@ -172,9 +168,7 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 	`Soldiername` TEXT,
 	`Kills` INTEGER,
 	`Headshot` INTEGER,
-	`Deaths` INTEGER,
-	`Shot` INTEGER,
-	`Hits` INTEGER
+	`Deaths` INTEGER
 	);
 		]]
 
@@ -197,9 +191,7 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 	`Soldiername` TEXT,
 	`Kills` INTEGER,
 	`Headshot` INTEGER,
-	`Deaths` INTEGER,
-	`Shot` INTEGER,
-	`Hits` INTEGER
+	`Deaths` INTEGER
 	);
 		]]
 
@@ -222,9 +214,7 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 	`Soldiername` TEXT,
 	`Kills` INTEGER,
 	`Headshot` INTEGER,
-	`Deaths` INTEGER,
-	`Shot` INTEGER,
-	`Hits` INTEGER
+	`Deaths` INTEGER
 	);
 		]]
 
@@ -247,9 +237,7 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 	`Soldiername` TEXT,
 	`Kills` INTEGER,
 	`Headshot` INTEGER,
-	`Deaths` INTEGER,
-	`Shot` INTEGER,
-	`Hits` INTEGER
+	`Deaths` INTEGER
 	);
 		]]
 
@@ -272,9 +260,7 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 	`Soldiername` TEXT,
 	`Kills` INTEGER,
 	`Headshot` INTEGER,
-	`Deaths` INTEGER,
-	`Shot` INTEGER,
-	`Hits` INTEGER
+	`Deaths` INTEGER
 	);
 		]]
 
@@ -297,9 +283,7 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 	`Soldiername` TEXT,
 	`Kills` INTEGER,
 	`Headshot` INTEGER,
-	`Deaths` INTEGER,
-	`Shot` INTEGER,
-	`Hits` INTEGER
+	`Deaths` INTEGER
 	);
 		]]
 
@@ -322,9 +306,7 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 	`Soldiername` TEXT,
 	`Kills` INTEGER,
 	`Headshot` INTEGER,
-	`Deaths` INTEGER,
-	`Shot` INTEGER,
-	`Hits` INTEGER
+	`Deaths` INTEGER
 	);
 		]]
 
@@ -347,9 +329,7 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 	`Soldiername` TEXT,
 	`Kills` INTEGER,
 	`Headshot` INTEGER,
-	`Deaths` INTEGER,
-	`Shot` INTEGER,
-	`Hits` INTEGER
+	`Deaths` INTEGER
 	);
 		]]
 
@@ -372,9 +352,7 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 	`Soldiername` TEXT,
 	`Kills` INTEGER,
 	`Headshot` INTEGER,
-	`Deaths` INTEGER,
-	`Shot` INTEGER,
-	`Hits` INTEGER
+	`Deaths` INTEGER
 	);
 		]]
 
@@ -397,9 +375,7 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 	`Soldiername` TEXT,
 	`Kills` INTEGER,
 	`Headshot` INTEGER,
-	`Deaths` INTEGER,
-	`Shot` INTEGER,
-	`Hits` INTEGER
+	`Deaths` INTEGER
 	);
 		]]
 
@@ -422,9 +398,7 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 	`Soldiername` TEXT,
 	`Kills` INTEGER,
 	`Headshot` INTEGER,
-	`Deaths` INTEGER,
-	`Shot` INTEGER,
-	`Hits` INTEGER
+	`Deaths` INTEGER
 	);
 		]]
 
@@ -447,9 +421,7 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 	`Soldiername` TEXT,
 	`Kills` INTEGER,
 	`Headshot` INTEGER,
-	`Deaths` INTEGER,
-	`Shot` INTEGER,
-	`Hits` INTEGER
+	`Deaths` INTEGER
 	);
 		]]
 
@@ -472,9 +444,7 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 	`Soldiername` TEXT,
 	`Kills` INTEGER,
 	`Headshot` INTEGER,
-	`Deaths` INTEGER,
-	`Shot` INTEGER,
-	`Hits` INTEGER
+	`Deaths` INTEGER
 	);
 		]]
 
@@ -497,9 +467,7 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 	`Soldiername` TEXT,
 	`Kills` INTEGER,
 	`Headshot` INTEGER,
-	`Deaths` INTEGER,
-	`Shot` INTEGER,
-	`Hits` INTEGER
+	`Deaths` INTEGER
 	);
 		]]
 
@@ -618,14 +586,6 @@ Events:Subscribe('Level:LoadResources', function(p_IsDedicatedServer)
 	--
 	--
 	--
-
-
-
-
-
-
-
-
 
 	print("*** DATABASE SETUP COMPLETE, END MOD.DB SETUP ***")
 	--
