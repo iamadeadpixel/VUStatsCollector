@@ -1,12 +1,12 @@
 {
-	"Name": "StatsCollector R28",
+	"Name": "StatsCollector",
 	"Description": "Collects all stats possible.",
-	"Version": "15.0.0",
-	"Reason": "Rollback due isues",
+	"Version": "27.0.0",
+	"Reason": "Rollback due VU isues",
 	"Authors": ["Iamadeadpixel, and many more"],
 	"URL": "none",
 	"Tags": ["statscollector"], 
-	"HasWebUI": true,
+	"HasWebUI": false,
 	"HasVeniceEXT": true,
 	"Dependencies": {
 	"veniceext": "^1.0.0"

@@ -1,12 +1,10 @@
-Statscollector R28.
-Rollback version
-New VU setup conflicts with the shots/hits collection
+Statscollector.
 
 the VU alternative for procon's chatguidstatslogger
 heavy work in progress, not yet useable for a live server,but works.
 
 Here you can log humans only, or both...
-15.0.7 : Revamped SQL stuff code
+12.0.7 : Revamped SQL stuff code
 #
 Some code used from: Doc-Ice-Elm, Joe_91
 Code fixes: Bree_Arnold and Doc-Ice-Elm, Jassent, IllustrisJack
